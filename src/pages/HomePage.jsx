@@ -12,6 +12,7 @@ import LeadershipSection from '../sections/LeadershipSection';
 import AchievementsSection from '../sections/AchievementsSection';
 import HappeningsSection from '../sections/HappeningsSection';
 import AlumniSection from '../sections/AlumniSection';
+import TestimonialsSection from '../sections/TestimonialsSection';
 import AdmissionsSection from '../sections/AdmissionsSection';
 import FinalCTA from '../components/FinalCTA';
 
@@ -37,7 +38,7 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       <ExperienceSection setCurrentRoute={setCurrentRoute} />
 
       {/* 07 CAMPUS */}
-      <CampusSection setCurrentRoute={setCurrentRoute} />
+      <CampusSection onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
       {/* 08 STUDENT LIFE */}
       <StudentLifeSection />
@@ -57,10 +58,13 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       {/* 13 ALUMNI & COMMUNITY */}
       <AlumniSection />
 
-      {/* 14 ADMISSIONS */}
+      {/* 14 TESTIMONIALS */}
+      <TestimonialsSection />
+
+      {/* 15 ADMISSIONS */}
       <AdmissionsSection onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
-      {/* 15 FINAL CTA */}
+      {/* 16 FINAL CTA */}
       <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );

@@ -7,7 +7,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
 
-export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
+export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   const [selectedCat, setSelectedCat] = useState('All');
   const [activeArticle, setActiveArticle] = useState(null);
 
@@ -149,18 +149,20 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
           <div 
             className="modal-backdrop"
             onClick={() => setActiveArticle(null)}
+            data-lenis-prevent="true"
             style={{ zIndex: 3000, overscrollBehavior: 'contain' }}
           >
             <motion.div 
               className="modal-content"
+              data-lenis-prevent="true"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              style={{ maxWidth: '780px', padding: '0', overflow: 'hidden' }}
+              style={{ maxWidth: '780px', padding: '0', maxHeight: '85vh', overflowY: 'auto' }}
             >
-              <div style={{ position: 'relative', height: '260px' }}>
+              <div style={{ position: 'relative', height: '260px', flexShrink: 0 }}>
                 <img src={activeArticle.image} alt={activeArticle.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <button 
                   className="btn-close-modal"
@@ -214,7 +216,7 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
         )}
       </AnimatePresence>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }
