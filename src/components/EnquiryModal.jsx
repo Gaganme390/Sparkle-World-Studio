@@ -8,13 +8,17 @@ export default function EnquiryModal({ isOpen, onClose }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (window.__lenis) window.__lenis.stop();
     } else {
       document.body.style.overflow = 'auto';
+      if (window.__lenis) window.__lenis.start();
     }
     return () => {
       document.body.style.overflow = 'auto';
+      if (window.__lenis) window.__lenis.start();
     };
   }, [isOpen]);
+
 
   const [formData, setFormData] = useState({
     parentName: '',

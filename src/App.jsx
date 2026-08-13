@@ -64,6 +64,8 @@ export default function App() {
           smoothWheel: true,
         });
 
+        window.__lenis = lenis;
+
         function raf(time) {
           lenis.raf(time);
           rafId = requestAnimationFrame(raf);
@@ -75,9 +77,24 @@ export default function App() {
     return () => {
       clearTimeout(timeoutId);
       if (rafId) cancelAnimationFrame(rafId);
-      if (lenis) lenis.destroy();
+      if (lenis) {
+        lenis.destroy();
+        window.__lenis = null;
+      }
     };
   }, []);
+
+  // Pause Lenis smooth scroll when modal or menu is open to prevent background scrolling
+  useEffect(() => {
+    if (window.__lenis) {
+      if (isMenuOpen || isEnquiryOpen) {
+        window.__lenis.stop();
+      } else {
+        window.__lenis.start();
+      }
+    }
+  }, [isMenuOpen, isEnquiryOpen]);
+
 
   const renderCurrentPage = () => {
     switch (currentRoute) {
