@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, Send, Loader2 } from 'lucide-react';
+import { X, CheckCircle, Send, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 import './Modal.css';
+
 
 export default function EnquiryModal({ isOpen, onClose }) {
   useEffect(() => {
