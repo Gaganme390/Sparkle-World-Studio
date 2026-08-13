@@ -99,16 +99,20 @@ export default function EnquiryModal({ isOpen, onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
 
-          <div className="modal-header">
+          {/* Dark Navy Header - Identical to CampusVisitModal */}
+          <div className="visit-modal-header">
             <div>
-              <span className="tag-label">ADMISSIONS 2026-27</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.15em', marginBottom: '0.35rem' }}>
+                <Sparkles size={14} /> ADMISSIONS 2026-27
+              </div>
               <h2 className="modal-title">Online Admission Enquiry</h2>
-              <p className="modal-subtitle">Begin your child’s educational journey at GD Goenka Ayodhya</p>
+              <p className="modal-subtitle">Begin your child’s educational journey at GD Goenka Ayodhya.</p>
             </div>
             <button className="btn-close-modal" onClick={resetAndClose} aria-label="Close modal">
               <X size={18} />
             </button>
           </div>
+
 
           {submitted ? (
             <div className="success-state">
