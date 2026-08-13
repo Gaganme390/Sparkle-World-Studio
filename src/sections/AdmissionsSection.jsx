@@ -1,12 +1,12 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import { admissionSteps } from '../data/admissions';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import MagneticButton from '../components/MagneticButton';
 import './AdmissionsSection.css';
 
-export default function AdmissionsSection({ onOpenEnquiry, setCurrentRoute }) {
+export default function AdmissionsSection({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   return (
     <section className="admissions-section section-padding" id="admissions">
       <div className="container">
@@ -31,23 +31,42 @@ export default function AdmissionsSection({ onOpenEnquiry, setCurrentRoute }) {
             </ScrollReveal>
           </div>
 
-          <ScrollReveal variant="fadeUp" delay={0.25}>
-            <MagneticButton strength={6}>
-              <button 
-                className="btn-enquire"
-                onClick={onOpenEnquiry}
-                style={{ marginTop: '1.5rem', padding: '0.9rem 1.85rem' }}
-              >
-                Start Admission Process <ArrowRight size={18} />
-              </button>
-            </MagneticButton>
-          </ScrollReveal>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+            <ScrollReveal variant="fadeUp" delay={0.25}>
+              <MagneticButton strength={6}>
+                <button 
+                  className="btn-enquire"
+                  onClick={onOpenEnquiry}
+                  style={{ padding: '0.9rem 1.85rem' }}
+                >
+                  Start Admission Process <ArrowRight size={18} />
+                </button>
+              </MagneticButton>
+            </ScrollReveal>
+
+            <ScrollReveal variant="fadeUp" delay={0.3}>
+              <MagneticButton strength={6}>
+                <button 
+                  className="btn-menu-trigger"
+                  onClick={onOpenVisit}
+                  style={{ padding: '0.9rem 1.85rem' }}
+                >
+                  <Compass size={16} /> Book Campus Visit
+                </button>
+              </MagneticButton>
+            </ScrollReveal>
+          </div>
         </div>
 
         {/* 5 Steps Grid */}
         <ScrollReveal className="admissions-steps-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.3}>
           {admissionSteps.map((step) => (
-            <div key={step.step} className="step-card hover-lift">
+            <div 
+              key={step.step} 
+              className="step-card hover-lift"
+              style={{ cursor: 'pointer' }}
+              onClick={() => (step.step === '02' || step.step === '04' ? onOpenVisit() : onOpenEnquiry())}
+            >
               <span className="step-num">{step.step}</span>
               <h3 className="step-title">{step.title}</h3>
               <span className="step-sub">{step.subtitle}</span>

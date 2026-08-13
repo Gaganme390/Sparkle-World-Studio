@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, FileText, HelpCircle } from 'lucide-react';
+import { ArrowRight, FileText, HelpCircle, Compass } from 'lucide-react';
 import { admissionSteps, eligibilityGrades, requiredDocuments, admissionFaqs } from '../data/admissions';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -8,7 +8,6 @@ import FinalCTA from '../components/FinalCTA';
 import '../sections/AdmissionsSection.css';
 
 export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
-
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (idx) => {
@@ -36,10 +35,16 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
               Join the Goenkan community in Ayodhya. Explore eligibility, document requirements, transparent processes, and book your campus visit.
             </p>
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <MagneticButton strength={6}>
                 <button className="btn-enquire" onClick={onOpenEnquiry} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
                   Fill Online Enquiry Form <ArrowRight size={18} />
+                </button>
+              </MagneticButton>
+
+              <MagneticButton strength={6}>
+                <button className="btn-menu-trigger" onClick={onOpenVisit} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
+                  <Compass size={18} /> Schedule Campus Walkthrough
                 </button>
               </MagneticButton>
             </div>
@@ -64,7 +69,12 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
 
           <ScrollReveal className="admissions-steps-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.2}>
             {admissionSteps.map((step) => (
-              <div key={step.step} className="step-card hover-lift">
+              <div 
+                key={step.step} 
+                className="step-card hover-lift"
+                style={{ cursor: 'pointer' }}
+                onClick={() => (step.step === '02' || step.step === '04' ? onOpenVisit() : onOpenEnquiry())}
+              >
                 <span className="step-num">{step.step}</span>
                 <h3 className="step-title">{step.title}</h3>
                 <span className="step-sub">{step.subtitle}</span>
@@ -204,4 +214,3 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
     </main>
   );
 }
-

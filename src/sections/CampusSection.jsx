@@ -1,12 +1,12 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
 import './CampusSection.css';
 
-export default function CampusSection({ setCurrentRoute }) {
+export default function CampusSection({ onOpenVisit, setCurrentRoute }) {
   return (
     <section className="campus-section section-padding" id="campus">
       <div className="container">
@@ -47,16 +47,29 @@ export default function CampusSection({ setCurrentRoute }) {
                 High-Volume Courtyard Ventilation & Sandstone Aesthetic
               </h3>
             </div>
-            <MagneticButton strength={4}>
-              <button 
-                className="btn-enquire"
-                onClick={() => { setCurrentRoute('/gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                style={{ whiteSpace: 'nowrap' }}
-                aria-label="Explore Campus Gallery Photos"
-              >
-                Explore Campus Gallery <ArrowRight size={16} />
-              </button>
-            </MagneticButton>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <MagneticButton strength={4}>
+                <button 
+                  className="btn-enquire"
+                  onClick={onOpenVisit}
+                  style={{ whiteSpace: 'nowrap' }}
+                  aria-label="Schedule Campus Walkthrough"
+                >
+                  <Compass size={16} /> Schedule Campus Walkthrough <ArrowRight size={16} />
+                </button>
+              </MagneticButton>
+
+              <MagneticButton strength={4}>
+                <button 
+                  className="btn-menu-trigger"
+                  onClick={() => { setCurrentRoute('/gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  style={{ whiteSpace: 'nowrap' }}
+                  aria-label="Explore Campus Gallery Photos"
+                >
+                  Explore Gallery
+                </button>
+              </MagneticButton>
+            </div>
           </div>
         </ScrollReveal>
       </div>
