@@ -5,6 +5,7 @@ import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
+import '../sections/AdmissionsSection.css';
 
 export default function AdmissionsPage({ onOpenEnquiry, setCurrentRoute }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -60,13 +61,13 @@ export default function AdmissionsPage({ onOpenEnquiry, setCurrentRoute }) {
             delay={0.1}
           />
 
-          <ScrollReveal className="editorial-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.2}>
+          <ScrollReveal className="admissions-steps-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.2}>
             {admissionSteps.map((step) => (
-              <div key={step.step} className="hover-lift" style={{ padding: '2rem 1.5rem', background: 'var(--color-warm-white)', borderRadius: 'var(--radius-md)', border: 'var(--border-thin)' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '2.25rem', color: 'var(--color-accent)' }}>{step.step}</span>
-                <h3 className="font-display" style={{ fontSize: '1.35rem', marginTop: '0.35rem' }}>{step.title}</h3>
-                <p style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-warm-gray-600)', marginBottom: '0.75rem' }}>{step.subtitle}</p>
-                <p className="text-body" style={{ fontSize: '0.88rem' }}>{step.desc}</p>
+              <div key={step.step} className="step-card hover-lift">
+                <span className="step-num">{step.step}</span>
+                <h3 className="step-title">{step.title}</h3>
+                <span className="step-sub">{step.subtitle}</span>
+                <p className="step-desc">{step.desc}</p>
               </div>
             ))}
           </ScrollReveal>
