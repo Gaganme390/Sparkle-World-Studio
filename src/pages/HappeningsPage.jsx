@@ -163,36 +163,34 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               display: 'flex',
-              alignItems: 'flex-start',
+              alignItems: 'center',
               justifyContent: 'center',
-              padding: '2.5rem 1rem 3rem',
-              overflowY: 'auto',
+              padding: '1.5rem',
               overscrollBehavior: 'contain'
             }}
           >
             <motion.div 
               className="modal-content"
               data-lenis-prevent="true"
-              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              initial={{ opacity: 0, scale: 0.92, y: 25 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 30 }}
+              exit={{ opacity: 0, scale: 0.92, y: 25 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              onWheel={(e) => e.stopPropagation()}
               style={{ 
                 width: '100%',
-                maxWidth: '780px', 
+                maxWidth: '740px', 
+                maxHeight: '82vh', 
                 backgroundColor: '#FFFFFF',
                 borderRadius: 'var(--radius-lg)',
                 border: '1px solid rgba(224, 145, 69, 0.25)',
                 boxShadow: '0 32px 80px rgba(0, 0, 0, 0.4)',
                 padding: '0', 
-                overflow: 'hidden',
-                position: 'relative',
-                margin: 'auto 0'
+                overflowY: 'auto',
+                position: 'relative'
               }}
             >
-              <div style={{ position: 'relative', height: '240px', flexShrink: 0, background: '#17181D' }}>
+              <div style={{ position: 'relative', height: '200px', flexShrink: 0, background: '#17181D' }}>
                 <img 
                   src={activeArticle.image} 
                   alt={activeArticle.title} 
@@ -207,7 +205,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 </button>
               </div>
 
-              <div style={{ padding: '2.25rem' }}>
+              <div style={{ padding: '2rem' }}>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', fontSize: '0.8rem', color: 'var(--color-accent)', fontWeight: '800', marginBottom: '0.75rem' }}>
                   <span>{activeArticle.category}</span>
                   <span>•</span>
@@ -235,7 +233,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 </div>
 
                 <div style={{ marginTop: '2.25rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>G.D. Goenka School Ayodhya Directorate</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: '600', color: 'var(--color-text-muted)' }}>G.D. Goenka School Ayodhya Directorate</span>
                   <button 
                     className="btn-enquire" 
                     onClick={() => { setActiveArticle(null); onOpenEnquiry(); }}
