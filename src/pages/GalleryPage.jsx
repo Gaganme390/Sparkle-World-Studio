@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Eye } from 'lucide-react';
 import { galleryItems, galleryCategories } from '../data/gallery';
+import AnimatedText from '../components/AnimatedText';
+import ScrollReveal from '../components/ScrollReveal';
+import ImageReveal from '../components/ImageReveal';
 import Lightbox from '../components/Lightbox';
 import FinalCTA from '../components/FinalCTA';
 
@@ -29,13 +32,23 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <span className="tag-label">ARCHITECTURAL & LIFE VISUALS</span>
-          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            CAMPUS GALLERY.
-          </h1>
-          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            Explore our state-of-the-art classrooms, sports arenas, art studios, and vibrant student life moments across Ayodhya campus.
-          </p>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">ARCHITECTURAL & LIFE VISUALS</span>
+          </ScrollReveal>
+
+          <AnimatedText 
+            as="h1"
+            className="heading-hero" 
+            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
+            text="CAMPUS GALLERY."
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+              Explore our state-of-the-art classrooms, sports arenas, art studios, and vibrant student life moments across Ayodhya campus.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -43,7 +56,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
       <section className="section-padding theme-pure-white">
         <div className="container">
           {/* Category Tabs */}
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <ScrollReveal variant="fadeUp" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
             {galleryCategories.map((cat) => (
               <button
                 key={cat}
@@ -53,14 +66,15 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
                 {cat}
               </button>
             ))}
-          </div>
+          </ScrollReveal>
 
-          {/* Masonry Layout */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          {/* Gallery Items Grid */}
+          <ScrollReveal className="editorial-grid" stagger staggerAmount={0.08} variant="fadeUp" delay={0.1} key={selectedCategory}>
             {filteredItems.map((item, idx) => (
               <div 
                 key={item.id}
                 onClick={() => setLightboxIndex(idx)}
+                className="col-12 col-md-4 hover-lift"
                 style={{ 
                   position: 'relative', 
                   borderRadius: 'var(--radius-md)', 
@@ -69,9 +83,8 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
                   cursor: 'pointer',
                   boxShadow: 'var(--shadow-subtle)'
                 }}
-                className="hover-scale-img"
               >
-                <img src={item.image} alt={item.title} width="600" height="320" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <ImageReveal src={item.image} alt={item.title} width="600" height="320" style={{ height: '100%' }} />
                 <div 
                   style={{
                     position: 'absolute',
@@ -96,7 +109,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

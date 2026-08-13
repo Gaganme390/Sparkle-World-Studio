@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { happeningsData, happeningsCategories } from '../data/happenings';
+import AnimatedText from '../components/AnimatedText';
+import ScrollReveal from '../components/ScrollReveal';
+import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
 
 export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -15,20 +18,30 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <span className="tag-label">CAMPUS CHRONICLES & NEWS</span>
-          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            HAPPENINGS AT GOENKA.
-          </h1>
-          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            Stay informed with our latest campus announcements, STEM achievements, cultural conclaves, and educational insights.
-          </p>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">CAMPUS CHRONICLES & NEWS</span>
+          </ScrollReveal>
+
+          <AnimatedText 
+            as="h1"
+            className="heading-hero" 
+            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
+            text="HAPPENINGS AT GOENKA."
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+              Stay informed with our latest campus announcements, STEM achievements, cultural conclaves, and educational insights.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Category Tabs */}
       <section className="section-padding theme-pure-white">
         <div className="container">
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <ScrollReveal variant="fadeUp" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
             {happeningsCategories.map((cat) => (
               <button
                 key={cat}
@@ -38,15 +51,16 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
                 {cat}
               </button>
             ))}
-          </div>
+          </ScrollReveal>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2.5rem' }}>
+          <ScrollReveal className="editorial-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.1} key={selectedCat}>
             {filtered.map((item) => (
               <div 
                 key={item.id} 
+                className="col-12 col-md-4 hover-lift"
                 style={{ background: '#FFFFFF', borderRadius: 'var(--radius-lg)', border: 'var(--border-thin)', overflow: 'hidden', boxShadow: 'var(--shadow-subtle)', display: 'flex', flexDirection: 'column' }}
               >
-                <img src={item.image} alt={item.title} width="600" height="220" loading="lazy" decoding="async" style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
+                <ImageReveal src={item.image} alt={item.title} width="600" height="220" style={{ height: '220px' }} />
                 <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: '800', marginBottom: '0.5rem' }}>
                     <span>{item.category}</span>
@@ -65,7 +79,7 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

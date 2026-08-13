@@ -1,6 +1,9 @@
 import React from 'react';
-import { ArrowRight, Briefcase, CheckCircle2, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { careersData } from '../data/contact';
+import AnimatedText from '../components/AnimatedText';
+import ScrollReveal from '../components/ScrollReveal';
+import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 
 export default function CareersPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -9,28 +12,46 @@ export default function CareersPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <span className="tag-label">JOIN OUR EDUCATIONAL FAMILY</span>
-          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            WORK WITH US.
-          </h1>
-          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            Build the future of learning with G.D. Goenka School, Ayodhya. We invite passionate educators and administrative professionals to shape young minds.
-          </p>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">JOIN OUR EDUCATIONAL FAMILY</span>
+          </ScrollReveal>
+
+          <AnimatedText 
+            as="h1"
+            className="heading-hero" 
+            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
+            text="WORK WITH US."
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+              Build the future of learning with G.D. Goenka School, Ayodhya. We invite passionate educators and administrative professionals to shape young minds.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Open Positions Grid */}
       <section className="section-padding theme-pure-white">
         <div className="container">
-          <span className="tag-label">CURRENT OPPORTUNITIES</span>
-          <h2 className="heading-section" style={{ marginTop: '0.5rem', marginBottom: '3rem' }}>
-            Academic & Support Openings
-          </h2>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">CURRENT OPPORTUNITIES</span>
+          </ScrollReveal>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          <AnimatedText 
+            as="h2"
+            className="heading-section" 
+            style={{ marginTop: '0.5rem', marginBottom: '3rem' }}
+            text="Academic & Support Openings"
+            delay={0.1}
+          />
+
+          <ScrollReveal className="editorial-grid" stagger staggerAmount={0.12} variant="fadeUp" delay={0.2}>
             {careersData.map((job) => (
               <div 
                 key={job.id} 
+                className="col-12 col-md-4 hover-lift"
                 style={{ background: 'var(--color-warm-white)', padding: '2.25rem', borderRadius: 'var(--radius-md)', border: 'var(--border-thin)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
               >
                 <div>
@@ -50,13 +71,15 @@ export default function CareersPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
 
                 <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid var(--color-warm-gray-200)' }}>
-                  <button className="btn-enquire" onClick={onOpenEnquiry} style={{ width: '100%', justifyContent: 'center' }}>
-                    Apply For Position <Send size={16} />
-                  </button>
+                  <MagneticButton strength={4} style={{ width: '100%' }}>
+                    <button className="btn-enquire" onClick={onOpenEnquiry} style={{ width: '100%', justifyContent: 'center' }}>
+                      Apply For Position <Send size={16} />
+                    </button>
+                  </MagneticButton>
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
