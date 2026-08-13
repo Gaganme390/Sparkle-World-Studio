@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, Calendar, Clock, MapPin, Loader2, Compass } from 'lucide-react';
+import { X, CheckCircle, Calendar, MapPin, Loader2, Compass, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 import './Modal.css';
@@ -102,24 +102,26 @@ export default function CampusVisitModal({ isOpen, onClose }) {
       <div 
         className="modal-backdrop" 
         onClick={onClose}
+        data-lenis-prevent="true"
         style={{ overscrollBehavior: 'contain' }}
       >
         <motion.div 
           className="modal-content"
+          data-lenis-prevent="true"
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div className="modal-header">
+          {/* Dark Navy Pass Header */}
+          <div className="visit-modal-header">
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.15em', marginBottom: '0.35rem' }}>
                 <Compass size={14} /> CAMPUS WALKTHROUGH & TOUR
               </div>
-              <h2 className="modal-title">Book a Campus Visit</h2>
-              <p className="modal-subtitle">Experience our classrooms, STEM suites, sports arenas, and leadership in person.</p>
+              <h2 className="modal-title">Schedule Your Campus Visit</h2>
+              <p className="modal-subtitle">Experience our classrooms, STEM suites, aquatic pool, and leadership team.</p>
             </div>
             <button className="btn-close-modal" onClick={onClose} aria-label="Close modal">
               <X size={18} />
@@ -130,26 +132,26 @@ export default function CampusVisitModal({ isOpen, onClose }) {
           {submitted ? (
             <div className="success-state">
               <div className="success-icon">
-                <CheckCircle size={36} />
+                <CheckCircle size={42} />
               </div>
-              <h3 className="font-display" style={{ fontSize: '1.75rem', color: 'var(--color-primary-dark)' }}>
+              <h3 className="font-display" style={{ fontSize: '1.85rem', color: 'var(--color-primary-dark)' }}>
                 Campus Walkthrough Requested!
               </h3>
-              <p className="text-body" style={{ maxWidth: '440px', margin: '0 auto' }}>
-                Thank you, <strong>{formData.parentName}</strong>. Your campus visit request for <strong>{formData.visitDate}</strong> ({formData.timeSlot}) has been logged. Our admissions desk will call you to confirm your slot.
+              <p className="text-body" style={{ maxWidth: '460px', margin: '0 auto' }}>
+                Thank you, <strong>{formData.parentName}</strong>. Your campus visit request for <strong>{formData.visitDate}</strong> ({formData.timeSlot}) has been registered. Our admissions desk will contact you shortly to confirm your visit pass.
               </p>
-              <div style={{ padding: '1.25rem', background: 'var(--color-warm-white)', borderRadius: 'var(--radius-md)', border: 'var(--border-thin)', width: '100%', maxWidth: '420px', textAlign: 'left', marginTop: '1rem' }}>
+              <div style={{ padding: '1.25rem', background: 'var(--color-warm-white)', borderRadius: 'var(--radius-md)', border: 'var(--border-thin)', width: '100%', maxWidth: '440px', textAlign: 'left', marginTop: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--color-primary-dark)', fontWeight: '700', marginBottom: '0.5rem' }}>
-                  <MapPin size={16} style={{ color: 'var(--color-accent)' }} /> G.D. Goenka School Ayodhya
+                  <MapPin size={16} style={{ color: 'var(--color-accent)' }} /> G.D. Goenka School Ayodhya Campus
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
+                <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
                   NH-28 / Highway Corridor, Ayodhya, Uttar Pradesh 224001<br />
                   Admissions Desk: +91 98765 43210
                 </div>
               </div>
               <MagneticButton strength={4}>
                 <button className="form-submit-btn" onClick={handleReset} style={{ marginTop: '1rem', width: 'auto', padding: '0.75rem 2rem' }}>
-                  Done
+                  Close & Continue
                 </button>
               </MagneticButton>
             </div>
@@ -249,18 +251,22 @@ export default function CampusVisitModal({ isOpen, onClose }) {
 
               <div className="form-group" style={{ marginTop: '1.25rem' }}>
                 <label className="form-label">Tour Interest Areas</label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem', marginTop: '0.35rem' }}>
-                  {['STEM & AI Suites', 'Classroom Tour', 'Sports & Aquatic Pool', 'Meet Leadership'].map((item) => (
-                    <label key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--color-primary-dark)', cursor: 'pointer', background: 'var(--color-warm-white)', padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-sm)', border: 'var(--border-thin)' }}>
-                      <input 
-                        type="checkbox" 
-                        checked={formData.interests.includes(item)}
-                        onChange={() => handleInterestToggle(item)}
-                        accentColor="var(--color-accent)"
-                      />
-                      {item}
-                    </label>
-                  ))}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.65rem', marginTop: '0.35rem' }}>
+                  {['STEM & AI Suites', 'Classroom Tour', 'Sports & Aquatic Pool', 'Meet Leadership'].map((item) => {
+                    const isActive = formData.interests.includes(item);
+                    return (
+                      <div 
+                        key={item} 
+                        onClick={() => handleInterestToggle(item)}
+                        className={`tour-interest-pill ${isActive ? 'active' : ''}`}
+                      >
+                        <div style={{ width: '18px', height: '18px', borderRadius: '4px', border: isActive ? '1px solid var(--color-accent)' : '1px solid var(--color-warm-gray-300)', background: isActive ? 'var(--color-accent)' : '#FFFFFF', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {isActive && <Check size={12} strokeWidth={3} />}
+                        </div>
+                        <span>{item}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -268,7 +274,7 @@ export default function CampusVisitModal({ isOpen, onClose }) {
                 <button type="submit" className="form-submit-btn" disabled={submitting}>
                   {submitting ? (
                     <>
-                      <Loader2 size={18} className="spin-icon" /> Submitting Request...
+                      <Loader2 size={18} className="spin-icon" /> Registering Walkthrough...
                     </>
                   ) : (
                     <>

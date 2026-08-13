@@ -88,15 +88,17 @@ export default function EnquiryModal({ isOpen, onClose }) {
 
   return (
     <AnimatePresence>
-      <div className="modal-backdrop" onClick={resetAndClose}>
+      <div className="modal-backdrop" onClick={resetAndClose} data-lenis-prevent="true">
         <motion.div 
           className="modal-content"
+          data-lenis-prevent="true"
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >
+
           <div className="modal-header">
             <div>
               <span className="tag-label">ADMISSIONS 2026-27</span>
