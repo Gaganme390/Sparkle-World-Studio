@@ -23,6 +23,11 @@ import PageTransition, { animatePageTransition } from './components/PageTransiti
 import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
 
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 import './styles/globals.css';
 import './App.css';
 
@@ -46,6 +51,7 @@ export default function App() {
   useEffect(() => { if (isMenuOpen && !menuMounted) setMenuMounted(true); }, [isMenuOpen]);
   useEffect(() => { if (isEnquiryOpen && !enquiryMounted) setEnquiryMounted(true); }, [isEnquiryOpen]);
 
+
   // Initialize Lenis smooth scroll conditionally for Desktop only to avoid mobile TBT
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
@@ -66,16 +72,27 @@ export default function App() {
 
         window.__lenis = lenis;
 
+        // Sync Lenis scroll with GSAP ScrollTrigger position calculations
+        lenis.on('scroll', ScrollTrigger.update);
+
         function raf(time) {
           lenis.raf(time);
           rafId = requestAnimationFrame(raf);
         }
         rafId = requestAnimationFrame(raf);
+
+        // Recalculate section trigger positions after Lenis initializes
+        setTimeout(() => ScrollTrigger.refresh(), 300);
       });
     }, 500);
 
+    // Refresh ScrollTrigger once full document & all images finish loading
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener('load', handleLoad);
+
     return () => {
       clearTimeout(timeoutId);
+      window.removeEventListener('load', handleLoad);
       if (rafId) cancelAnimationFrame(rafId);
       if (lenis) {
         lenis.destroy();
@@ -83,6 +100,7 @@ export default function App() {
       }
     };
   }, []);
+
 
   // Pause Lenis smooth scroll when modal or menu is open to prevent background scrolling
   useEffect(() => {
