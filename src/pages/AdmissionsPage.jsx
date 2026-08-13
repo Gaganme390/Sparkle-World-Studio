@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowRight, FileText, HelpCircle, Compass } from 'lucide-react';
+import { ArrowRight, FileText, Compass, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { admissionSteps, eligibilityGrades, requiredDocuments, admissionFaqs } from '../data/admissions';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -166,14 +167,13 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeMo
                     Request Fee Structure Breakdown <ArrowRight size={16} />
                   </button>
                 </MagneticButton>
-
               </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
+      {/* FAQs with Smooth Accordion Animation */}
       <section className="section-padding theme-warm-white" id="faqs">
         <div className="container">
           <ScrollReveal variant="fadeUp">
@@ -193,18 +193,35 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeMo
               <div 
                 key={idx} 
                 className="hover-lift"
-                style={{ background: '#FFFFFF', border: 'var(--border-thin)', borderRadius: 'var(--radius-md)', padding: '1.5rem 2rem', cursor: 'pointer' }}
+                style={{ background: '#FFFFFF', border: 'var(--border-thin)', borderRadius: 'var(--radius-md)', padding: '1.5rem 2rem', cursor: 'pointer', overflow: 'hidden' }}
                 onClick={() => toggleFaq(idx)}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className="font-display" style={{ fontSize: '1.25rem', color: 'var(--color-primary-dark)' }}>{faq.q}</h3>
-                  <HelpCircle size={20} style={{ color: 'var(--color-accent)' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+                  <h3 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--color-primary-dark)', margin: 0 }}>{faq.q}</h3>
+                  <motion.div
+                    animate={{ rotate: openFaq === idx ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                  >
+                    <ChevronDown size={20} style={{ color: 'var(--color-accent)' }} />
+                  </motion.div>
                 </div>
-                {openFaq === idx && (
-                  <p className="text-body" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--color-warm-gray-200)' }}>
-                    {faq.a}
-                  </p>
-                )}
+
+                <AnimatePresence initial={false}>
+                  {openFaq === idx && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <p className="text-body" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--color-warm-gray-200)', lineHeight: 1.6 }}>
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </ScrollReveal>
