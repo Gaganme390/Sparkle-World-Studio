@@ -114,6 +114,16 @@ export default function App() {
     }
   }, [isMenuOpen, isEnquiryOpen]);
 
+  // Recalculate GSAP ScrollTrigger trigger points on every page route navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [currentRoute]);
+
+
 
   const renderCurrentPage = () => {
     switch (currentRoute) {

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowRight, BookOpen, CheckCircle, Cpu, Globe } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import { academicWings, academicPillars } from '../data/academics';
+import AnimatedText from '../components/AnimatedText';
+import ScrollReveal from '../components/ScrollReveal';
+import ImageReveal from '../components/ImageReveal';
+import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 
 export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -11,13 +15,23 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <span className="tag-label">ACADEMIC EXCELLENCE</span>
-          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            CBSE CURRICULUM & BEYOND.
-          </h1>
-          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            A rigorous, holistic academic continuum spanning Early Foundational Literacy to Senior Board & Competitive Entrance Preparedness.
-          </p>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">ACADEMIC EXCELLENCE</span>
+          </ScrollReveal>
+
+          <AnimatedText 
+            as="h1"
+            className="heading-hero" 
+            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
+            text="CBSE CURRICULUM & BEYOND."
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+              A rigorous, holistic academic continuum spanning Early Foundational Literacy to Senior Board & Competitive Entrance Preparedness.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -25,33 +39,47 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
       <section className="section-padding theme-pure-white">
         <div className="container">
           <div style={{ marginBottom: '3.5rem' }}>
-            <span className="tag-label">OUR PEDAGOGICAL APPROACH</span>
-            <h2 className="heading-section" style={{ marginTop: '0.5rem' }}>
-              Four Pillar Learning Framework
-            </h2>
+            <ScrollReveal variant="fadeUp">
+              <span className="tag-label">OUR PEDAGOGICAL APPROACH</span>
+            </ScrollReveal>
+
+            <AnimatedText 
+              as="h2"
+              className="heading-section" 
+              style={{ marginTop: '0.5rem' }}
+              text="Four Pillar Learning Framework"
+              delay={0.1}
+            />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem' }}>
+          <ScrollReveal variant="fadeUp" delay={0.2} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem' }}>
             {academicPillars.map((p, idx) => (
-              <div key={idx} style={{ padding: '2rem', borderRadius: 'var(--radius-md)', background: 'var(--color-warm-white)', border: 'var(--border-thin)' }}>
+              <div key={idx} className="hover-lift" style={{ padding: '2rem', borderRadius: 'var(--radius-md)', background: 'var(--color-warm-white)', border: 'var(--border-thin)' }}>
                 <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-accent)' }}>{p.number}</span>
                 <h3 className="font-display" style={{ fontSize: '1.5rem', marginTop: '0.5rem', marginBottom: '0.75rem' }}>{p.title}</h3>
                 <p className="text-body" style={{ fontSize: '0.92rem' }}>{p.desc}</p>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Wing Breakdown Tabs */}
       <section className="section-padding theme-warm-white" id="wings">
         <div className="container">
-          <span className="tag-label">DEVELOPMENTAL STAGES</span>
-          <h2 className="heading-section" style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}>
-            Explore Our Four Academic Wings
-          </h2>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">DEVELOPMENTAL STAGES</span>
+          </ScrollReveal>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <AnimatedText 
+            as="h2"
+            className="heading-section" 
+            style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}
+            text="Explore Our Four Academic Wings"
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
             {academicWings.map((wing) => (
               <button
                 key={wing.id}
@@ -62,10 +90,10 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
                 {wing.title} ({wing.grades})
               </button>
             ))}
-          </div>
+          </ScrollReveal>
 
           <div className="editorial-grid" style={{ alignItems: 'center', background: '#FFFFFF', padding: '3rem', borderRadius: 'var(--radius-lg)', border: 'var(--border-thin)', boxShadow: 'var(--shadow-card)' }}>
-            <div className="col-12 col-md-6">
+            <ScrollReveal variant="fadeRight" delay={0.1} className="col-12 col-md-6" key={selectedWing.id}>
               <span className="academics-grade-tag">{selectedWing.grades} • AGES {selectedWing.ageGroup}</span>
               <h3 className="font-display" style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '0.5rem 0' }}>{selectedWing.title}</h3>
               <p style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--color-warm-gray-800)', marginBottom: '1.5rem' }}>{selectedWing.subtitle}</p>
@@ -80,20 +108,22 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
                 ))}
               </ul>
 
-              <button className="btn-enquire" onClick={onOpenEnquiry}>
-                Enquire for {selectedWing.title} <ArrowRight size={16} />
-              </button>
-            </div>
+              <MagneticButton strength={4}>
+                <button className="btn-enquire" onClick={onOpenEnquiry}>
+                  Enquire for {selectedWing.title} <ArrowRight size={16} />
+                </button>
+              </MagneticButton>
+            </ScrollReveal>
 
             <div className="col-12 col-md-6">
-              <img 
+              <ImageReveal 
+                key={selectedWing.id}
                 src={selectedWing.image} 
                 alt={selectedWing.title} 
                 width="800"
                 height="420"
-                loading="lazy"
-                decoding="async"
-                style={{ width: '100%', height: '420px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }}
+                delay={0.1}
+                style={{ borderRadius: 'var(--radius-md)' }}
               />
             </div>
           </div>

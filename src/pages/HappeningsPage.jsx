@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ArrowRight, X, Cake } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { happeningsData, happeningsCategories, todayBirthdayRecognitions } from '../data/happenings';
+import AnimatedText from '../components/AnimatedText';
+import ScrollReveal from '../components/ScrollReveal';
+import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
 
 export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -31,13 +34,23 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <span className="tag-label">CAMPUS CHRONICLES & NEWS</span>
-          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            HAPPENINGS AT GOENKA.
-          </h1>
-          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            Stay informed with our latest campus announcements, daily student birthday recognitions, STEM achievements, and educational insights.
-          </p>
+          <ScrollReveal variant="fadeUp">
+            <span className="tag-label">CAMPUS CHRONICLES & NEWS</span>
+          </ScrollReveal>
+
+          <AnimatedText 
+            as="h1"
+            className="heading-hero" 
+            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
+            text="HAPPENINGS AT GOENKA."
+            delay={0.1}
+          />
+
+          <ScrollReveal variant="fadeUp" delay={0.2}>
+            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+              Stay informed with our latest campus announcements, daily student birthday recognitions, STEM achievements, and educational insights.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -61,7 +74,7 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Category Tabs */}
       <section className="section-padding theme-pure-white">
         <div className="container">
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <ScrollReveal variant="fadeUp" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
             {happeningsCategories.map((cat) => (
               <button
                 key={cat}
@@ -71,9 +84,9 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
                 {cat}
               </button>
             ))}
-          </div>
+          </ScrollReveal>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2.5rem' }}>
+          <ScrollReveal variant="fadeUp" delay={0.1} key={selectedCat} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2.5rem' }}>
             {filtered.map((item) => (
               <div 
                 key={item.id} 
@@ -90,7 +103,7 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
                   cursor: 'pointer' 
                 }}
               >
-                <img src={item.image} alt={item.title} width="600" height="220" loading="lazy" decoding="async" style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
+                <ImageReveal src={item.image} alt={item.title} width="600" height="220" style={{ height: '220px' }} />
                 <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: '800', marginBottom: '0.5rem' }}>
                     <span>{item.category}</span>
@@ -126,7 +139,7 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
