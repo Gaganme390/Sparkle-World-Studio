@@ -222,14 +222,15 @@ export default function EnquiryModal({ isOpen, onClose }) {
               <div className="form-checkbox-group">
                 <input 
                   type="checkbox" 
-                  id="consent"
+                  id="enquiry-consent"
                   checked={formData.consent}
                   onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                 />
-                <label htmlFor="consent" className="form-checkbox-label">
-                  I give consent to GD Goenka School Ayodhya to contact me via Call/SMS/WhatsApp regarding admissions.
+                <label htmlFor="enquiry-consent" className="form-checkbox-label">
+                  I give consent to G.D. Goenka School, Ayodhya to contact me via Call, SMS, or WhatsApp regarding admissions.
                 </label>
               </div>
+
 
               <MagneticButton strength={4} style={{ width: '100%' }}>
                 <button 
