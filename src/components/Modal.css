@@ -10,6 +10,7 @@
   justify-content: center;
   padding: 1.5rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .modal-content {
@@ -19,11 +20,13 @@
   max-width: 680px;
   max-height: 90vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   box-shadow: 0 24px 60px rgba(23, 24, 29, 0.25);
   border: var(--border-thin);
   position: relative;
   padding: 2.5rem;
 }
+
 
 .modal-header {
   display: flex;
