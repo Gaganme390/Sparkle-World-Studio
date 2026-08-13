@@ -75,14 +75,15 @@ export default function App() {
         // Sync Lenis scroll with GSAP ScrollTrigger position calculations
         lenis.on('scroll', ScrollTrigger.update);
 
-        function raf(time) {
-          lenis.raf(time);
-          rafId = requestAnimationFrame(raf);
-        }
-        rafId = requestAnimationFrame(raf);
+        const updateLenis = (time) => {
+          lenis.raf(time * 1000);
+        };
+        gsap.ticker.add(updateLenis);
+        gsap.ticker.lagSmoothing(0);
 
         // Recalculate section trigger positions after Lenis initializes
-        setTimeout(() => ScrollTrigger.refresh(), 300);
+        setTimeout(() => ScrollTrigger.refresh(), 200);
+
       });
     }, 500);
 

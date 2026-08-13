@@ -7,22 +7,13 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * Custom hook for GSAP ScrollTrigger-based viewport reveals.
  * Returns a ref to attach to the container element.
- * 
- * @param {Object} config
- * @param {string} config.variant - 'fadeUp' | 'fadeLeft' | 'fadeRight' | 'clipUp' | 'scaleIn'
- * @param {number} config.delay - delay in seconds (default 0)
- * @param {number} config.duration - animation duration (default 0.8)
- * @param {string} config.trigger - CSS selector for trigger override
- * @param {string} config.start - ScrollTrigger start position (default 'top 85%')
- * @param {boolean} config.stagger - if true, animates direct children with stagger
- * @param {number} config.staggerAmount - stagger delay between children (default 0.1)
  */
 export default function useScrollReveal({
   variant = 'fadeUp',
   delay = 0,
   duration = 0.8,
   trigger,
-  start = 'top 85%',
+  start = 'top 90%',
   stagger = false,
   staggerAmount = 0.1,
 } = {}) {
@@ -37,9 +28,9 @@ export default function useScrollReveal({
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      const targets = stagger ? el.children : el;
+      const targets = stagger ? Array.from(el.children) : el;
+      if (!targets || (Array.isArray(targets) && targets.length === 0)) return;
 
-      // Set initial state based on variant
       const fromVars = getFromVars(variant);
       const toVars = {
         ...getToVars(variant),
@@ -50,15 +41,19 @@ export default function useScrollReveal({
           trigger: trigger ? document.querySelector(trigger) : el,
           start,
           toggleActions: 'play none none none',
+          onRefresh: (self) => {
+            if (self.progress > 0) {
+              self.animation.progress(1);
+            }
+          }
         },
       };
 
-      if (stagger && el.children.length > 0) {
+      if (stagger && Array.isArray(targets) && targets.length > 0) {
         toVars.stagger = staggerAmount;
       }
 
-      gsap.set(targets, fromVars);
-      gsap.to(targets, toVars);
+      gsap.fromTo(targets, fromVars, toVars);
     }, el);
 
     return () => ctx.revert();
@@ -70,19 +65,19 @@ export default function useScrollReveal({
 function getFromVars(variant) {
   switch (variant) {
     case 'fadeUp':
-      return { opacity: 0, y: 40 };
+      return { opacity: 0, y: 35 };
     case 'fadeLeft':
-      return { opacity: 0, x: -40 };
+      return { opacity: 0, x: -35 };
     case 'fadeRight':
-      return { opacity: 0, x: 40 };
+      return { opacity: 0, x: 35 };
     case 'clipUp':
       return { opacity: 0, clipPath: 'inset(100% 0 0 0)' };
     case 'scaleIn':
-      return { opacity: 0, scale: 0.92 };
+      return { opacity: 0, scale: 0.94 };
     case 'fadeIn':
       return { opacity: 0 };
     default:
-      return { opacity: 0, y: 40 };
+      return { opacity: 0, y: 35 };
   }
 }
 
