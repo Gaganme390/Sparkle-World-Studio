@@ -1,0 +1,120 @@
+.academics-section {
+  background-color: var(--color-warm-white);
+  border-top: var(--border-thin);
+}
+
+.academics-nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid var(--color-warm-gray-200);
+  padding-bottom: 1rem;
+}
+
+.academic-tab-btn {
+  padding: 0.85rem 1.65rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  background: transparent;
+  border: 1px solid var(--color-warm-gray-300);
+  transition: all var(--transition-fast);
+}
+
+.academic-tab-btn.active,
+.academic-tab-btn:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-color: var(--color-primary-dark);
+}
+
+.academics-card-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .academics-card-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+  }
+}
+
+.academics-info-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.academics-grade-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.academics-wing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  color: var(--color-primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.academics-wing-sub {
+  font-size: 1.1rem;
+  color: var(--color-warm-gray-800);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.academics-wing-desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.academics-feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+
+.academics-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+  font-weight: 500;
+}
+
+.academics-feature-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.academics-img-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.academics-img-frame img {
+  width: 100%;
+  height: clamp(380px, 50vh, 520px);
+  object-fit: cover;
+  display: block;
+}

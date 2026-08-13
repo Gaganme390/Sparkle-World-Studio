@@ -1,0 +1,30 @@
+.alumni-section {
+  background-color: var(--color-warm-white);
+  border-top: var(--border-thin);
+}
+
+.alumni-quote-box {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  padding: clamp(3rem, 6vw, 5rem);
+  border-radius: var(--radius-lg);
+  margin-top: 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.alumni-quote-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--color-white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.alumni-quote-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-soft-accent);
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}

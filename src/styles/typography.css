@@ -1,0 +1,85 @@
+/* Typography Global Rules */
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-primary-dark);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Fluid Responsive Typography Classes */
+.heading-hero {
+  font-size: clamp(2.5rem, 6.5vw, 6rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.heading-section {
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1.1;
+}
+
+.heading-sub {
+  font-size: clamp(1.4rem, 2.2vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.heading-card {
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  line-height: 1.25;
+}
+
+.text-editorial-lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.65;
+  color: var(--color-warm-gray-800);
+  font-weight: 400;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+.text-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.tag-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+}
+
+/* Dark Editorial Typography overrides */
+.theme-dark-editorial h1,
+.theme-dark-editorial h2,
+.theme-dark-editorial h3,
+.theme-dark-editorial h4,
+.theme-dark-editorial .font-display {
+  color: var(--color-white);
+}
+
+.theme-dark-editorial .text-body {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.theme-dark-editorial .text-editorial-lead {
+  color: rgba(255, 255, 255, 0.9);
+}

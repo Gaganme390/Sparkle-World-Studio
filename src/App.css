@@ -1,0 +1,124 @@
+/* App Shell Styles */
+
+.app-root {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Page Transition Layer */
+.page-transition-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background-color: var(--color-primary-dark);
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.page-transition-panel .transition-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-accent);
+  z-index: 9998;
+  transform-origin: left;
+  transform: scaleX(0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  transition: transform var(--motion-fast) var(--ease-smooth), opacity var(--motion-fast);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  transition: transform var(--motion-medium) var(--ease-smooth), opacity var(--motion-fast), border-color var(--motion-fast);
+}
+
+.cursor-label {
+  position: absolute;
+  top: -8px;
+  left: -20px;
+  width: 40px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #FFFFFF;
+  opacity: 0;
+  transition: opacity var(--motion-fast);
+}
+
+.custom-cursor.is-hovering .cursor-dot {
+  transform: scale(0);
+}
+
+.custom-cursor.is-hovering .cursor-ring {
+  transform: scale(1.6);
+  border-color: rgba(224, 145, 69, 0.6);
+}
+
+.custom-cursor.is-viewing .cursor-dot {
+  transform: scale(0);
+}
+
+.custom-cursor.is-viewing .cursor-ring {
+  transform: scale(2.2);
+  border-color: rgba(224, 145, 69, 0.8);
+}
+
+.custom-cursor.is-viewing .cursor-label {
+  opacity: 1;
+}
+
+/* Hide on touch / reduced-motion */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .custom-cursor { display: none !important; }
+}
+
+/* Suspense spinner keyframe */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
