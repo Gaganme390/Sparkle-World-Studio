@@ -159,14 +159,14 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               width: '100vw',
               height: '100vh',
               zIndex: 9999,
-              backgroundColor: 'rgba(23, 24, 29, 0.82)',
+              backgroundColor: 'rgba(23, 24, 29, 0.85)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: '1.5rem',
-
+              overflowY: 'auto',
               overscrollBehavior: 'contain'
             }}
           >
@@ -181,7 +181,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               style={{ 
                 width: '100%',
                 maxWidth: '780px', 
-                maxHeight: '86vh', 
+                maxHeight: '88vh', 
                 backgroundColor: '#FFFFFF',
                 borderRadius: 'var(--radius-lg)',
                 border: '1px solid rgba(224, 145, 69, 0.25)',
@@ -191,13 +191,16 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 position: 'relative'
               }}
             >
-
-              <div style={{ position: 'relative', height: '260px', flexShrink: 0 }}>
-                <img src={activeArticle.image} alt={activeArticle.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'relative', height: '300px', flexShrink: 0, background: '#17181D' }}>
+                <img 
+                  src={activeArticle.image} 
+                  alt={activeArticle.title} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
                 <button 
                   className="btn-close-modal"
                   onClick={() => setActiveArticle(null)}
-                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: '#FFFFFF', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+                  style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: '#FFFFFF', boxShadow: '0 4px 14px rgba(0,0,0,0.25)', zIndex: 10 }}
                 >
                   <X size={18} />
                 </button>
@@ -225,12 +228,12 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 </p>
 
                 <div style={{ borderTop: '1px solid var(--color-warm-gray-200)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
-                  <p className="text-body" style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--color-primary-dark)' }}>
+                  <p className="text-body" style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--color-primary-dark)', whiteSpace: 'pre-line' }}>
                     {activeArticle.content}
                   </p>
                 </div>
 
-                <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>G.D. Goenka School Ayodhya Directorate</span>
                   <button 
                     className="btn-enquire" 
