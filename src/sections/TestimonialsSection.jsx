@@ -12,8 +12,9 @@ export default function TestimonialsSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">09 — COMMUNITY VOICES</span>
+            <span className="tag-label">15 — COMMUNITY VOICES</span>
           </ScrollReveal>
+
 
           <AnimatedText 
             as="h2"

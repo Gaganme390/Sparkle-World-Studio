@@ -143,25 +143,55 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
         </div>
       </section>
 
-      {/* Full Article Reader Modal */}
+      {/* Full Article Reader Floating Popup Modal */}
       <AnimatePresence>
         {activeArticle && (
           <div 
             className="modal-backdrop"
             onClick={() => setActiveArticle(null)}
             data-lenis-prevent="true"
-            style={{ zIndex: 3000, overscrollBehavior: 'contain' }}
+            style={{ 
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100vw',
+              height: '100vh',
+              zIndex: 9999,
+              backgroundColor: 'rgba(23, 24, 29, 0.82)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.5rem',
+
+              overscrollBehavior: 'contain'
+            }}
           >
             <motion.div 
               className="modal-content"
               data-lenis-prevent="true"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, scale: 0.92, y: 30 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              style={{ maxWidth: '780px', padding: '0', maxHeight: '85vh', overflowY: 'auto' }}
+              style={{ 
+                width: '100%',
+                maxWidth: '780px', 
+                maxHeight: '86vh', 
+                backgroundColor: '#FFFFFF',
+                borderRadius: 'var(--radius-lg)',
+                border: '1px solid rgba(224, 145, 69, 0.25)',
+                boxShadow: '0 32px 80px rgba(0, 0, 0, 0.4)',
+                padding: '0', 
+                overflowY: 'auto',
+                position: 'relative'
+              }}
             >
+
               <div style={{ position: 'relative', height: '260px', flexShrink: 0 }}>
                 <img src={activeArticle.image} alt={activeArticle.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <button 

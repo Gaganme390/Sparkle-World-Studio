@@ -12,8 +12,8 @@ import LeadershipSection from '../sections/LeadershipSection';
 import AchievementsSection from '../sections/AchievementsSection';
 import HappeningsSection from '../sections/HappeningsSection';
 import AlumniSection from '../sections/AlumniSection';
-import TestimonialsSection from '../sections/TestimonialsSection';
 import AdmissionsSection from '../sections/AdmissionsSection';
+import TestimonialsSection from '../sections/TestimonialsSection';
 import FinalCTA from '../components/FinalCTA';
 
 export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
@@ -37,7 +37,7 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       {/* 06 EXPERIENCE GOENKA */}
       <ExperienceSection setCurrentRoute={setCurrentRoute} />
 
-      {/* 07 CAMPUS */}
+      {/* 07 CAMPUS ARCHITECTURE */}
       <CampusSection onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
       {/* 08 STUDENT LIFE */}
@@ -52,17 +52,17 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       {/* 11 ACHIEVEMENTS */}
       <AchievementsSection />
 
-      {/* 12 HAPPENINGS */}
+      {/* 12 HAPPENINGS / CAMPUS CHRONICLES */}
       <HappeningsSection setCurrentRoute={setCurrentRoute} />
 
       {/* 13 ALUMNI & COMMUNITY */}
       <AlumniSection />
 
-      {/* 14 TESTIMONIALS */}
-      <TestimonialsSection />
-
-      {/* 15 ADMISSIONS */}
+      {/* 14 ADMISSIONS */}
       <AdmissionsSection onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
+
+      {/* 15 TESTIMONIALS */}
+      <TestimonialsSection />
 
       {/* 16 FINAL CTA */}
       <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
