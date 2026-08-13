@@ -1,10 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { experiencePillars } from '../data/experience';
-import AnimatedText from '../components/AnimatedText';
-import ScrollReveal from '../components/ScrollReveal';
-import ImageReveal from '../components/ImageReveal';
-import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 
 export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
@@ -13,23 +9,13 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <ScrollReveal variant="fadeUp">
-            <span className="tag-label">THE GOENKAN EXPERIENCE</span>
-          </ScrollReveal>
-
-          <AnimatedText 
-            as="h1"
-            className="heading-hero" 
-            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="INSPIRED SPACES & BEYOND."
-            delay={0.1}
-          />
-
-          <ScrollReveal variant="fadeUp" delay={0.2}>
-            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              A comprehensive overview of our 8 experience pillars: Inspired Spaces, Sports (Grow), Cultural Arts (Express), Goenkan Leadership Academy (GLA), Nurture, Conscientious Living, Safety, and Services.
-            </p>
-          </ScrollReveal>
+          <span className="tag-label">THE GOENKAN EXPERIENCE</span>
+          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
+            INSPIRED SPACES & BEYOND.
+          </h1>
+          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+            A comprehensive overview of our 8 experience pillars: Inspired Spaces, Sports (Grow), Cultural Arts (Express), Goenkan Leadership Academy (GLA), Nurture, Conscientious Living, Safety, and Services.
+          </p>
         </div>
       </section>
 
@@ -51,7 +37,7 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
                   border: 'var(--border-thin)'
                 }}
               >
-                <ScrollReveal variant={idx % 2 === 1 ? "fadeLeft" : "fadeRight"} delay={0.1} className="col-12 col-md-6" style={{ direction: 'ltr' }}>
+                <div className="col-12 col-md-6" style={{ direction: 'ltr' }}>
                   <span style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.15em' }}>
                     {item.number} — EXPERIENCE PILLAR
                   </span>
@@ -74,21 +60,20 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
                     ))}
                   </ul>
 
-                  <MagneticButton strength={4}>
-                    <button className="btn-enquire" onClick={onOpenEnquiry}>
-                      Enquire Facility <ArrowRight size={16} />
-                    </button>
-                  </MagneticButton>
-                </ScrollReveal>
+                  <button className="btn-enquire" onClick={onOpenEnquiry}>
+                    Enquire Facility <ArrowRight size={16} />
+                  </button>
+                </div>
 
                 <div className="col-12 col-md-6" style={{ direction: 'ltr' }}>
-                  <ImageReveal 
+                  <img 
                     src={item.image} 
                     alt={item.title} 
                     width="800"
                     height="380"
-                    delay={0.2}
-                    style={{ borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-card)' }}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: '100%', height: '380px', objectFit: 'cover', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-card)' }}
                   />
                 </div>
               </div>

@@ -1,9 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { contactDetails } from '../data/contact';
-import AnimatedText from '../components/AnimatedText';
-import ScrollReveal from '../components/ScrollReveal';
-import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 
 export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -12,23 +9,13 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
-          <ScrollReveal variant="fadeUp">
-            <span className="tag-label">DIRECT CAMPUS CONNECT</span>
-          </ScrollReveal>
-
-          <AnimatedText 
-            as="h1"
-            className="heading-hero" 
-            style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="CONTACT US."
-            delay={0.1}
-          />
-
-          <ScrollReveal variant="fadeUp" delay={0.2}>
-            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              We welcome parents, guardians, and visitors to connect with our campus administration or visit us in Ayodhya.
-            </p>
-          </ScrollReveal>
+          <span className="tag-label">DIRECT CAMPUS CONNECT</span>
+          <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
+            CONTACT US.
+          </h1>
+          <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
+            We welcome parents, guardians, and visitors to connect with our campus administration or visit us in Ayodhya.
+          </p>
         </div>
       </section>
 
@@ -37,7 +24,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
         <div className="container">
           <div className="editorial-grid" style={{ alignItems: 'flex-start' }}>
             {/* Contact Details Column */}
-            <ScrollReveal variant="fadeRight" delay={0.1} className="col-12 col-md-5">
+            <div className="col-12 col-md-5">
               <span className="tag-label">OFFICIAL DIRECTORY</span>
               <h2 className="heading-section" style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
                 Campus Information
@@ -45,7 +32,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent)', color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent-subtle)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <MapPin size={22} />
                   </div>
                   <div>
@@ -55,7 +42,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent)', color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent-subtle)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Phone size={22} />
                   </div>
                   <div>
@@ -67,7 +54,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent)', color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent-subtle)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Mail size={22} />
                   </div>
                   <div>
@@ -78,7 +65,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent)', color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--color-soft-accent-subtle)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Clock size={22} />
                   </div>
                   <div>
@@ -87,10 +74,10 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
 
             {/* Interactive Map & Quick Contact */}
-            <ScrollReveal variant="fadeLeft" delay={0.2} className="col-12 col-md-7">
+            <div className="col-12 col-md-7">
               <div style={{ background: 'var(--color-warm-white)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', border: 'var(--border-thin)', boxShadow: 'var(--shadow-subtle)' }}>
                 <span className="tag-label">SCHEDULE VISIT</span>
                 <h3 className="font-display" style={{ fontSize: '2rem', color: 'var(--color-primary-dark)', marginTop: '0.5rem', marginBottom: '1rem' }}>
@@ -100,11 +87,9 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                   Select a date and time to visit our classrooms, STEM suites, aquatic pool, and meet our academic leadership team.
                 </p>
 
-                <MagneticButton strength={6}>
-                  <button className="btn-enquire" onClick={onOpenEnquiry} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
-                    Book Campus Visit <ArrowRight size={18} />
-                  </button>
-                </MagneticButton>
+                <button className="btn-enquire" onClick={onOpenEnquiry} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
+                  Book Campus Visit <ArrowRight size={18} />
+                </button>
 
                 {/* Map Frame Placeholder */}
                 <div style={{ marginTop: '2.5rem', height: '280px', background: 'var(--color-primary-dark)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF', textAlign: 'center', padding: '1.5rem' }}>
@@ -115,7 +100,7 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                   </p>
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
