@@ -163,9 +163,9 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'center',
-              padding: '1.5rem',
+              padding: '2.5rem 1rem 3rem',
               overflowY: 'auto',
               overscrollBehavior: 'contain'
             }}
@@ -178,20 +178,21 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               exit={{ opacity: 0, scale: 0.92, y: 30 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
               style={{ 
                 width: '100%',
                 maxWidth: '780px', 
-                maxHeight: '88vh', 
                 backgroundColor: '#FFFFFF',
                 borderRadius: 'var(--radius-lg)',
                 border: '1px solid rgba(224, 145, 69, 0.25)',
                 boxShadow: '0 32px 80px rgba(0, 0, 0, 0.4)',
                 padding: '0', 
-                overflowY: 'auto',
-                position: 'relative'
+                overflow: 'hidden',
+                position: 'relative',
+                margin: 'auto 0'
               }}
             >
-              <div style={{ position: 'relative', height: '300px', flexShrink: 0, background: '#17181D' }}>
+              <div style={{ position: 'relative', height: '240px', flexShrink: 0, background: '#17181D' }}>
                 <img 
                   src={activeArticle.image} 
                   alt={activeArticle.title} 
@@ -200,13 +201,13 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 <button 
                   className="btn-close-modal"
                   onClick={() => setActiveArticle(null)}
-                  style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: '#FFFFFF', boxShadow: '0 4px 14px rgba(0,0,0,0.25)', zIndex: 10 }}
+                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: '#FFFFFF', boxShadow: '0 4px 14px rgba(0,0,0,0.3)', zIndex: 10 }}
                 >
                   <X size={18} />
                 </button>
               </div>
 
-              <div style={{ padding: '2.5rem' }}>
+              <div style={{ padding: '2.25rem' }}>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', fontSize: '0.8rem', color: 'var(--color-accent)', fontWeight: '800', marginBottom: '0.75rem' }}>
                   <span>{activeArticle.category}</span>
                   <span>•</span>
@@ -219,21 +220,21 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                   </span>
                 </div>
 
-                <h2 className="font-display" style={{ fontSize: '2rem', color: 'var(--color-primary-dark)', marginBottom: '1rem', lineHeight: 1.15 }}>
+                <h2 className="font-display" style={{ fontSize: '1.85rem', color: 'var(--color-primary-dark)', marginBottom: '1rem', lineHeight: 1.18 }}>
                   {activeArticle.title}
                 </h2>
 
-                <p className="text-editorial-lead" style={{ fontSize: '1.05rem', marginBottom: '1.5rem', color: 'var(--color-warm-gray-800)' }}>
+                <p className="text-editorial-lead" style={{ fontSize: '1rem', marginBottom: '1.5rem', color: 'var(--color-warm-gray-800)', lineHeight: 1.55 }}>
                   {activeArticle.summary}
                 </p>
 
                 <div style={{ borderTop: '1px solid var(--color-warm-gray-200)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
-                  <p className="text-body" style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--color-primary-dark)', whiteSpace: 'pre-line' }}>
+                  <p className="text-body" style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-primary-dark)', whiteSpace: 'pre-line' }}>
                     {activeArticle.content}
                   </p>
                 </div>
 
-                <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ marginTop: '2.25rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>G.D. Goenka School Ayodhya Directorate</span>
                   <button 
                     className="btn-enquire" 
