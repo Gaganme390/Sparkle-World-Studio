@@ -3,7 +3,7 @@ import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { contactDetails } from '../data/contact';
 import FinalCTA from '../components/FinalCTA';
 
-export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
+export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
       {/* Header */}
@@ -87,9 +87,10 @@ export default function ContactPage({ onOpenEnquiry, setCurrentRoute }) {
                   Select a date and time to visit our classrooms, STEM suites, aquatic pool, and meet our academic leadership team.
                 </p>
 
-                <button className="btn-enquire" onClick={onOpenEnquiry} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
+                <button className="btn-enquire" onClick={onOpenVisit || onOpenEnquiry} style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
                   Book Campus Visit <ArrowRight size={18} />
                 </button>
+
 
                 {/* Map Frame Placeholder */}
                 <div style={{ marginTop: '2.5rem', height: '280px', background: 'var(--color-primary-dark)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF', textAlign: 'center', padding: '1.5rem' }}>

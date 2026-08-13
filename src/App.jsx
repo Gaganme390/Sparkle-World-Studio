@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 // Lazy-load heavy overlays and non-critical pages to reduce initial JS bundle & TBT
 const FullscreenMenu = lazy(() => import('./components/FullscreenMenu'));
 const EnquiryModal = lazy(() => import('./components/EnquiryModal'));
+const CampusVisitModal = lazy(() => import('./components/CampusVisitModal'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const AcademicsPage = lazy(() => import('./pages/AcademicsPage'));
 const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
@@ -35,9 +36,11 @@ export default function App() {
   const [currentRoute, setCurrentRouteState] = useState(window.location.pathname || '/');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const [isVisitOpen, setIsVisitOpen] = useState(false);
   // Track if overlay chunk has been loaded (lazy-load on first open, keep mounted for exit animation)
   const [menuMounted, setMenuMounted] = useState(false);
   const [enquiryMounted, setEnquiryMounted] = useState(false);
+  const [visitMounted, setVisitMounted] = useState(false);
 
   // Transition-wrapped route updater
   const setCurrentRoute = (newRoute) => {
@@ -50,7 +53,7 @@ export default function App() {
 
   useEffect(() => { if (isMenuOpen && !menuMounted) setMenuMounted(true); }, [isMenuOpen]);
   useEffect(() => { if (isEnquiryOpen && !enquiryMounted) setEnquiryMounted(true); }, [isEnquiryOpen]);
-
+  useEffect(() => { if (isVisitOpen && !visitMounted) setVisitMounted(true); }, [isVisitOpen]);
 
   // Initialize Lenis smooth scroll conditionally for Desktop only to avoid mobile TBT
   useEffect(() => {
@@ -102,17 +105,16 @@ export default function App() {
     };
   }, []);
 
-
   // Pause Lenis smooth scroll when modal or menu is open to prevent background scrolling
   useEffect(() => {
     if (window.__lenis) {
-      if (isMenuOpen || isEnquiryOpen) {
+      if (isMenuOpen || isEnquiryOpen || isVisitOpen) {
         window.__lenis.stop();
       } else {
         window.__lenis.start();
       }
     }
-  }, [isMenuOpen, isEnquiryOpen]);
+  }, [isMenuOpen, isEnquiryOpen, isVisitOpen]);
 
   // Recalculate GSAP ScrollTrigger trigger points on every page route navigation
   useEffect(() => {
@@ -123,13 +125,11 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [currentRoute]);
 
-
-
   const renderCurrentPage = () => {
     switch (currentRoute) {
       case '/':
       case '':
-        return <HomePage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <HomePage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/about':
         return <AboutPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/academics':
@@ -137,7 +137,7 @@ export default function App() {
       case '/experience':
         return <ExperiencePage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/admissions':
-        return <AdmissionsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <AdmissionsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/happenings':
         return <HappeningsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/gallery':
@@ -145,7 +145,7 @@ export default function App() {
       case '/careers':
         return <CareersPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
       case '/contact':
-        return <ContactPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <ContactPage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
       default:
         return <NotFoundPage setCurrentRoute={setCurrentRoute} />;
     }
@@ -186,21 +186,18 @@ export default function App() {
         )}
       </Suspense>
 
-
-      {/* Route pages: HomePage eagerly loaded, everything else lazy */}
-      <Suspense fallback={
-        <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ width: '32px', height: '32px', border: '3px solid #E6E0D7', borderTopColor: '#E09145', borderRadius: '50%', animation: 'spin 600ms linear infinite' }}></div>
-        </div>
-      }>
-        {renderCurrentPage()}
+      <Suspense fallback={null}>
+        {visitMounted && (
+          <CampusVisitModal 
+            isOpen={isVisitOpen}
+            onClose={() => setIsVisitOpen(false)}
+          />
+        )}
       </Suspense>
 
-      <Footer 
-        setCurrentRoute={setCurrentRoute}
-        onOpenEnquiry={() => setIsEnquiryOpen(true)}
-      />
+      {renderCurrentPage()}
 
+      <Footer setCurrentRoute={setCurrentRoute} onOpenEnquiry={() => setIsEnquiryOpen(true)} />
       <ScrollToTop />
     </div>
   );
