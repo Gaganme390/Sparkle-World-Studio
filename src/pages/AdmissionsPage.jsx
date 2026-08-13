@@ -7,7 +7,7 @@ import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 import '../sections/AdmissionsSection.css';
 
-export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeModal, setCurrentRoute }) {
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (idx) => {
@@ -162,10 +162,11 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                   In accordance with school policy, exact grade-wise fee schedules are provided transparently during campus visits or sent via official email upon receiving an online enquiry.
                 </p>
                 <MagneticButton strength={4} style={{ width: '100%' }}>
-                  <button className="btn-cta-primary" onClick={onOpenEnquiry} style={{ width: '100%', justifyContent: 'center' }}>
+                  <button className="btn-cta-primary" onClick={onOpenFeeModal || onOpenEnquiry} style={{ width: '100%', justifyContent: 'center' }}>
                     Request Fee Structure Breakdown <ArrowRight size={16} />
                   </button>
                 </MagneticButton>
+
               </div>
             </ScrollReveal>
           </div>

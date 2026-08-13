@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 const FullscreenMenu = lazy(() => import('./components/FullscreenMenu'));
 const EnquiryModal = lazy(() => import('./components/EnquiryModal'));
 const CampusVisitModal = lazy(() => import('./components/CampusVisitModal'));
+const FeeStructureModal = lazy(() => import('./components/FeeStructureModal'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const AcademicsPage = lazy(() => import('./pages/AcademicsPage'));
 const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
@@ -37,10 +38,13 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [isVisitOpen, setIsVisitOpen] = useState(false);
+  const [isFeeOpen, setIsFeeOpen] = useState(false);
+
   // Track if overlay chunk has been loaded (lazy-load on first open, keep mounted for exit animation)
   const [menuMounted, setMenuMounted] = useState(false);
   const [enquiryMounted, setEnquiryMounted] = useState(false);
   const [visitMounted, setVisitMounted] = useState(false);
+  const [feeMounted, setFeeMounted] = useState(false);
 
   // Transition-wrapped route updater
   const setCurrentRoute = (newRoute) => {
@@ -54,6 +58,7 @@ export default function App() {
   useEffect(() => { if (isMenuOpen && !menuMounted) setMenuMounted(true); }, [isMenuOpen]);
   useEffect(() => { if (isEnquiryOpen && !enquiryMounted) setEnquiryMounted(true); }, [isEnquiryOpen]);
   useEffect(() => { if (isVisitOpen && !visitMounted) setVisitMounted(true); }, [isVisitOpen]);
+  useEffect(() => { if (isFeeOpen && !feeMounted) setFeeMounted(true); }, [isFeeOpen]);
 
   // Initialize Lenis smooth scroll conditionally for Desktop only to avoid mobile TBT
   useEffect(() => {
@@ -61,7 +66,6 @@ export default function App() {
     if (!isDesktop) return;
 
     let lenis;
-    let rafId;
 
     // Defer Lenis init to after first paint to keep TBT low
     const timeoutId = setTimeout(() => {
@@ -97,7 +101,6 @@ export default function App() {
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener('load', handleLoad);
-      if (rafId) cancelAnimationFrame(rafId);
       if (lenis) {
         lenis.destroy();
         window.__lenis = null;
@@ -108,13 +111,13 @@ export default function App() {
   // Pause Lenis smooth scroll when modal or menu is open to prevent background scrolling
   useEffect(() => {
     if (window.__lenis) {
-      if (isMenuOpen || isEnquiryOpen || isVisitOpen) {
+      if (isMenuOpen || isEnquiryOpen || isVisitOpen || isFeeOpen) {
         window.__lenis.stop();
       } else {
         window.__lenis.start();
       }
     }
-  }, [isMenuOpen, isEnquiryOpen, isVisitOpen]);
+  }, [isMenuOpen, isEnquiryOpen, isVisitOpen, isFeeOpen]);
 
   // Recalculate GSAP ScrollTrigger trigger points on every page route navigation
   useEffect(() => {
@@ -129,6 +132,7 @@ export default function App() {
     const commonProps = {
       onOpenEnquiry: () => setIsEnquiryOpen(true),
       onOpenVisit: () => setIsVisitOpen(true),
+      onOpenFeeModal: () => setIsFeeOpen(true),
       setCurrentRoute
     };
 
@@ -171,7 +175,7 @@ export default function App() {
         setCurrentRoute={setCurrentRoute}
       />
 
-      {/* Lazy-loaded overlays: chunk loads on first open, stays mounted for exit animation */}
+      {/* Lazy-loaded overlays */}
       <Suspense fallback={null}>
         {menuMounted && (
           <FullscreenMenu 
@@ -197,6 +201,15 @@ export default function App() {
           <CampusVisitModal 
             isOpen={isVisitOpen}
             onClose={() => setIsVisitOpen(false)}
+          />
+        )}
+      </Suspense>
+
+      <Suspense fallback={null}>
+        {feeMounted && (
+          <FeeStructureModal 
+            isOpen={isFeeOpen}
+            onClose={() => setIsFeeOpen(false)}
           />
         )}
       </Suspense>
