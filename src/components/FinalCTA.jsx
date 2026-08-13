@@ -5,7 +5,7 @@ import ScrollReveal from './ScrollReveal';
 import MagneticButton from './MagneticButton';
 import './FinalCTA.css';
 
-export default function FinalCTA({ onOpenEnquiry, setCurrentRoute }) {
+export default function FinalCTA({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   return (
     <section className="final-cta-section" id="visit">
       <div className="final-cta-glow" />
@@ -31,7 +31,7 @@ export default function FinalCTA({ onOpenEnquiry, setCurrentRoute }) {
 
         <ScrollReveal variant="fadeUp" delay={0.3} className="final-cta-btn-group">
           <MagneticButton strength={6}>
-            <button className="btn-cta-primary" onClick={onOpenEnquiry}>
+            <button className="btn-cta-primary" onClick={onOpenVisit || onOpenEnquiry}>
               <Calendar size={18} /> Book a Campus Visit <ArrowRight size={16} />
             </button>
           </MagneticButton>

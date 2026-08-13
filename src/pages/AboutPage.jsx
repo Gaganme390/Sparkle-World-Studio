@@ -6,7 +6,8 @@ import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
 
-export default function AboutPage({ onOpenEnquiry, setCurrentRoute }) {
+export default function AboutPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
       {/* Page Header */}
@@ -144,7 +145,8 @@ export default function AboutPage({ onOpenEnquiry, setCurrentRoute }) {
         </div>
       </section>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }
+

@@ -7,7 +7,8 @@ import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
 import '../sections/AdmissionsSection.css';
 
-export default function AdmissionsPage({ onOpenEnquiry, setCurrentRoute }) {
+export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (idx) => {
@@ -199,7 +200,8 @@ export default function AdmissionsPage({ onOpenEnquiry, setCurrentRoute }) {
         </div>
       </section>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }
+

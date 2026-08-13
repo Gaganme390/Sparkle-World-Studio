@@ -106,7 +106,8 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
         </div>
       </section>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }
+

@@ -126,26 +126,32 @@ export default function App() {
   }, [currentRoute]);
 
   const renderCurrentPage = () => {
+    const commonProps = {
+      onOpenEnquiry: () => setIsEnquiryOpen(true),
+      onOpenVisit: () => setIsVisitOpen(true),
+      setCurrentRoute
+    };
+
     switch (currentRoute) {
       case '/':
       case '':
-        return <HomePage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <HomePage {...commonProps} />;
       case '/about':
-        return <AboutPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <AboutPage {...commonProps} />;
       case '/academics':
-        return <AcademicsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <AcademicsPage {...commonProps} />;
       case '/experience':
-        return <ExperiencePage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <ExperiencePage {...commonProps} />;
       case '/admissions':
-        return <AdmissionsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <AdmissionsPage {...commonProps} />;
       case '/happenings':
-        return <HappeningsPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <HappeningsPage {...commonProps} />;
       case '/gallery':
-        return <GalleryPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <GalleryPage {...commonProps} />;
       case '/careers':
-        return <CareersPage onOpenEnquiry={() => setIsEnquiryOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <CareersPage {...commonProps} />;
       case '/contact':
-        return <ContactPage onOpenEnquiry={() => setIsEnquiryOpen(true)} onOpenVisit={() => setIsVisitOpen(true)} setCurrentRoute={setCurrentRoute} />;
+        return <ContactPage {...commonProps} />;
       default:
         return <NotFoundPage setCurrentRoute={setCurrentRoute} />;
     }

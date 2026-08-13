@@ -15,11 +15,11 @@ import AlumniSection from '../sections/AlumniSection';
 import AdmissionsSection from '../sections/AdmissionsSection';
 import FinalCTA from '../components/FinalCTA';
 
-export default function HomePage({ onOpenEnquiry, setCurrentRoute }) {
+export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   return (
     <main>
       {/* 01 HERO */}
-      <HeroSection onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <HeroSection onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
       {/* 02 INTRODUCTION */}
       <IntroductionSection setCurrentRoute={setCurrentRoute} />
@@ -58,10 +58,10 @@ export default function HomePage({ onOpenEnquiry, setCurrentRoute }) {
       <AlumniSection />
 
       {/* 14 ADMISSIONS */}
-      <AdmissionsSection onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <AdmissionsSection onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
       {/* 15 FINAL CTA */}
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }
