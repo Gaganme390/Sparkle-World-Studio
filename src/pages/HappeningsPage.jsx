@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, ArrowRight, X, Sparkles } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, X, Cake } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { happeningsData, happeningsCategories } from '../data/happenings';
+import { happeningsData, happeningsCategories, todayBirthdayRecognitions } from '../data/happenings';
 import FinalCTA from '../components/FinalCTA';
 
 export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
@@ -36,8 +36,25 @@ export default function HappeningsPage({ onOpenEnquiry, setCurrentRoute }) {
             HAPPENINGS AT GOENKA.
           </h1>
           <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-            Stay informed with our latest campus announcements, student birthday celebrations, STEM achievements, and educational insights.
+            Stay informed with our latest campus announcements, daily student birthday recognitions, STEM achievements, and educational insights.
           </p>
+        </div>
+      </section>
+
+      {/* Today's Student Birthday Recognition Banner */}
+      <section style={{ background: 'var(--color-primary-dark)', padding: '1rem 0', color: '#FFFFFF', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-accent)', color: '#FFFFFF', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.08em', flexShrink: 0 }}>
+            <Cake size={16} /> TODAY'S BIRTHDAY RECOGNITION
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>
+            {todayBirthdayRecognitions.map((b, idx) => (
+              <span key={idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                🎉 <strong>{b.name}</strong> <span style={{ color: 'var(--color-accent)', fontSize: '0.8rem' }}>({b.grade})</span>
+                {idx < todayBirthdayRecognitions.length - 1 && <span style={{ color: 'rgba(255,255,255,0.3)', marginLeft: '0.75rem' }}>•</span>}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-export const happeningsCategories = ['All', 'Events', 'News', 'Blog', 'Celebrations', 'Media & Press'];
+export const happeningsCategories = ['All', 'Events', 'News', 'Blog', 'Recognitions', 'Media & Press'];
 
 export const happeningsData = [
   {
@@ -14,12 +14,12 @@ export const happeningsData = [
   },
   {
     id: 2,
-    category: 'Celebrations',
-    title: '🎂 Student Birthday Corner & Monthly Star Goenkans',
-    date: 'March 01, 2026',
-    readTime: '2 min read',
-    summary: 'Celebrating all student birthdays this month alongside character awards, peer empathy laurels, and academic star recognitions.',
-    content: 'At G.D. Goenka School Ayodhya, every child’s milestone is cherished! This month we celebrate our student birthdays across Pre-Primary, Primary, and Middle wings with morning assembly felicitations, custom birthday badges, and tree plantation drives in their honor. Congratulations also to our Star Goenkans of the Month recognized for kindness, academic curiosity, and peer leadership!',
+    category: 'Recognitions',
+    title: '🎉 Today\'s Student Birthday Recognition',
+    date: 'Daily Assembly',
+    readTime: '1 min read',
+    summary: 'Recognizing our Goenkan students celebrating their birthdays today across Pre-Primary, Primary, Middle and Senior wings.',
+    content: 'At G.D. Goenka School Ayodhya, every child is recognized on their special day during daily morning assembly felicitations. Students celebrating their birthday receive custom birthday badges, assembly applause, and warm wishes from their teachers and school leadership.',
     image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=75',
     featured: false
   },
@@ -67,4 +67,11 @@ export const happeningsData = [
     image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=600&q=75',
     featured: false
   }
+];
+
+export const todayBirthdayRecognitions = [
+  { name: 'Aarav Sharma', grade: 'Grade 4-A' },
+  { name: 'Ananya Verma', grade: 'Grade 8-B' },
+  { name: 'Rohan Gupta', grade: 'Grade 2-C' },
+  { name: 'Sanya Malhotra', grade: 'Grade 6-A' },
 ];
