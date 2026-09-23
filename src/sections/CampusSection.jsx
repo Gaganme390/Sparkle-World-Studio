@@ -77,7 +77,7 @@ export default function CampusSection({ onOpenVisit, setCurrentRoute }) {
         <ScrollReveal variant="fadeUp" delay={0.35} className="campus-zones-grid">
           <div className="campus-zone-card hover-lift" onClick={() => { setCurrentRoute('/academics'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <div className="campus-zone-img-box">
-              <img src="/school-media/Digital Lab/1.jpeg" alt="Digital English Language Laboratory" loading="lazy" />
+              <img src="/school-media/Digital Lab/language_lab_headset.jpg" alt="Digital English Language Laboratory" loading="lazy" />
               <span className="campus-zone-badge">1st in Ayodhya</span>
             </div>
             <div className="campus-zone-content">
@@ -110,12 +110,12 @@ export default function CampusSection({ onOpenVisit, setCurrentRoute }) {
 
           <div className="campus-zone-card hover-lift" onClick={() => { setCurrentRoute('/academics'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <div className="campus-zone-img-box">
-              <img src="/school-media/Blue Day/IMG_6920.JPG" alt="Foundational Early Learning Wing" loading="lazy" />
+              <img src="/school-media/Play Station/kindergarten_ball_pool_landscape.jpg" alt="Foundational Early Learning Wing" loading="lazy" />
               <span className="campus-zone-badge">Pre-Primary</span>
             </div>
             <div className="campus-zone-content">
               <h4 className="campus-zone-title">Foundational Junior Wing</h4>
-              <p className="campus-zone-desc">Sensory immersion, Blue & Orange Day discovery, and play-based experiential learning.</p>
+              <p className="campus-zone-desc">Sensory immersion, colorful play stations, and joy-filled experiential early childhood learning.</p>
             </div>
           </div>
         </ScrollReveal>

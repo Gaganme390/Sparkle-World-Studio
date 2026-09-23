@@ -29,7 +29,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
   };
 
   const handleNext = () => {
-    if (lightboxIndex < filteredItems.length - 1) setLightboxIndex(filteredItems.length - 1);
+    if (lightboxIndex < filteredItems.length - 1) setLightboxIndex(lightboxIndex + 1);
     else setLightboxIndex(0);
   };
 

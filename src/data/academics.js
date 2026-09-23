@@ -12,7 +12,7 @@ export const academicWings = [
       'Electronic Waste Management & creative craft (CD clocks & bulb art)',
       'Guided social integration & safe play environments'
     ],
-    image: '/school-media/Blue Day/IMG_6920.JPG',
+    image: '/school-media/Play Station/kindergarten_ball_pool_landscape.jpg',
     curriculumHighlight: 'CBSE Early Years Framework integrated with Reggio Emilia child-led exploration principles.'
   },
   {
@@ -28,7 +28,7 @@ export const academicWings = [
       'Bilingual proficiency & spoken English pronunciation modules',
       'Annual Athletic Meet track & field competitions'
     ],
-    image: '/school-media/School First Day/DSC_3090.JPG',
+    image: '/school-media/Cultural Celebration/classical_dance_performance.jpg',
     curriculumHighlight: 'Comprehensive CBSE primary core curriculum complemented by hands-on digital laboratory inquiry.'
   },
   {
@@ -44,7 +44,7 @@ export const academicWings = [
       'Inter-House cultural excellence (Tagore, Teresa, Vivekananda, Radhakrishnan)',
       'Community outreach programs (Muskan Rehabilitation Centre collaboration)'
     ],
-    image: '/school-media/Digital Lab/1.jpeg',
+    image: '/school-media/Digital Lab/computer_lab_students.jpg',
     curriculumHighlight: 'Rigorous CBSE Middle School syllabus with research electives, language labs, and competitive sports.'
   },
   {
@@ -60,7 +60,7 @@ export const academicWings = [
       'University counselling & career guidance cell',
       'Goenkan Leadership Academy Capstone projects'
     ],
-    image: '/school-media/Opening Photos/C/DSC00453.JPG',
+    image: '/school-media/Digital Lab/language_lab_headset.jpg',
     curriculumHighlight: 'CBSE Senior Secondary Board Curriculum with integrated career pathway mentorship.'
   }
 ];

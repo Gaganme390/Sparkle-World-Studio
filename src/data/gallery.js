@@ -22,7 +22,7 @@ export const galleryItems = [
     category: 'Academics',
     title: 'State-of-the-Art Digital English Language Lab',
     caption: 'Technology-driven interactive audio-visual learning hub with phonetic accent modules and bilingual workstations.',
-    image: '/school-media/Digital Lab/3.jpeg',
+    image: '/school-media/Digital Lab/language_lab_headset.jpg',
     spanTwo: false
   },
   {
@@ -103,6 +103,30 @@ export const galleryItems = [
     title: 'Inter-School Classical Folk Dance & Music Recital',
     caption: 'Goenkan performers winning accolades with traditional kalash dance, tabla, and harmonium jugalbandi.',
     image: '/school-media/Visit to Avadh Mall/Pic 1.jpeg',
+    spanTwo: false
+  },
+  {
+    id: 14,
+    category: 'Student Life',
+    title: 'Foundational Discovery & Ball Pool Play Station',
+    caption: 'Pre-primary toddlers experiencing sensory immersion, tactile discovery, and joyful play in the indoor play station.',
+    image: '/school-media/Play Station/kindergarten_ball_pool_landscape.jpg',
+    spanTwo: true
+  },
+  {
+    id: 15,
+    category: 'Arts & Culture',
+    title: 'Krishna Janmashtami & Indian Classical Dance Recital',
+    caption: 'Students celebrating cultural heritage and devotional arts through vibrant traditional costume and rhythmic dance.',
+    image: '/school-media/Cultural Celebration/krishna_cultural_celebration.jpg',
+    spanTwo: false
+  },
+  {
+    id: 16,
+    category: 'Academics',
+    title: 'Computer Science & Interactive Digital Coding Suites',
+    caption: 'Students developing computational thinking, logic algorithms, and digital fluency in our modern IT laboratory.',
+    image: '/school-media/Digital Lab/computer_lab_students.jpg',
     spanTwo: false
   }
 ];

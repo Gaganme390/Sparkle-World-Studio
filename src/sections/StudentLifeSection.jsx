@@ -53,12 +53,12 @@ export default function StudentLifeSection() {
           <div className="studentlife-card hover-lift">
             <div className="studentlife-card-image-wrap">
               <img 
-                src="/school-media/Dandiya Night/WhatsApp Image 2025-09-29 at 22.48.18_881652f5.jpg" 
-                alt="Dandiya Night Cultural Celebration at GD Goenka Ayodhya" 
+                src="/school-media/Cultural Celebration/classical_dance_performance.jpg" 
+                alt="Classical Dance & Cultural Performing Arts at GD Goenka Ayodhya" 
                 className="studentlife-card-img"
                 loading="lazy"
               />
-              <span className="studentlife-card-tag">CULTURAL SPLENDOR</span>
+              <span className="studentlife-card-tag">PERFORMING ARTS</span>
             </div>
             <div className="studentlife-card-content">
               <div className="studentlife-icon-box">

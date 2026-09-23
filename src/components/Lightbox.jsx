@@ -1,18 +1,34 @@
-import React, { useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Lightbox.css';
 
 export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') onPrev();
       if (e.key === 'ArrowRight') onNext();
+      if (e.key === ' ') {
+        e.preventDefault();
+        setIsPlaying((prev) => !prev);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose, onPrev, onNext]);
+
+  // Automated slideshow timer (advances every 4 seconds when playing)
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = setInterval(() => {
+      onNext();
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isPlaying, onNext, item]);
 
   if (!item) return null;
 
@@ -31,9 +47,21 @@ export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
             </div>
             <h3 className="lightbox-title">{item.title}</h3>
           </div>
-          <button className="btn-close-modal" onClick={onClose} aria-label="Close Lightbox">
-            <X size={20} />
-          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button 
+              className={`lightbox-action-btn ${isPlaying ? 'active' : ''}`}
+              onClick={() => setIsPlaying((prev) => !prev)}
+              aria-label={isPlaying ? 'Pause Automated Slideshow' : 'Play Automated Slideshow'}
+              title={isPlaying ? 'Pause Slideshow (Space)' : 'Play Slideshow (Space)'}
+            >
+              {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+              <span className="lightbox-btn-label">{isPlaying ? 'Slideshow Playing' : 'Play Slideshow'}</span>
+            </button>
+            <button className="btn-close-modal" onClick={onClose} aria-label="Close Lightbox">
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
 
