@@ -35,8 +35,8 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-card) !important;
 }
 
 .hover-scale-img {

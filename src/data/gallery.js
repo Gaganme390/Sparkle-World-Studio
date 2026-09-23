@@ -4,65 +4,105 @@ export const galleryItems = [
   {
     id: 1,
     category: 'Campus',
-    title: 'Architectural Courtyard & Sunrise Corridor',
-    caption: 'Designed with high-ceiling ventilation, warm natural textures, and open light pathways.',
-    image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=75',
+    title: 'Ayodhya Campus Architecture & Grand Entrance',
+    caption: 'Sandstone textures, natural lighting, high-ceiling ventilation, and world-class educational spaces.',
+    image: '/school-media/Opening Photos/B/SPF_7322.JPG',
     spanTwo: true
   },
   {
     id: 2,
-    category: 'Academics',
-    title: 'Junior Wing Sensory Exploration Lab',
-    caption: 'Hands-on tactile tools enabling foundational literacy and numerical confidence.',
-    image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=75',
+    category: 'Sports',
+    title: 'District Taekwondo Championship 2025 Winners',
+    caption: 'Goenkan martial artists clinching 11 district medals (2 Gold, 3 Silver, 6 Bronze) at HCJ Academy.',
+    image: '/school-media/Taekwando/Taekwondo Winners.jpg',
     spanTwo: false
   },
   {
     id: 3,
-    category: 'Sports',
-    title: 'All-Weather Synthetic Sports Complex',
-    caption: 'Professional coaching arena for basketball, lawn tennis, and multi-sport training.',
-    image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=600&q=75',
+    category: 'Academics',
+    title: 'State-of-the-Art Digital English Language Lab',
+    caption: 'Technology-driven interactive audio-visual learning hub with phonetic accent modules and bilingual workstations.',
+    image: '/school-media/Digital Lab/3.jpeg',
     spanTwo: false
   },
   {
     id: 4,
     category: 'Arts & Culture',
-    title: 'Visual Arts & Sculptural Studio',
-    caption: 'Students exploring clay modeling, canvas painting, and graphic design.',
-    image: 'https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&w=800&q=75',
+    title: 'Dandiya Night: Celebration of Dussehra & Navratri',
+    caption: 'Vibrant ethnic attire, traditional Garba beats, and spirited celebration of India’s rich heritage.',
+    image: '/school-media/Dandiya Night/WhatsApp Image 2025-09-29 at 22.52.25_c32bf165.jpg',
     spanTwo: true
   },
   {
     id: 5,
-    category: 'Student Life',
-    title: 'Central Library & Reading Sanctuary',
-    caption: 'Quiet research modules housing curated literature, digital journals, and periodicals.',
-    image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=600&q=75',
+    category: 'Sports',
+    title: 'Annual Athletic Meet: Track & Field Sprint Action',
+    caption: 'Young athletes from Grades 1 to 7 competing in 100m dashes, relays, and long jump events.',
+    image: '/school-media/Atheletic Meet/PLJO7674[1].JPG',
     spanTwo: false
   },
   {
     id: 6,
-    category: 'Academics',
-    title: 'STEM Innovation & Robotics Workspace',
-    caption: 'Collaborative engineering tables for coding, 3D modelling, and electronic circuits.',
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=75',
+    category: 'Arts & Culture',
+    title: 'Inter-House Diwali Rangoli Artistry (Tagore House)',
+    caption: 'Eco-friendly rangoli designs depicting unity, lights, and cultural celebration created by the four houses.',
+    image: '/school-media/Diwali/IMG-20251019-WA0054.jpg',
     spanTwo: false
   },
   {
     id: 7,
-    category: 'Campus',
-    title: 'Open Amphitheatre & Assembly Lawn',
-    caption: 'Spacious outdoor arena for morning assemblies, literary festivals, and drama.',
-    image: 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=75',
+    category: 'Student Life',
+    title: 'Pre-Primary Sensory Blue Day Celebration',
+    caption: 'Tiny tots exploring ocean themes, object sorting, and hands-on tactile discovery in the Junior Wing.',
+    image: '/school-media/Blue Day/IMG_6920.JPG',
     spanTwo: false
   },
   {
     id: 8,
-    category: 'Student Life',
-    title: 'Goenkan Leadership Academy MUN Conclave',
-    caption: 'Student delegates debating global sustainability policies and international diplomacy.',
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=75',
+    category: 'Campus',
+    title: 'Contemporary Classrooms & Learning Corridors',
+    caption: 'Ergonomic smart furniture, natural airflow, and modern pedagogy stations for active learning.',
+    image: '/school-media/Opening Photos/C/DSC00453.JPG',
     spanTwo: true
+  },
+  {
+    id: 9,
+    category: 'Student Life',
+    title: 'Vibrant Orange Day Early Learning Picnic',
+    caption: 'Creative craft, fruit identification, and experiential color exploration in the junior wing.',
+    image: '/school-media/Orange Day/Orange Day Pic.jpg',
+    spanTwo: false
+  },
+  {
+    id: 10,
+    category: 'Student Life',
+    title: 'First Day of School: Warm Campus Welcomes',
+    caption: 'Joyful smiles, welcoming morning assemblies, and the beginning of a lifelong learning journey.',
+    image: '/school-media/School First Day/DSC_3090.JPG',
+    spanTwo: false
+  },
+  {
+    id: 11,
+    category: 'Academics',
+    title: 'UKG E-Waste Upcycling: CD Clocks & Bulb Craft',
+    caption: 'Young learners turning discarded electronic components into artistic clocks and eco-friendly models.',
+    image: '/school-media/E-Waste/3.jpg',
+    spanTwo: false
+  },
+  {
+    id: 12,
+    category: 'Student Life',
+    title: 'International Disability Day: "One for Me, One for You"',
+    caption: 'Social outreach fostering empathy and inclusivity in collaboration with Muskan Rehabilitation Centre.',
+    image: '/school-media/Disability Day/IMG_1650.JPG',
+    spanTwo: true
+  },
+  {
+    id: 13,
+    category: 'Arts & Culture',
+    title: 'Inter-School Classical Folk Dance & Music Recital',
+    caption: 'Goenkan performers winning accolades with traditional kalash dance, tabla, and harmonium jugalbandi.',
+    image: '/school-media/Visit to Avadh Mall/Pic 1.jpeg',
+    spanTwo: false
   }
 ];

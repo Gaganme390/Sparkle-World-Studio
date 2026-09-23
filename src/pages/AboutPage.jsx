@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Heart, Award } from 'lucide-react';
-import { houseSystem } from '../data/leadership';
+import { houseSystem, leadershipData } from '../data/leadership';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
@@ -52,7 +52,7 @@ export default function AboutPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute 
 
             <div className="col-12 col-md-6">
               <ImageReveal 
-                src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=75" 
+                src="/school-media/Opening Photos/A/DSC_7282.JPG" 
                 alt="GD Goenka Ayodhya Campus Architecture" 
                 width="800"
                 height="400"
@@ -106,6 +106,54 @@ export default function AboutPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute 
               <p className="text-body">Integrating artificial intelligence awareness, robotics suites, public debate, and sustainable eco-stewardship.</p>
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Leadership & Executive Mentorship */}
+      <section className="section-padding theme-warm-soft" id="leadership">
+        <div className="container">
+          <div style={{ marginBottom: '3rem' }}>
+            <ScrollReveal variant="fadeUp">
+              <span className="tag-label">ACADEMIC & EXECUTIVE GOVERNANCE</span>
+            </ScrollReveal>
+
+            <AnimatedText 
+              as="h2"
+              className="heading-section" 
+              style={{ marginTop: '0.5rem' }}
+              text="LEADERSHIP & MENTORSHIP"
+              delay={0.1}
+            />
+
+            <ScrollReveal variant="fadeUp" delay={0.2}>
+              <p className="text-body" style={{ maxWidth: '640px', marginTop: '0.5rem' }}>
+                Visionary institutional leadership committed to academic rigor, character building, and world-class Goenkan pedagogy in Ayodhya.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+            {leadershipData.map((leader, idx) => (
+              <ScrollReveal key={idx} variant="fadeUp" delay={0.15 + idx * 0.1} className="hover-lift" style={{ background: '#FFFFFF', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: 'var(--border-thin)', boxShadow: 'var(--shadow-card)', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ height: '260px', overflow: 'hidden', position: 'relative' }}>
+                  <img src={leader.image} alt={leader.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                  <span style={{ position: 'absolute', bottom: '1rem', left: '1rem', background: 'rgba(23, 24, 29, 0.9)', color: 'var(--color-accent)', padding: '0.35rem 0.85rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em' }}>
+                    {leader.role}
+                  </span>
+                </div>
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-accent)', marginBottom: '0.25rem' }}>{leader.title}</span>
+                  <h3 className="font-display" style={{ fontSize: '1.6rem', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}>{leader.name}</h3>
+                  <p style={{ fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--color-warm-gray-800)', lineHeight: 1.6, marginBottom: '1.25rem', borderLeft: '3px solid var(--color-accent)', paddingLeft: '1rem' }}>
+                    "{leader.message}"
+                  </p>
+                  <p className="text-small" style={{ color: 'var(--color-text-muted)', marginTop: 'auto', borderTop: '1px solid var(--color-warm-gray-200)', paddingTop: '1rem' }}>
+                    {leader.bio}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 

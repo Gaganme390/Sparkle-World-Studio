@@ -1,17 +1,24 @@
-.navbar-header {
-  position: fixed;
+.site-header-stack {
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-warm-white);
+}
+
+.site-header-stack .navbar-header {
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   height: var(--header-height);
   z-index: 1000;
   transition: background-color var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium), backdrop-filter var(--transition-medium);
-  background-color: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-warm-white);
+  border-bottom: 1px solid rgba(23, 24, 29, 0.08);
 }
 
 .navbar-header.scrolled {
-  background-color: rgba(252, 250, 247, 0.94);
+  background-color: rgba(252, 250, 247, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(23, 24, 29, 0.08);

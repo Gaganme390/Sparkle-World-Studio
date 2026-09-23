@@ -30,13 +30,14 @@
   box-shadow: var(--shadow-subtle);
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-medium);
+  cursor: pointer;
 }
 
 .exp-pillar-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-card);
-  border-color: var(--color-accent-subtle);
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-color: var(--color-accent);
 }
 
 .exp-img-wrap {
@@ -52,8 +53,17 @@
   transition: transform 700ms var(--ease-editorial);
 }
 
-.exp-pillar-card:hover .exp-img-wrap img {
-  transform: scale(1.06);
+.exp-pillar-card:hover .exp-img-wrap img,
+.exp-pillar-card:hover img {
+  transform: scale(1.07) !important;
+}
+
+.exp-body a svg {
+  transition: transform 0.3s ease;
+}
+
+.exp-pillar-card:hover .exp-body a svg {
+  transform: translateX(5px);
 }
 
 .exp-body {

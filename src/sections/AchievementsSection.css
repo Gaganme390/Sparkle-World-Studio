@@ -56,7 +56,7 @@
 }
 
 .achievement-card {
-  padding: 2.25rem;
+  padding: 0;
   background: var(--color-white);
   border-radius: var(--radius-md);
   border: var(--border-thin);
@@ -64,6 +64,41 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.achievement-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.achieve-img-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: var(--color-warm-gray-200);
+  position: relative;
+}
+
+.achieve-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms var(--ease-editorial);
+}
+
+.achievement-card:hover .achieve-img {
+  transform: scale(1.06) !important;
+}
+
+.achieve-body {
+  padding: 2rem 2.25rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 
 .achieve-badge {
@@ -82,6 +117,7 @@
   font-size: 1.6rem;
   color: var(--color-primary-dark);
   margin-bottom: 0.75rem;
+  line-height: 1.25;
 }
 
 .achieve-desc {
@@ -89,3 +125,25 @@
   color: var(--color-text-muted);
   line-height: 1.6;
 }
+
+.achieve-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-warm-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.achieve-honor-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.achieve-honor-value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+}
+

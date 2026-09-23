@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, Calendar, MapPin, Loader2, Compass, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { schoolStore } from '../utils/schoolStore';
 import MagneticButton from './MagneticButton';
 import './Modal.css';
 
@@ -72,10 +73,23 @@ export default function CampusVisitModal({ isOpen, onClose }) {
     }
 
     setSubmitting(true);
+
+    schoolStore.addCampusVisit({
+      parentName: formData.parentName,
+      phone: formData.phone,
+      email: formData.email,
+      childName: formData.childName,
+      gradeApplying: formData.gradeApplying,
+      visitDate: formData.visitDate,
+      timeSlot: formData.timeSlot,
+      visitorsCount: formData.visitorsCount,
+      interests: formData.interests
+    });
+
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
-    }, 1200);
+    }, 600);
   };
 
   const handleReset = () => {

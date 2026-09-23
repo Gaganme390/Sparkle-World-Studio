@@ -61,6 +61,7 @@ export const fullscreenMenuStructure = [
       { label: 'Admissions', href: '/admissions' },
       { label: 'Work With Us', href: '/careers' },
       { label: 'Contact Us', href: '/contact' },
+      { label: 'Admin Portal', href: '/admin' },
     ],
   },
 ];

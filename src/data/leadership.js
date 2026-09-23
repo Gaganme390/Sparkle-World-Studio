@@ -1,51 +1,61 @@
 export const leadershipData = [
   {
-    role: "MANAGEMENT MESSAGE",
-    title: "Director's Vision",
-    name: "GD Goenka Ayodhya Management",
-    message: "Our vision for the Ayodhya campus is to build an educational lighthouse where century-old values of character, humility, and culture seamlessly blend with futuristic innovation, artificial intelligence awareness, and global leadership.",
-    bio: "Pioneering quality education and architectural infrastructure excellence designed to cultivate lifelong learners.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
-    verifiedStatus: "OFFICIAL_GOENKA_VISION"
+    role: "SCHOOL CHAIRMAN",
+    title: "Chairman's Address",
+    name: "Mr. Madan Mohan Tripathi",
+    message: "Our vision for the Ayodhya campus is to build an educational lighthouse where timeless cultural values, discipline, and human empathy seamlessly blend with modern pedagogical excellence, cutting-edge technology, and global leadership.",
+    bio: "Visionary educational founder championing holistic development, sporting triumphs, and academic distinction across Northern India.",
+    image: "/school-media/Opening Photos/A/DSC_7282.JPG",
+    verifiedStatus: "OFFICIAL_CHAIRMAN"
   },
   {
-    role: "ACADEMIC HEAD",
+    role: "CAMPUS PRINCIPAL",
     title: "Principal's Desk",
-    name: "Campus Principal",
-    message: "At G.D. Goenka School, Ayodhya, we believe education is not the filling of a bucket, but the lighting of a fire. Every student who steps onto our campus is encouraged to ask bold questions, express original ideas, and lead with empathy.",
-    bio: "Dedicated academic leader with over two decades of experience in holistic student development and progressive curriculum implementation.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-    verifiedStatus: "OFFICIAL_DESK"
+    name: "Dr. Abin C. Raj",
+    message: "At G.D. Goenka Public School, Ayodhya, we believe education is not the filling of a vessel, but the ignition of a lifelong passion for learning. Through modern facilities like our Digital English Language Lab, athletic championships, and experiential learning, every child discovers their inner brilliance.",
+    bio: "Distinguished academician and institutional leader dedicated to innovative curriculum design, spoken-English fluency, and character-building education.",
+    image: "/school-media/Digital Lab/1.jpeg",
+    verifiedStatus: "OFFICIAL_PRINCIPAL"
+  },
+  {
+    role: "HEAD OFFICE MENTORS",
+    title: "Executive Mentorship",
+    name: "Ms. Rajni Jauhari & Ms. Yasmin Khan",
+    message: "G.D. Goenka School, Ayodhya reflects the highest national benchmarks of the Goenkan legacy — empowering children with confidence, sportsmanship, and future-ready capabilities in every walk of life.",
+    bio: "Senior Leadership & Institutional Mentors, G.D. Goenka Group Head Office, New Delhi.",
+    image: "/school-media/Opening Photos/C/DSC00453.JPG",
+    verifiedStatus: "OFFICIAL_HEAD_OFFICE"
   }
 ];
 
 export const houseSystem = [
   {
-    name: "IGNIS",
-    element: "Fire & Passion",
+    name: "TAGORE HOUSE",
+    element: "Wisdom, Literature & Art",
     color: "#E09145",
-    motto: "Courage to Lead",
-    desc: "Symbolizing energy, enthusiasm, and relentless pursuit of excellence in academics and athletics."
+    motto: "Where the Mind is Without Fear",
+    desc: "Champions of the Diwali Inter-House Rangoli Competition and literary forums, inspiring creative expression and artistic mastery."
   },
   {
-    name: "TERRA",
-    element: "Earth & Stability",
-    color: "#292C35",
-    motto: "Rooted in Purpose",
-    desc: "Representing wisdom, environmental stewardship, resilience, and grounded human values."
+    name: "TERESA HOUSE",
+    element: "Empathy, Kindness & Service",
+    color: "#1E3A8A",
+    motto: "Service Above Self",
+    desc: "Dedicated to social outreach, community service initiatives like 'One for Me, One for You', and compassionate leadership."
   },
   {
-    name: "AQUA",
-    element: "Water & Fluidity",
-    color: "#17181D",
-    motto: "Adaptability & Depth",
-    desc: "Embodying creative flow, emotional intelligence, empathy, and artistic expression."
+    name: "VIVEKANANDA HOUSE",
+    element: "Strength, Courage & Vision",
+    color: "#B45309",
+    motto: "Arise, Awake, and Stop Not",
+    desc: "Exemplifying inner strength, moral courage, resilience, and outstanding physical prowess in athletic meets."
   },
   {
-    name: "VENTUS",
-    element: "Air & Vision",
-    color: "#FCD9B8",
-    motto: "Soaring Higher",
-    desc: "Signifying intellectual agility, innovation, global perspective, and freedom of thought."
+    name: "RADHAKRISHNAN HOUSE",
+    element: "Intellect, Inquiry & Truth",
+    color: "#15803D",
+    motto: "Knowledge Enlightens Life",
+    desc: "Representing academic excellence, scientific temper, debating distinction, and philosophical depth."
   }
 ];
+

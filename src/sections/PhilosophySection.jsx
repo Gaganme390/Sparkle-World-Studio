@@ -7,27 +7,27 @@ const philosophyPillars = [
   {
     num: '01',
     title: 'CURIOUS',
-    desc: 'Encouraging relentless exploration, asking bold questions, and fostering scientific inquiry.'
+    desc: 'Encouraging relentless exploration through Ayodhya’s first Digital English Language Lab, interactive multimedia modules, and scientific inquiry.'
   },
   {
     num: '02',
     title: 'CREATIVE',
-    desc: 'Nurturing original thinking, artistic expression, design synthesis, and multi-disciplinary innovation.'
+    desc: 'Fostering cultural artistry through Dandiya Night, Inter-House Rangoli competitions (Tagore House winners), and UKG upcycling bulb/CD crafts.'
   },
   {
     num: '03',
     title: 'CONFIDENT',
-    desc: 'Instilling public speaking eloquence, athletic vigor, leadership poise, and intellectual clarity.'
+    desc: 'Instilling sportsmanship and leadership poise, proven by our 11 District Taekwondo medalists and spirited Annual Athletic Meet.'
   },
   {
     num: '04',
     title: 'COMPASSIONATE',
-    desc: 'Cultivating emotional intelligence, peer empathy, global perspective, and kindness.'
+    desc: 'Cultivating empathy and kindness through social initiatives like "One for Me, One for You" supporting children at Muskan Rehabilitation Centre.'
   },
   {
     num: '05',
     title: 'CONSCIENTIOUS',
-    desc: 'Building moral purpose, environmental responsibility, and social commitment to community.'
+    desc: 'Building environmental responsibility from early childhood through Electronic Waste Management, recycling, and sustainable green campus initiatives.'
   }
 ];
 

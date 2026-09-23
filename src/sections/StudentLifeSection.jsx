@@ -30,33 +30,66 @@ export default function StudentLifeSection() {
 
         <ScrollReveal className="studentlife-grid" stagger staggerAmount={0.12} variant="scaleIn" delay={0.3}>
           <div className="studentlife-card hover-lift">
-            <div className="studentlife-icon-box">
-              <Trophy size={24} />
+            <div className="studentlife-card-image-wrap">
+              <img 
+                src="/school-media/Taekwando/Taekwondo Winners.jpg" 
+                alt="GD Goenka Ayodhya Taekwondo & Athletic Champions" 
+                className="studentlife-card-img"
+                loading="lazy"
+              />
+              <span className="studentlife-card-tag">11 DISTRICT MEDALS</span>
             </div>
-            <h3 className="studentlife-title">Athletic Academies</h3>
-            <p className="studentlife-desc">
-              Professional coaching in swimming, lawn tennis, basketball, cricket nets, and track athletics fostering team spirit and physical resilience.
-            </p>
+            <div className="studentlife-card-content">
+              <div className="studentlife-icon-box">
+                <Trophy size={24} />
+              </div>
+              <h3 className="studentlife-title">Athletic & Martial Arts</h3>
+              <p className="studentlife-desc">
+                Competitive track and field athletics, annual sports meets, and district-champion Taekwondo training fostering physical stamina, character, and perseverance.
+              </p>
+            </div>
           </div>
 
           <div className="studentlife-card hover-lift">
-            <div className="studentlife-icon-box">
-              <Music size={24} />
+            <div className="studentlife-card-image-wrap">
+              <img 
+                src="/school-media/Dandiya Night/WhatsApp Image 2025-09-29 at 22.48.18_881652f5.jpg" 
+                alt="Dandiya Night Cultural Celebration at GD Goenka Ayodhya" 
+                className="studentlife-card-img"
+                loading="lazy"
+              />
+              <span className="studentlife-card-tag">CULTURAL SPLENDOR</span>
             </div>
-            <h3 className="studentlife-title">Cultural & Fine Arts</h3>
-            <p className="studentlife-desc">
-              Classical & Western music studios, classical dance choreography, theatrical drama productions, and sculptural fine art exhibitions.
-            </p>
+            <div className="studentlife-card-content">
+              <div className="studentlife-icon-box">
+                <Music size={24} />
+              </div>
+              <h3 className="studentlife-title">Cultural & Performing Arts</h3>
+              <p className="studentlife-desc">
+                From vibrant Dandiya Night and Dussehra celebrations to the Inter-House Rangoli championships, students explore musical rhythms, classical dance, and folk arts.
+              </p>
+            </div>
           </div>
 
           <div className="studentlife-card hover-lift">
-            <div className="studentlife-icon-box">
-              <Compass size={24} />
+            <div className="studentlife-card-image-wrap">
+              <img 
+                src="/school-media/Disability Day/IMG_1673.JPG" 
+                alt="Social Outreach at GD Goenka Ayodhya" 
+                className="studentlife-card-img"
+                loading="lazy"
+              />
+              <span className="studentlife-card-tag">EMPATHY IN ACTION</span>
             </div>
-            <h3 className="studentlife-title">Societies & Leadership</h3>
-            <p className="studentlife-desc">
-              Model UN diplomacy forums, robotics clubs, environmental sustainability charters, and social responsibility community outreach.
-            </p>
+            <div className="studentlife-card-content">
+              <div className="studentlife-icon-box">
+                <Compass size={24} />
+              </div>
+              <h3 className="studentlife-title">Community & Social Outreach</h3>
+              <p className="studentlife-desc">
+                Compassionate initiatives like "One for Me, One for You" with Muskan Rehabilitation Centre, World AIDS Day assemblies, and UKG E-Waste upcycling projects.
+              </p>
+            </div>
           </div>
         </ScrollReveal>
       </div>

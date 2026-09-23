@@ -37,6 +37,7 @@ export default function useScrollReveal({
         duration,
         delay,
         ease: 'power3.out',
+        clearProps: 'transform',
         scrollTrigger: {
           trigger: trigger ? document.querySelector(trigger) : el,
           start,

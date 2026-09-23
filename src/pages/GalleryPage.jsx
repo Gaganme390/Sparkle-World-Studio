@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Eye } from 'lucide-react';
 import { galleryItems, galleryCategories } from '../data/gallery';
+import { useSchoolData } from '../hooks/useSchoolData';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
@@ -8,12 +9,17 @@ import Lightbox from '../components/Lightbox';
 import FinalCTA from '../components/FinalCTA';
 
 export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
+  const { gallery } = useSchoolData();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
+  const allItems = gallery && gallery.length > 0 ? gallery : galleryItems;
+
+  const categories = ['All', ...new Set(allItems.map((i) => i.category || 'Campus'))];
+
   const filteredItems = selectedCategory === 'All' 
-    ? galleryItems 
-    : galleryItems.filter((i) => i.category === selectedCategory);
+    ? allItems 
+    : allItems.filter((i) => i.category === selectedCategory);
 
   const currentItem = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
 
@@ -57,7 +63,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
         <div className="container">
           {/* Category Tabs */}
           <ScrollReveal variant="fadeUp" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
-            {galleryCategories.map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}

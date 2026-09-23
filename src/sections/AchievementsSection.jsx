@@ -78,14 +78,21 @@ export default function AchievementsSection() {
         <ScrollReveal className="achievements-grid" stagger staggerAmount={0.12} variant="fadeUp" delay={0.3}>
           {achievementsData.map((item, idx) => (
             <div key={idx} className="achievement-card hover-lift">
-              <div>
-                <span className="achieve-badge">{item.category} • {item.year}</span>
-                <h3 className="achieve-title">{item.title}</h3>
-                <p className="achieve-desc">{item.desc}</p>
-              </div>
-              <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--color-warm-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.85rem', fontWeight: '800', color: 'var(--color-accent)' }}>HONOR:</span>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--color-primary-dark)' }}>{item.highlight}</span>
+              {item.image && (
+                <div className="achieve-img-wrap">
+                  <img src={item.image} alt={item.title} className="achieve-img" loading="lazy" />
+                </div>
+              )}
+              <div className="achieve-body">
+                <div>
+                  <span className="achieve-badge">{item.category} • {item.year}</span>
+                  <h3 className="achieve-title">{item.title}</h3>
+                  <p className="achieve-desc">{item.desc}</p>
+                </div>
+                <div className="achieve-footer">
+                  <span className="achieve-honor-label">HONOR:</span>
+                  <span className="achieve-honor-value">{item.highlight}</span>
+                </div>
               </div>
             </div>
           ))}

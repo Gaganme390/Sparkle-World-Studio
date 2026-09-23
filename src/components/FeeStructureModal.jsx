@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, Mail, Phone, FileSpreadsheet, Loader2, Check, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from './MagneticButton';
+import { schoolStore } from '../utils/schoolStore';
 import './Modal.css';
 
 export default function FeeStructureModal({ isOpen, onClose }) {
@@ -70,10 +71,25 @@ export default function FeeStructureModal({ isOpen, onClose }) {
     }
 
     setSubmitting(true);
+
+    try {
+      schoolStore.addEnquiry({
+        parentName: formData.parentName,
+        phone: formData.phone,
+        email: formData.email,
+        childName: formData.childName,
+        applyingGrade: formData.targetGrade,
+        message: `[Fee Structure Request - ${formData.deliveryMode}] Components: ${formData.feeComponents.join(', ')}`,
+        preferredDate: 'Fee Guide Requested'
+      });
+    } catch (err) {
+      console.error('Failed to log fee enquiry:', err);
+    }
+
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
-    }, 1200);
+    }, 800);
   };
 
   const handleReset = () => {

@@ -2,29 +2,29 @@ export const experiencePillars = [
   {
     id: 'spaces',
     number: '01',
-    title: 'INSPIRES SPACES',
+    title: 'INSPIRED SPACES',
     subtitle: 'Architectural Excellence for Modern Learning',
     description: 'Designed as an architectural ode to contemporary learning, our Ayodhya campus incorporates high-volume natural light, courtyard ventilation, climate-conscious materials, and ergonomic learning spaces.',
-    highlights: ['Ergonomic climate-controlled classrooms', 'State-of-the-art Science & Innovation labs', 'Digital Central Library & Reading sanctuary', 'Multi-purpose Auditorium & Amphitheatre'],
-    image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=75'
+    highlights: ['Ergonomic climate-controlled classrooms', 'State-of-the-Art Digital English Language Lab', 'Digital Central Library & Reading sanctuary', 'Multi-purpose Auditorium & Assembly Arena'],
+    image: '/school-media/Opening Photos/completed/DSC_3160.JPG'
   },
   {
     id: 'grow',
     number: '02',
     title: 'GROW',
-    subtitle: 'Sports, Physical Athleticism & Endurance',
-    description: 'Physical vigor builds resilience, character, and teamwork. Our comprehensive sports facilities provide professional coaching across competitive sports discipline.',
-    highlights: ['Standard Swimming & Aquatic Complex', 'All-weather Synthetic Basketball & Tennis Courts', 'Cricket Academy Nets & Football Ground', 'Indoor Sports Complex for Badminton & Chess'],
-    image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=800&q=75'
+    subtitle: 'Sports, Physical Athleticism & Martial Arts',
+    description: 'Physical vigor builds resilience, character, and teamwork. Our comprehensive sports facilities provide professional coaching across competitive athletics and martial arts.',
+    highlights: ['District Championship Taekwondo Academy (11 Medals)', 'Annual Athletic Meet Track & Field Arena (Grades 1-7)', 'Cricket Academy Nets & Football Ground', 'All-weather Synthetic Multi-Sport Courts'],
+    image: '/school-media/Atheletic Meet/WhatsApp Image 2025-10-10 at 16.21.37_9411cda4.jpg'
   },
   {
     id: 'express',
     number: '03',
     title: 'EXPRESS',
-    subtitle: 'Visual Arts, Music, Theatre & Creative Expression',
-    description: 'Art is the window to human empathy and innovation. Our creative studios encourage students to explore classical Indian music, Western instruments, fine arts, and dramatic theatre.',
-    highlights: ['Acoustically engineered Music & Recording Rooms', 'Classical & Contemporary Dance Studios', 'Sculpture, Fine Art & Digital Graphic Labs', 'Dramatic Arts & Public Speaking Club'],
-    image: 'https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&w=800&q=75'
+    subtitle: 'Visual Arts, Music, Theatre & Cultural Splendor',
+    description: 'Art is the window to human empathy and cultural pride. Our campus comes alive with vibrant festivals, musical compositions, and traditional artistic celebrations.',
+    highlights: ['Dandiya Night Dussehra Cultural Extravaganza', 'Inter-House Diwali Rangoli Competitions (Tagore House)', 'Pre-Primary Blue Day & Orange Day Sensory Art', 'Dramatic Arts & Public Speaking Club'],
+    image: '/school-media/Dandiya Night/WhatsApp Image 2025-09-29 at 22.50.29_573606ae.jpg'
   },
   {
     id: 'gla',
@@ -32,26 +32,26 @@ export const experiencePillars = [
     title: 'GLA — GOENKAN LEADERSHIP ACADEMY',
     subtitle: 'Building Purposeful Global Leaders',
     description: 'A structured leadership development pathway focusing on public articulation, critical debate, ethical decision making, social impact capstones, and community collaboration.',
-    highlights: ['Model United Nations (MUN) Leadership Track', 'Student Council Governance & Parliamentary Procedure', 'Social Innovation & Community Capstones', 'Public Speaking & Global Diplomacy Symposia'],
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=75'
+    highlights: ['Student Council Governance & House Leadership', 'Social Innovation & Community Capstones', 'Public Speaking & Bilingual English Fluency Labs', 'Leadership Symposia with New Delhi Head Office'],
+    image: '/school-media/Opening Photos/C/DSC00467.JPG'
   },
   {
     id: 'nurture',
     number: '05',
     title: 'NURTURE',
-    subtitle: 'Holistic Wellbeing, Counseling & Mentorship',
-    description: 'Every child deserves an environment of safety, emotional support, and understanding. Dedicated child psychologists and career counselors guide students through personal and academic growth.',
-    highlights: ['Full-time Student Counseling & Wellness Center', 'Peer Mentorship & Anti-bullying charter', 'Individualized Career & Stream Counseling', 'Parent-Teacher Collaborative Consultations'],
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=75'
+    subtitle: 'Holistic Wellbeing, Empathy & Social Inclusion',
+    description: 'Every child deserves an environment of safety, emotional support, and social responsibility. Programs like "One for Me, One for You" teach giving, empathy, and kindness from an early age.',
+    highlights: ['Outreach with Muskan Rehabilitation Centre', 'World AIDS Day Empathy & Solidarity Drives', 'Peer Mentorship & Anti-bullying charter', 'Parent-Teacher Collaborative Consultations'],
+    image: '/school-media/Disability Day/IMG_1662.JPG'
   },
   {
     id: 'living',
     number: '06',
     title: 'CONSCIENTIOUS LIVING',
-    subtitle: 'Environmental Stewardship & Values',
-    description: 'Instilling deep respect for nature and community responsibility. Ayodhya campus incorporates solar power, rainwater harvesting, zero-single-use-plastic, and organic garden plots.',
-    highlights: ['Solar-powered Green Campus Infrastructure', 'Campus Organic Farming & Composting Hubs', 'Rainwater Harvesting & Water Management', 'Community Outreach & Literacy Drives'],
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=75'
+    subtitle: 'Environmental Stewardship & Upcycling',
+    description: 'Instilling deep respect for nature and community responsibility. Ayodhya campus promotes active recycling, zero-waste consciousness, and sustainable hands-on crafts.',
+    highlights: ['Electronic Waste Management (UKG CD Clocks & Bulb Craft)', 'Solar-powered Green Campus Infrastructure', 'Campus Cleanliness & Eco-Friendly Diwali Pledges', 'Water Management & Nature Conservation'],
+    image: '/school-media/E-Waste/4.jpg'
   },
   {
     id: 'safety',
@@ -60,7 +60,7 @@ export const experiencePillars = [
     subtitle: 'Uncompromising 360° Campus Vigilance',
     description: 'Parent peace of mind is paramount. Our campus operates under multi-layer security protocols, continuous CCTV surveillance, verified access controls, and strict bus tracking.',
     highlights: ['24/7 CCTV Campus Monitoring & Security Guards', 'RFID Attendance & Real-time Parent App Alerts', 'GPS-enabled Fleet with On-board Attendants', 'In-house Infirmary with Resident Medical Nurse'],
-    image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&w=800&q=75'
+    image: '/school-media/Opening Photos/0/DSC_1346.JPG'
   },
   {
     id: 'services',
@@ -69,6 +69,6 @@ export const experiencePillars = [
     subtitle: 'Nourishment, Transport & Parent Connect',
     description: 'Ensuring daily operations run with luxury ease. From hygienic nutritional dining to air-conditioned transport and seamless digital parent portals.',
     highlights: ['Nutritional Dining Hall serving balanced meals', 'Air-Conditioned GPS Transport Fleet across Ayodhya', 'Digital Parent Mobile App for Attendance & Fee Pay', 'Uniform & Book Supply Bureau'],
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=75'
+    image: '/school-media/Opening Photos/completed/DSC_3160.JPG'
   }
 ];

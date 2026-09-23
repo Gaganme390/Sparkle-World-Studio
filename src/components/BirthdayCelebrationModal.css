@@ -1,0 +1,388 @@
+/* Birthday Celebration Modal - GD Goenka Ayodhya Festivity */
+
+.bday-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 16, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.bday-modal-dialog {
+  background: linear-gradient(145deg, #17181D 0%, #222631 100%);
+  border: 1px solid rgba(224, 145, 69, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(224, 145, 69, 0.15);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 860px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+}
+
+.bday-modal-header {
+  flex-shrink: 0;
+  padding: 2.25rem 2.25rem 1.5rem;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bday-header-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(224, 145, 69, 0.35) 0%, transparent 70%);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.bday-modal-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bday-modal-close-btn:hover {
+  background: rgba(224, 145, 69, 0.3);
+  border-color: var(--color-accent);
+  transform: rotate(90deg);
+}
+
+.bday-crest-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E09145 0%, #B86F28 100%);
+  color: #17181D;
+  box-shadow: 0 4px 20px rgba(224, 145, 69, 0.4);
+  margin-bottom: 1rem;
+}
+
+.bday-modal-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FCD9B8 60%, #E09145 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.bday-modal-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.bday-modal-body {
+  padding: 1.75rem 2.25rem 2.25rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 145, 69, 0.4) rgba(255, 255, 255, 0.05);
+}
+
+.bday-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bday-modal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+.bday-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(224, 145, 69, 0.45);
+  border-radius: 8px;
+}
+
+.bday-modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Celebrant Cards Grid */
+.bday-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.bday-child-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(224, 145, 69, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.bday-child-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(224, 145, 69, 0.2);
+}
+
+.bday-crown-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  color: var(--color-accent);
+  background: rgba(224, 145, 69, 0.15);
+  padding: 0.35rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bday-card-photo-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.bday-card-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 15px rgba(224, 145, 69, 0.3);
+}
+
+.bday-card-photo-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E09145 0%, #292C35 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  border: 2px solid var(--color-accent);
+}
+
+.bday-card-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: #FFFFFF;
+}
+
+.bday-card-grade-pill {
+  display: inline-block;
+  background: rgba(224, 145, 69, 0.2);
+  color: var(--color-soft-accent);
+  border: 1px solid rgba(224, 145, 69, 0.3);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.85rem;
+}
+
+.bday-card-blessing {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  margin-top: auto;
+}
+
+/* Wish Submission & Wall Section */
+.bday-wishes-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.bday-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.bday-wish-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.bday-form-full {
+  grid-column: 1 / -1;
+}
+
+.bday-input, .bday-textarea, .bday-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color var(--transition-fast);
+}
+
+.bday-input:focus, .bday-textarea:focus, .bday-select:focus {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.bday-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.bday-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-column: 1 / -1;
+  gap: 1rem;
+}
+
+.btn-bday-confetti-burst {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(224, 145, 69, 0.15);
+  border: 1px solid rgba(224, 145, 69, 0.4);
+  color: var(--color-soft-accent);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-bday-confetti-burst:hover {
+  background: var(--color-accent);
+  color: #17181D;
+  transform: scale(1.03);
+}
+
+.btn-send-wish {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #E09145 0%, #C97E36 100%);
+  color: #17181D;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 10px rgba(224, 145, 69, 0.3);
+}
+
+.btn-send-wish:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(224, 145, 69, 0.5);
+}
+
+/* Wishes Wall Feed */
+.bday-wishes-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.bday-wish-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.6rem 0.85rem;
+  border-radius: 4px;
+}
+
+.bday-wish-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+  font-size: 0.78rem;
+}
+
+.bday-wish-for {
+  color: var(--color-soft-accent);
+  font-weight: 700;
+}
+
+.bday-wish-from {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bday-wish-text {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+@media (max-width: 640px) {
+  .bday-modal-header, .bday-modal-body {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .bday-wish-form {
+    grid-template-columns: 1fr;
+  }
+}

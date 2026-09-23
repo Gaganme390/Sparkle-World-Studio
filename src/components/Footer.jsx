@@ -92,10 +92,10 @@ export default function Footer({ setCurrentRoute, onOpenEnquiry }) {
         <div className="footer-bottom-bar">
           <p>© {new Date().getFullYear()} G.D. Goenka Public School, Ayodhya. All Rights Reserved.</p>
           <div className="footer-legal-links">
-            <a href="#" onClick={(e) => e.preventDefault()} className="animated-underline">Mandatory Disclosure</a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="animated-underline">Privacy Policy</a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="animated-underline">Terms & Conditions</a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="animated-underline">Parent Portal Login</a>
+            <a href="/mandatory-disclosure" onClick={(e) => handleNav(e, '/mandatory-disclosure')} className="animated-underline">Mandatory Disclosure</a>
+            <a href="/privacy-policy" onClick={(e) => handleNav(e, '/privacy-policy')} className="animated-underline">Privacy Policy</a>
+            <a href="/terms-and-conditions" onClick={(e) => handleNav(e, '/terms-and-conditions')} className="animated-underline">Terms & Conditions</a>
+            <a href="/admin" onClick={(e) => handleNav(e, '/admin')} className="animated-underline" style={{ color: 'var(--color-accent)' }}>Admin Portal</a>
           </div>
         </div>
       </div>

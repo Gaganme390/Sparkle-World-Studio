@@ -6,33 +6,33 @@ import './WhyGoenkaSection.css';
 const whyGoenkaPillars = [
   {
     num: '01',
-    title: 'Holistic Academic Depth',
-    desc: 'Synthesizing CBSE Board standards with experiential inquiry, STEM discovery, and university entrance prep.'
+    title: 'First Digital English Lab in Ayodhya',
+    desc: 'Pioneering technology-driven language education with interactive phonetic stations, listening booths, and spoken English fluency labs.'
   },
   {
     num: '02',
-    title: 'Future-Ready STEM & AI',
-    desc: 'Dedicated robotics suites, 3D printing equipment, and digital coding modules integrated from primary grades.'
+    title: 'District Champion Martial Arts & Sports',
+    desc: 'Clinched 11 medals (2 Gold, 3 Silver, 6 Bronze) at District Taekwondo Championship 2025 alongside our energetic Annual Athletic Meet.'
   },
   {
     num: '03',
-    title: 'Optimal Mentorship Ratio',
-    desc: '1:15 ratio in foundational wings ensuring individual academic and emotional attention for every child.'
+    title: 'Mentored by New Delhi Head Office',
+    desc: 'Curriculum delivery, teacher excellence, and quality benchmarks closely mentored by Ms. Rajni Jauhari & Ms. Yasmin Khan from GD Goenka Group HQ.'
   },
   {
     num: '04',
-    title: 'Uncompromising 360° Safety',
-    desc: '24/7 CCTV surveillance, RFID attendance, GPS-tracked AC buses, and resident medical staff on campus.'
+    title: 'Experiential & Environmental Learning',
+    desc: 'Hands-on discovery from early years, including UKG Electronic Waste Management (CD clocks & bulb craft) and vibrant Blue & Orange Days.'
   },
   {
     num: '05',
-    title: 'Sports & Fine Arts Infrastructure',
-    desc: 'Standard swimming pool, synthetic basketball courts, music recording rooms, and theatrical assembly grounds.'
+    title: '4 Dynamic Houses & Cultural Celebrations',
+    desc: 'Active student leadership in Tagore, Teresa, Vivekananda & Radhakrishnan houses; grand Dandiya Nights and eco-friendly Diwali Rangoli contests.'
   },
   {
     num: '06',
-    title: 'Heritage Values & Character',
-    desc: 'Rooted in Ayodhya’s cultural ethics, teaching respect, environmental responsibility, and social purpose.'
+    title: 'Empathy & Social Outreach',
+    desc: 'Inculcating compassion from young age through "One for Me, One for You" outreach in partnership with Muskan Rehabilitation Centre, Ayodhya.'
   }
 ];
 

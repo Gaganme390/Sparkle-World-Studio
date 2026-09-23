@@ -1,33 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, ArrowRight, X, Cake } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, X, Cake, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { happeningsData, happeningsCategories, todayBirthdayRecognitions } from '../data/happenings';
+import { happeningsCategories } from '../data/happenings';
+import { useSchoolData } from '../hooks/useSchoolData';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
 
-export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCelebration, setCurrentRoute }) {
+  const { happenings, todaysBirthdays } = useSchoolData();
   const [selectedCat, setSelectedCat] = useState('All');
   const [activeArticle, setActiveArticle] = useState(null);
 
   useEffect(() => {
     if (activeArticle) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
       if (window.__lenis) window.__lenis.stop();
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
       if (window.__lenis) window.__lenis.start();
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
       if (window.__lenis) window.__lenis.start();
     };
   }, [activeArticle]);
 
   const filtered = selectedCat === 'All' 
-    ? happeningsData 
-    : happeningsData.filter((h) => h.category === selectedCat);
+    ? happenings 
+    : happenings.filter((h) => h.category === selectedCat);
 
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
@@ -56,18 +64,46 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
 
       {/* Today's Student Birthday Recognition Banner */}
       <section style={{ background: 'var(--color-primary-dark)', padding: '1rem 0', color: '#FFFFFF', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-accent)', color: '#FFFFFF', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.08em', flexShrink: 0 }}>
-            <Cake size={16} /> TODAY'S BIRTHDAY RECOGNITION
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-accent)', color: '#17181D', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.08em', flexShrink: 0 }}>
+              <Cake size={16} /> TODAY'S BIRTHDAY RECOGNITION
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>
+              {todaysBirthdays.length > 0 ? (
+                todaysBirthdays.map((b, idx) => (
+                  <span key={b.id || idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                    🎉 <strong>{b.name}</strong> <span style={{ color: 'var(--color-soft-accent)', fontSize: '0.8rem' }}>({b.grade}{b.section ? `-${b.section}` : ''})</span>
+                    {idx < todaysBirthdays.length - 1 && <span style={{ color: 'rgba(255,255,255,0.3)', marginLeft: '0.75rem' }}>•</span>}
+                  </span>
+                ))
+              ) : (
+                <span style={{ color: 'rgba(255,255,255,0.6)' }}>No birthdays registered for today.</span>
+              )}
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>
-            {todayBirthdayRecognitions.map((b, idx) => (
-              <span key={idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                🎉 <strong>{b.name}</strong> <span style={{ color: 'var(--color-accent)', fontSize: '0.8rem' }}>({b.grade})</span>
-                {idx < todayBirthdayRecognitions.length - 1 && <span style={{ color: 'rgba(255,255,255,0.3)', marginLeft: '0.75rem' }}>•</span>}
-              </span>
-            ))}
-          </div>
+
+          {todaysBirthdays.length > 0 && onOpenCelebration && (
+            <button 
+              type="button" 
+              onClick={onOpenCelebration}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(224, 145, 69, 0.4)',
+                color: 'var(--color-soft-accent)',
+                padding: '0.35rem 0.9rem',
+                borderRadius: 'var(--radius-full)',
+                fontSize: '0.8rem',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              <Sparkles size={14} style={{ color: 'var(--color-accent)' }} /> Celebrate With Us
+            </button>
+          )}
         </div>
       </section>
 
@@ -149,6 +185,11 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
           <div 
             className="modal-backdrop"
             onClick={() => setActiveArticle(null)}
+            onWheel={(e) => {
+              if (e.target === e.currentTarget) {
+                e.preventDefault();
+              }
+            }}
             data-lenis-prevent="true"
             style={{ 
               position: 'fixed',
@@ -166,7 +207,8 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               alignItems: 'center',
               justifyContent: 'center',
               padding: '1.5rem',
-              overscrollBehavior: 'contain'
+              overscrollBehavior: 'contain',
+              touchAction: 'none'
             }}
           >
             <motion.div 
@@ -177,6 +219,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               exit={{ opacity: 0, scale: 0.92, y: 25 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
               style={{ 
                 width: '100%',
                 maxWidth: '740px', 
@@ -187,6 +230,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                 boxShadow: '0 32px 80px rgba(0, 0, 0, 0.4)',
                 padding: '0', 
                 overflowY: 'auto',
+                overscrollBehavior: 'contain',
                 position: 'relative'
               }}
             >

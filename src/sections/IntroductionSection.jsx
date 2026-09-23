@@ -39,8 +39,8 @@ export default function IntroductionSection({ setCurrentRoute }) {
 
             <div className="intro-img-box">
               <ImageReveal 
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=75" 
-                alt="Students engaged in collaborative inquiry at GD Goenka Ayodhya" 
+                src="/school-media/School First Day/DSC_3090.JPG" 
+                alt="Students arriving at GD Goenka Public School Ayodhya campus" 
                 width="800"
                 height="320"
                 delay={0.2}

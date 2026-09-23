@@ -20,6 +20,14 @@ const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const CareersPage = lazy(() => import('./pages/CareersPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
+const MandatoryDisclosurePage = lazy(() => import('./pages/MandatoryDisclosurePage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsConditionsPage = lazy(() => import('./pages/TermsConditionsPage'));
+
+import BirthdayTickerBanner from './components/BirthdayTickerBanner';
+import BirthdayCelebrationModal from './components/BirthdayCelebrationModal';
+import UrgentNoticeBar from './components/UrgentNoticeBar';
 
 import PageTransition, { animatePageTransition } from './components/PageTransition';
 import ScrollProgress from './components/ScrollProgress';
@@ -39,6 +47,7 @@ export default function App() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [isVisitOpen, setIsVisitOpen] = useState(false);
   const [isFeeOpen, setIsFeeOpen] = useState(false);
+  const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
 
   // Track if overlay chunk has been loaded (lazy-load on first open, keep mounted for exit animation)
   const [menuMounted, setMenuMounted] = useState(false);
@@ -60,8 +69,23 @@ export default function App() {
   useEffect(() => { if (isVisitOpen && !visitMounted) setVisitMounted(true); }, [isVisitOpen]);
   useEffect(() => { if (isFeeOpen && !feeMounted) setFeeMounted(true); }, [isFeeOpen]);
 
+  // Check if admin is currently authenticated for floating quick badge
+  const [isAdminAuth, setIsAdminAuth] = useState(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('gd_goenka_admin_auth') === 'true';
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAdminAuth(sessionStorage.getItem('gd_goenka_admin_auth') === 'true');
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   // Initialize Lenis smooth scroll conditionally for Desktop only to avoid mobile TBT
   useEffect(() => {
+    if (currentRoute === '/admin') return;
+
     const isDesktop = window.innerWidth >= 1024 && !('ontouchstart' in window);
     if (!isDesktop) return;
 
@@ -106,18 +130,29 @@ export default function App() {
         window.__lenis = null;
       }
     };
-  }, []);
+  }, [currentRoute]);
 
-  // Pause Lenis smooth scroll when modal or menu is open to prevent background scrolling
+  // Pause Lenis smooth scroll and freeze document scroll when any modal or menu is open
   useEffect(() => {
-    if (window.__lenis) {
-      if (isMenuOpen || isEnquiryOpen || isVisitOpen || isFeeOpen) {
-        window.__lenis.stop();
-      } else {
-        window.__lenis.start();
-      }
+    const isAnyModalOpen = isMenuOpen || isEnquiryOpen || isVisitOpen || isFeeOpen || isCelebrationOpen;
+    if (isAnyModalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      if (window.__lenis) window.__lenis.stop();
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      if (window.__lenis) window.__lenis.start();
     }
-  }, [isMenuOpen, isEnquiryOpen, isVisitOpen, isFeeOpen]);
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.touchAction = '';
+      if (window.__lenis) window.__lenis.start();
+    };
+  }, [isMenuOpen, isEnquiryOpen, isVisitOpen, isFeeOpen, isCelebrationOpen]);
 
   // Recalculate GSAP ScrollTrigger trigger points on every page route navigation
   useEffect(() => {
@@ -133,6 +168,7 @@ export default function App() {
       onOpenEnquiry: () => setIsEnquiryOpen(true),
       onOpenVisit: () => setIsVisitOpen(true),
       onOpenFeeModal: () => setIsFeeOpen(true),
+      onOpenCelebration: () => setIsCelebrationOpen(true),
       setCurrentRoute
     };
 
@@ -156,10 +192,37 @@ export default function App() {
         return <CareersPage {...commonProps} />;
       case '/contact':
         return <ContactPage {...commonProps} />;
+      case '/mandatory-disclosure':
+      case '/disclosure':
+      case '/cbse-disclosure':
+        return <MandatoryDisclosurePage {...commonProps} />;
+      case '/privacy-policy':
+      case '/privacy':
+        return <PrivacyPolicyPage {...commonProps} />;
+      case '/terms-and-conditions':
+      case '/terms':
+      case '/terms-conditions':
+        return <TermsConditionsPage {...commonProps} />;
+      case '/admin':
+        return (
+          <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0F1014' }} />}>
+            <AdminPage setCurrentRoute={setCurrentRoute} />
+          </Suspense>
+        );
       default:
         return <NotFoundPage setCurrentRoute={setCurrentRoute} />;
     }
   };
+
+  // If in Admin Panel route, render dedicated admin layout without public chrome
+  if (currentRoute === '/admin') {
+    return (
+      <div className="app-root">
+        <PageTransition />
+        {renderCurrentPage()}
+      </div>
+    );
+  }
 
   return (
     <div className="app-root">
@@ -168,11 +231,22 @@ export default function App() {
       <PageTransition />
       <Preloader />
 
-      <Navbar 
-        onOpenMenu={() => setIsMenuOpen(true)}
-        onOpenEnquiry={() => setIsEnquiryOpen(true)}
-        currentRoute={currentRoute}
-        setCurrentRoute={setCurrentRoute}
+      {/* Unified Top Header Stack with Sticky Pinning */}
+      <header className="site-header-stack">
+        <UrgentNoticeBar setCurrentRoute={setCurrentRoute} />
+        <BirthdayTickerBanner onOpenCelebration={() => setIsCelebrationOpen(true)} />
+        <Navbar 
+          onOpenMenu={() => setIsMenuOpen(true)}
+          onOpenEnquiry={() => setIsEnquiryOpen(true)}
+          currentRoute={currentRoute}
+          setCurrentRoute={setCurrentRoute}
+        />
+      </header>
+
+      {/* Birthday Celebration Confetti Modal */}
+      <BirthdayCelebrationModal 
+        isOpen={isCelebrationOpen}
+        onClose={() => setIsCelebrationOpen(false)}
       />
 
       {/* Lazy-loaded overlays */}
@@ -218,6 +292,35 @@ export default function App() {
 
       <Footer setCurrentRoute={setCurrentRoute} onOpenEnquiry={() => setIsEnquiryOpen(true)} />
       <ScrollToTop />
+
+      {/* Floating Admin Quick Switcher Pill (if logged in) */}
+      {isAdminAuth && (
+        <aside
+          aria-label="Admin quick access"
+          onClick={() => setCurrentRoute('/admin')}
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            left: '24px',
+            zIndex: 999,
+            background: '#17181D',
+            color: 'var(--color-accent)',
+            border: '1px solid rgba(224, 145, 69, 0.4)',
+            padding: '0.45rem 0.9rem',
+            borderRadius: 'var(--radius-full)',
+            fontSize: '0.78rem',
+            fontWeight: 800,
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.45rem'
+          }}
+        >
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22C55E' }} />
+          Admin Mode • Go to Dashboard →
+        </aside>
+      )}
     </div>
   );
 }

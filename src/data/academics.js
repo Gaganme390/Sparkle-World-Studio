@@ -3,16 +3,16 @@ export const academicWings = [
     id: 'junior',
     title: 'JUNIOR WING',
     subtitle: 'Foundational Discovery & Experiential Play',
-    grades: 'Pre-Nursery to KG',
+    grades: 'Pre-Nursery to UKG',
     ageGroup: '3 – 5 Years',
     description: 'A vibrant early-learning sanctuary designed to kindle natural curiosity through play-based inquiry, tactile discovery, spatial awareness, and social-emotional grounding.',
     keyFeatures: [
-      'Montessori-inspired activity hubs & sensory labs',
-      'Phonetic literacy & storytelling sanctuaries',
-      'Early numeracy through physical manipulatives',
-      'Guided social integration & outdoor play parks'
+      'Sensory color immersion days (Blue Day & Orange Day celebrations)',
+      'Phonetic literacy, storytelling & vocabulary picnics',
+      'Electronic Waste Management & creative craft (CD clocks & bulb art)',
+      'Guided social integration & safe play environments'
     ],
-    image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=75',
+    image: '/school-media/Blue Day/IMG_6920.JPG',
     curriculumHighlight: 'CBSE Early Years Framework integrated with Reggio Emilia child-led exploration principles.'
   },
   {
@@ -23,13 +23,13 @@ export const academicWings = [
     ageGroup: '6 – 10 Years',
     description: 'Fostering core academic competence alongside creative expression. Students develop strong foundational skills in mathematics, environmental sciences, languages, and digital fluency.',
     keyFeatures: [
-      'Interdisciplinary project-based learning modules',
-      'Robotics & elementary coding introduction',
-      'Bilingual proficiency & creative writing forums',
-      'Physical athletics & visual art studios'
+      'Interactive sessions in the Digital English Language Lab',
+      'Experiential learning field trips & inter-school cultural conventions',
+      'Bilingual proficiency & spoken English pronunciation modules',
+      'Annual Athletic Meet track & field competitions'
     ],
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=75',
-    curriculumHighlight: 'Comprehensive CBSE primary core curriculum complemented by STEM inquiry.'
+    image: '/school-media/School First Day/DSC_3090.JPG',
+    curriculumHighlight: 'Comprehensive CBSE primary core curriculum complemented by hands-on digital laboratory inquiry.'
   },
   {
     id: 'middle',
@@ -39,13 +39,13 @@ export const academicWings = [
     ageGroup: '11 – 13 Years',
     description: 'Transitioning from concrete concepts to abstract critical reasoning. Students engage with complex scientific principles, advanced mathematical logic, and analytical global humanities.',
     keyFeatures: [
-      'Advanced STEM & Innovation labs',
-      'Model United Nations & formal debate circles',
-      'Environmental stewardship & sustainability projects',
-      'Competitive team sports & performing arts academies'
+      'District Championship-winning Taekwondo & Martial Arts training',
+      'State-of-the-Art Digital English Language Lab demonstrations',
+      'Inter-House cultural excellence (Tagore, Teresa, Vivekananda, Radhakrishnan)',
+      'Community outreach programs (Muskan Rehabilitation Centre collaboration)'
     ],
-    image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=75',
-    curriculumHighlight: 'Rigorous CBSE Middle School syllabus with research electives and practical experimentation.'
+    image: '/school-media/Digital Lab/1.jpeg',
+    curriculumHighlight: 'Rigorous CBSE Middle School syllabus with research electives, language labs, and competitive sports.'
   },
   {
     id: 'senior',
@@ -60,7 +60,7 @@ export const academicWings = [
       'University counselling & career guidance cell',
       'Goenkan Leadership Academy Capstone projects'
     ],
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=75',
+    image: '/school-media/Opening Photos/C/DSC00453.JPG',
     curriculumHighlight: 'CBSE Senior Secondary Board Curriculum with integrated career pathway mentorship.'
   }
 ];

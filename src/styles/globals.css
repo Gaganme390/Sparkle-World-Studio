@@ -25,6 +25,11 @@ body {
   min-height: 100vh;
 }
 
+/* Ensure inner pages flow cleanly beneath sticky header stack */
+main[style*="paddingTop"] {
+  padding-top: 0 !important;
+}
+
 /* Lazy spinner keyframe for Suspense fallback */
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -164,6 +169,28 @@ button {
   height: 6px;
   border-radius: 50%;
   background-color: var(--color-accent);
+}
+
+/* Authentic School Photography Luxury Enhancement */
+.hover-scale-img img,
+.image-reveal-wrapper img,
+.hero-image-frame img,
+.campus-hero-banner img,
+.academic-tab-btn img {
+  image-rendering: auto;
+  filter: contrast(1.03) saturate(1.04) brightness(1.01);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.hover-scale-img:hover img,
+.exp-pillar-card:hover img,
+.studentlife-card:hover img,
+.campus-zone-card:hover img,
+.leader-card:hover img,
+.achievement-card:hover img,
+.hap-featured-card:hover img {
+  filter: contrast(1.05) saturate(1.06) brightness(1.02);
+  transform: scale(1.07) !important;
 }
 
 /* Reduced Motion Compliance */

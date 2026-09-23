@@ -1,0 +1,540 @@
+/* GD Goenka Ayodhya School - Admin Panel Styling */
+
+.admin-page-root {
+  min-height: 100vh;
+  background-color: #0F1014;
+  color: #E2E8F0;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Login Screen */
+.admin-login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: radial-gradient(circle at 50% 30%, #1F222B 0%, #0F1014 100%);
+}
+
+.admin-login-card {
+  background: #17181D;
+  border: 1px solid rgba(224, 145, 69, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(224, 145, 69, 0.1);
+  text-align: center;
+}
+
+.admin-login-crest {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #E09145 0%, #B86F28 100%);
+  color: #17181D;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 15px rgba(224, 145, 69, 0.4);
+}
+
+.admin-login-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: #FFFFFF;
+  margin-bottom: 0.35rem;
+}
+
+.admin-login-sub {
+  color: #94A3B8;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-input-group {
+  position: relative;
+  text-align: left;
+}
+
+.admin-input-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-input {
+  width: 100%;
+  background: #22252F;
+  border: 1px solid #333846;
+  color: #FFFFFF;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.admin-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(224, 145, 69, 0.2);
+}
+
+.btn-admin-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #E09145 0%, #C97E36 100%);
+  color: #17181D;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-admin-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(224, 145, 69, 0.4);
+}
+
+.btn-admin-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #22252F;
+  border: 1px solid #333846;
+  color: #FFFFFF;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-admin-secondary:hover {
+  background: #2A2F3D;
+  border-color: rgba(224, 145, 69, 0.4);
+}
+
+/* Top Admin Bar */
+.admin-navbar {
+  background: #17181D;
+  border-bottom: 1px solid rgba(224, 145, 69, 0.2);
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.admin-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-crest-small {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #17181D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Dashboard Layout */
+.admin-layout {
+  display: flex;
+  flex: 1;
+}
+
+.admin-sidebar {
+  width: 275px;
+  background: #14151A;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.admin-tab-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94A3B8;
+  padding: 0.75rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.admin-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #FFFFFF;
+}
+
+.admin-tab-btn.active {
+  background: linear-gradient(90deg, rgba(224, 145, 69, 0.18) 0%, rgba(224, 145, 69, 0.06) 100%);
+  color: #F8B471;
+  border: 1px solid rgba(224, 145, 69, 0.32);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.admin-tab-btn.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3.5px;
+  background: var(--color-accent);
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 10px rgba(224, 145, 69, 0.8);
+}
+
+.admin-tab-badge {
+  margin-left: auto;
+  background: rgba(224, 145, 69, 0.22);
+  color: #FFD29D;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(224, 145, 69, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.admin-tab-btn.active .admin-tab-badge {
+  background: rgba(224, 145, 69, 0.38);
+  color: #FFFFFF;
+  border-color: rgba(224, 145, 69, 0.6);
+}
+
+.admin-main-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  max-width: 1400px;
+}
+
+.admin-section-header {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-title-group h1 {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  color: #FFFFFF;
+  margin-bottom: 0.35rem;
+}
+
+.admin-title-group p {
+  color: #94A3B8;
+  font-size: 0.9rem;
+}
+
+/* Metric Cards */
+.admin-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.admin-metric-card {
+  background: #17181D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.admin-metric-card:hover {
+  border-color: rgba(224, 145, 69, 0.3);
+  transform: translateY(-2px);
+}
+
+.admin-metric-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: rgba(224, 145, 69, 0.15);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.admin-metric-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.admin-metric-label {
+  font-size: 0.85rem;
+  color: #94A3B8;
+}
+
+/* Excel Importer Box */
+.excel-dropzone-box {
+  background: #17181D;
+  border: 2px dashed rgba(224, 145, 69, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 2rem;
+}
+
+.excel-dropzone-box:hover, .excel-dropzone-box.drag-over {
+  border-color: var(--color-accent);
+  background: rgba(224, 145, 69, 0.05);
+}
+
+.excel-drop-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(224, 145, 69, 0.15);
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.excel-dropzone-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.35rem;
+}
+
+.excel-dropzone-desc {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  max-width: 480px;
+  margin: 0 auto 1.25rem;
+}
+
+/* Data Table */
+.admin-table-container {
+  background: #17181D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.admin-table th {
+  background: #1E212A;
+  color: #CBD5E1;
+  padding: 0.85rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #E2E8F0;
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.student-row-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.student-table-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-accent);
+}
+
+.student-table-avatar-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #17181D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.student-today-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(224, 145, 69, 0.2);
+  color: var(--color-soft-accent);
+  border: 1px solid rgba(224, 145, 69, 0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.admin-action-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+
+.admin-action-btn:hover {
+  background: #252834;
+  color: #FFFFFF;
+}
+
+.admin-action-btn.delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+}
+
+/* Modals */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.admin-modal-card {
+  background: #17181D;
+  border: 1px solid rgba(224, 145, 69, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.admin-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-form-full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .admin-main-content {
+    padding: 1.5rem;
+  }
+}

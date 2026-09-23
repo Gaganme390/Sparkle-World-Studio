@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, Send, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { schoolStore } from '../utils/schoolStore';
 import MagneticButton from './MagneticButton';
 import './Modal.css';
 
@@ -62,11 +63,23 @@ export default function EnquiryModal({ isOpen, onClose }) {
     }
     setErrors({});
     setSubmitting(true);
-    // Simulate server API interaction
+
+    // Save to schoolStore
+    schoolStore.addEnquiry({
+      parentName: formData.parentName,
+      phone: formData.phone,
+      email: formData.email,
+      childName: formData.childName,
+      applyingGrade: formData.applyingGrade,
+      preferredDate: formData.preferredDate,
+      message: formData.message
+    });
+
+    // Simulate server response
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
-    }, 1200);
+    }, 600);
   };
 
   const resetAndClose = () => {

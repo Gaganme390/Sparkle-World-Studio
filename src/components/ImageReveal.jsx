@@ -65,6 +65,7 @@ export default function ImageReveal({
           scale: 1,
           duration: 1.2,
           ease: 'power2.out',
+          clearProps: 'transform',
         },
         '-=0.8'
       );

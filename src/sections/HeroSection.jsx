@@ -194,8 +194,8 @@ export default function HeroSection({ onOpenEnquiry, setCurrentRoute }) {
             <div ref={imageFrameRef} className="hero-image-frame">
               <img 
                 ref={imgRef}
-                src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" 
-                alt="G.D. Goenka School Ayodhya Campus Architectural Exterior" 
+                src="/school-media/Opening Photos/A/DSC_7282.JPG" 
+                alt="G.D. Goenka Public School Ayodhya Campus Architectural Exterior" 
                 width="800"
                 height="550"
                 loading="eager"
