@@ -21,7 +21,7 @@ export default function BirthdayCelebrationModal({ isOpen, onClose }) {
     // Trigger dual cannon celebratory confetti
     try {
       const end = Date.now() + 1.2 * 1000;
-      const colors = ['#E09145', '#FCD9B8', '#FFFFFF', '#FFD700', '#FF69B4'];
+      const colors = ['#b39759', '#123985', '#FFFFFF', '#f5eedf', '#FFD700'];
 
       (function frame() {
         confetti({
@@ -72,7 +72,7 @@ export default function BirthdayCelebrationModal({ isOpen, onClose }) {
       particleCount: 80,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#E09145', '#FCD9B8', '#FFD700', '#FFFFFF']
+      colors: ['#b39759', '#123985', '#FFD700', '#FFFFFF']
     });
   };
 

@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, Compass } from 'lucide-react';
 import AnimatedText from './AnimatedText';
 import ScrollReveal from './ScrollReveal';
 import MagneticButton from './MagneticButton';
+import KineticFlair from './KineticFlair';
 import './FinalCTA.css';
 
 export default function FinalCTA({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
@@ -11,15 +12,16 @@ export default function FinalCTA({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       <div className="final-cta-glow" />
       <div className="container final-cta-container">
         <ScrollReveal variant="fadeUp">
-          <span className="badge-editorial final-cta-badge">
+          <span className="badge-editorial final-cta-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
             <span className="dot"></span> VISITING THE AYODHYA CAMPUS
+            <KineticFlair type="star" size={16} color="var(--color-accent-light, #F5BA78)" />
           </span>
         </ScrollReveal>
 
         <AnimatedText 
           as="h2"
           className="final-cta-heading"
-          text="COME SEE WHERE<br />THE JOURNEY BEGINS."
+          text="COME SEE WHERE<br />THE JOURNEY BEGINS"
           delay={0.1}
         />
 

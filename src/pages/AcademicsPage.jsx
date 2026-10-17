@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Users, BookOpen } from 'lucide-react';
 import { academicWings, academicPillars } from '../data/academics';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -23,13 +23,13 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="CBSE CURRICULUM & BEYOND."
+            text="CBSE CURRICULUM & BEYOND"
             delay={0.1}
           />
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              A rigorous, holistic academic continuum spanning Early Foundational Literacy to Senior Board & Competitive Entrance Preparedness.
+              A curriculum calibrated to each stage of growth — spanning Early Foundational Literacy to Senior Board & Competitive Entrance Preparedness.
             </p>
           </ScrollReveal>
         </div>
@@ -92,9 +92,24 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
             ))}
           </ScrollReveal>
 
+          {/* Wing Main Spotlight */}
           <div className="editorial-grid" style={{ alignItems: 'center', background: '#FFFFFF', padding: '3rem', borderRadius: 'var(--radius-lg)', border: 'var(--border-thin)', boxShadow: 'var(--shadow-card)' }}>
             <ScrollReveal variant="fadeRight" delay={0.1} className="col-12 col-md-6" key={selectedWing.id}>
-              <span className="academics-grade-tag">{selectedWing.grades} • AGES {selectedWing.ageGroup}</span>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+                <span className="academics-grade-tag">{selectedWing.grades} • AGES {selectedWing.ageGroup}</span>
+                {selectedWing.timings && (
+                  <span className="academics-grade-tag" style={{ background: 'rgba(23, 24, 29, 0.05)', color: 'var(--color-primary-dark)' }}>
+                    <Clock size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
+                    {selectedWing.timings}
+                  </span>
+                )}
+                {selectedWing.ratio && (
+                  <span className="academics-grade-tag" style={{ background: 'rgba(23, 24, 29, 0.05)', color: 'var(--color-primary-dark)' }}>
+                    <Users size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
+                    {selectedWing.ratio}
+                  </span>
+                )}
+              </div>
               <h3 className="font-display" style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '0.5rem 0' }}>{selectedWing.title}</h3>
               <p style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--color-warm-gray-800)', marginBottom: '1.5rem' }}>{selectedWing.subtitle}</p>
               <p className="text-body" style={{ marginBottom: '1.75rem' }}>{selectedWing.description}</p>
@@ -127,6 +142,67 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
               />
             </div>
           </div>
+
+          {/* Grade Breakdown Cards (from PDF 2) */}
+          {selectedWing.detailedGrades && (
+            <div style={{ marginTop: '4rem' }}>
+              <div style={{ marginBottom: '2rem' }}>
+                <span className="tag-label" style={{ color: 'var(--color-accent)' }}>CURRICULUM BREAKDOWN</span>
+                <h3 className="font-display" style={{ fontSize: '2rem', color: 'var(--color-primary-dark)', marginTop: '0.35rem' }}>
+                  Progressive Learning in {selectedWing.title}
+                </h3>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                {selectedWing.detailedGrades.map((g, gIdx) => (
+                  <div 
+                    key={gIdx} 
+                    className="hover-lift"
+                    style={{ 
+                      background: '#FFFFFF', 
+                      borderRadius: 'var(--radius-md)', 
+                      overflow: 'hidden', 
+                      border: 'var(--border-thin)',
+                      boxShadow: 'var(--shadow-subtle)',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
+                      <img 
+                        src={g.image} 
+                        alt={g.grade} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }}
+                        loading="lazy"
+                      />
+                      <span style={{ 
+                        position: 'absolute', 
+                        bottom: '0.75rem', 
+                        left: '0.75rem', 
+                        background: 'rgba(15, 16, 20, 0.85)', 
+                        color: 'var(--color-accent)', 
+                        padding: '0.3rem 0.75rem', 
+                        borderRadius: '9999px',
+                        fontSize: '0.75rem',
+                        fontWeight: '800',
+                        letterSpacing: '0.08em'
+                      }}>
+                        {g.grade}
+                      </span>
+                    </div>
+                    <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                      <h4 className="font-display" style={{ fontSize: '1.25rem', color: 'var(--color-primary-dark)', marginBottom: '0.5rem' }}>
+                        {g.focus}
+                      </h4>
+                      <p className="text-body" style={{ fontSize: '0.9rem', lineHeight: '1.65' }}>
+                        {g.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

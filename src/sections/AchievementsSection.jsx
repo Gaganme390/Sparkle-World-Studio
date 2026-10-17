@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { achievementsData, statisticsPillars } from '../data/achievements';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
+import KineticFlair from '../components/KineticFlair';
 import './AchievementsSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,14 +47,17 @@ export default function AchievementsSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">11 — MILESTONES & LAURELS</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              MILESTONES & LAURELS
+              <KineticFlair type="star" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="A CULTURE OF EXCELLENCE."
+            text="A CULTURE OF EXCELLENCE"
             delay={0.1}
           />
 
@@ -80,7 +84,13 @@ export default function AchievementsSection() {
             <div key={idx} className="achievement-card hover-lift">
               {item.image && (
                 <div className="achieve-img-wrap">
-                  <img src={item.image} alt={item.title} className="achieve-img" loading="lazy" />
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="achieve-img" 
+                    loading="lazy" 
+                    style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
+                  />
                 </div>
               )}
               <div className="achieve-body">

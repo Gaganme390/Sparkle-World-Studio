@@ -5,6 +5,7 @@ import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
+import KineticFlair from '../components/KineticFlair';
 import './ExperienceSection.css';
 
 export default function ExperienceSection({ setCurrentRoute }) {
@@ -14,14 +15,17 @@ export default function ExperienceSection({ setCurrentRoute }) {
         <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <ScrollReveal variant="fadeUp">
-              <span className="tag-label">06 — EXPERIENCE GOENKA</span>
+              <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+                EXPERIENCE GOENKA
+                <KineticFlair type="burst" size={15} />
+              </span>
             </ScrollReveal>
             
             <AnimatedText 
               as="h2"
               className="heading-section" 
               style={{ marginTop: '0.5rem' }}
-              text="EDUCATION DOESN'T END<br />AT THE CLASSROOM."
+              text="A PEEK INTO THE LIFE<br />OF OUR LITTLE GOENKANS"
               delay={0.1}
             />
           </div>
@@ -32,9 +36,9 @@ export default function ExperienceSection({ setCurrentRoute }) {
                 className="btn-enquire" 
                 onClick={() => { setCurrentRoute('/experience'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 style={{ marginTop: '1.5rem' }}
-                aria-label="Explore All 8 Pillars of Goenka Experience"
+                aria-label="Explore All Experience Pillars"
               >
-                Explore All 8 Pillars <ArrowRight size={16} />
+                Explore All Facilities <ArrowRight size={16} />
               </button>
             </MagneticButton>
           </ScrollReveal>
@@ -52,7 +56,6 @@ export default function ExperienceSection({ setCurrentRoute }) {
                 />
               </div>
               <div className="exp-body">
-                <span className="exp-num">{item.number}</span>
                 <h3 className="exp-title">{item.title}</h3>
                 <p className="exp-desc">{item.subtitle}</p>
                 <a 

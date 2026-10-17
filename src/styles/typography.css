@@ -1,3 +1,95 @@
+/* ==========================================================================
+   OFFICIAL BRAND TYPOGRAPHY: POLYMATH (FROM K12 ASSETS STARTER PACK)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-LightIt.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-MediumIt.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-SemiboldIt.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-BoldIt.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Polymath';
+  src: url('/fonts/polymath/Polymath-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Typography Global Rules */
 body {
   font-family: var(--font-body);
@@ -11,10 +103,10 @@ body {
 h1, h2, h3, h4, h5, h6,
 .font-display {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--color-primary-dark);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 /* Fluid Responsive Typography Classes */

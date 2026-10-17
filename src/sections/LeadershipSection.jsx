@@ -5,6 +5,7 @@ import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
+import KineticFlair from '../components/KineticFlair';
 import './LeadershipSection.css';
 
 export default function LeadershipSection({ setCurrentRoute }) {
@@ -13,14 +14,17 @@ export default function LeadershipSection({ setCurrentRoute }) {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">10 — ACADEMIC GOVERNANCE</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              ACADEMIC GOVERNANCE
+              <KineticFlair type="burst" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="PEOPLE WHO LEAD WITH PURPOSE."
+            text="PEOPLE WHO LEAD WITH PURPOSE"
             delay={0.1}
           />
 

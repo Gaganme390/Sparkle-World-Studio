@@ -42,7 +42,17 @@ import './styles/globals.css';
 import './App.css';
 
 export default function App() {
-  const [currentRoute, setCurrentRouteState] = useState(window.location.pathname || '/');
+  // Normalize path helper (e.g. '/gallery/' -> '/gallery')
+  const getNormalizedRoute = () => {
+    if (typeof window === 'undefined') return '/';
+    const path = window.location.pathname;
+    if (path.length > 1 && path.endsWith('/')) {
+      return path.slice(0, -1);
+    }
+    return path || '/';
+  };
+
+  const [currentRoute, setCurrentRouteState] = useState(getNormalizedRoute);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [isVisitOpen, setIsVisitOpen] = useState(false);
@@ -55,14 +65,26 @@ export default function App() {
   const [visitMounted, setVisitMounted] = useState(false);
   const [feeMounted, setFeeMounted] = useState(false);
 
-  // Transition-wrapped route updater
+  // Transition-wrapped route updater with HTML5 History API support
   const setCurrentRoute = (newRoute) => {
     if (newRoute === currentRoute) return;
+    if (typeof window !== 'undefined' && window.location.pathname !== newRoute) {
+      window.history.pushState({}, '', newRoute);
+    }
     animatePageTransition(() => {
       setCurrentRouteState(newRoute);
       window.scrollTo(0, 0);
     });
   };
+
+  // Sync route on browser Back/Forward (popstate event)
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentRouteState(getNormalizedRoute());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => { if (isMenuOpen && !menuMounted) setMenuMounted(true); }, [isMenuOpen]);
   useEffect(() => { if (isEnquiryOpen && !enquiryMounted) setEnquiryMounted(true); }, [isEnquiryOpen]);

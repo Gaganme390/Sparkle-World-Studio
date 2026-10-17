@@ -75,6 +75,7 @@ export const happeningsData = [
     summary: 'The four houses — Teresa, Vivekananda, Radhakrishnan, and Tagore — showcased eco-friendly rangoli artistry, with Tagore House taking first place.',
     content: 'G.D. Goenka School, Ayodhya celebrated Diwali with creativity and devotion. Students brought to life the story of Lord Rama’s return to Ayodhya through theatrical performances. An effigy of Ravan representing ten negative habits was symbolically burnt, with students taking pledges for self-improvement.\n\nIn the Inter-House Rangoli Competition, teams from Teresa, Vivekananda, Radhakrishnan, and Tagore houses designed intricate eco-friendly motifs. After rigorous evaluation, Tagore House clinched the winner\'s trophy. Junior students engaged in diya decoration, greeting card crafting, and paper lanterns, spreading joy and positivity.',
     image: '/school-media/Diwali/IMG-20251019-WA0054.jpg',
+    objectPosition: 'center 28%',
     featured: false
   },
   {

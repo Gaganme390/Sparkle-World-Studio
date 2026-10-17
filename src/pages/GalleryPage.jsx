@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye } from 'lucide-react';
+import { Eye, Play } from 'lucide-react';
 import { galleryItems, galleryCategories } from '../data/gallery';
 import { useSchoolData } from '../hooks/useSchoolData';
 import AnimatedText from '../components/AnimatedText';
@@ -12,6 +12,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
   const { gallery } = useSchoolData();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [lightboxPlaying, setLightboxPlaying] = useState(false);
 
   const allItems = gallery && gallery.length > 0 ? gallery : galleryItems;
 
@@ -33,6 +34,16 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
     else setLightboxIndex(0);
   };
 
+  const handleOpenPhoto = (idx) => {
+    setLightboxIndex(idx);
+    setLightboxPlaying(false);
+  };
+
+  const handleStartSlideshow = () => {
+    setLightboxIndex(0);
+    setLightboxPlaying(true);
+  };
+
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
       {/* Header */}
@@ -46,14 +57,26 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="CAMPUS GALLERY."
+            text="CAMPUS GALLERY"
             delay={0.1}
           />
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
-            <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              Explore our state-of-the-art classrooms, sports arenas, art studios, and vibrant student life moments across Ayodhya campus.
-            </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.25rem' }}>
+              <p className="text-editorial-lead" style={{ maxWidth: '680px', margin: 0 }}>
+                Explore our state-of-the-art classrooms, sports arenas, art studios, and vibrant student life moments across Ayodhya campus.
+              </p>
+              <button 
+                type="button"
+                onClick={handleStartSlideshow}
+                className="gallery-start-slideshow-pill"
+                style={{ padding: '0.85rem 1.6rem', fontSize: '0.92rem' }}
+                title="Start Fullscreen Slideshow"
+              >
+                <Play size={17} fill="currentColor" />
+                <span>START SLIDESHOW</span>
+              </button>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -61,17 +84,29 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
       {/* Masonry Grid */}
       <section className="section-padding theme-pure-white">
         <div className="container">
-          {/* Category Tabs */}
-          <ScrollReveal variant="fadeUp" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`academic-tab-btn ${selectedCategory === cat ? 'active' : ''}`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Category Tabs & Quick Slideshow Button */}
+          <ScrollReveal variant="fadeUp" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`academic-tab-btn ${selectedCategory === cat ? 'active' : ''}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleStartSlideshow}
+              className="gallery-start-slideshow-pill"
+              title={`Start Slideshow for ${selectedCategory}`}
+            >
+              <Play size={15} fill="currentColor" />
+              <span>Start Slideshow ({filteredItems.length})</span>
+            </button>
           </ScrollReveal>
 
           {/* Masonry Layout */}
@@ -79,7 +114,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
             {filteredItems.map((item, idx) => (
               <div 
                 key={item.id}
-                onClick={() => setLightboxIndex(idx)}
+                onClick={() => handleOpenPhoto(idx)}
                 style={{ 
                   position: 'relative', 
                   borderRadius: 'var(--radius-md)', 
@@ -90,7 +125,7 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
                 }}
                 className="hover-scale-img"
               >
-                <ImageReveal src={item.image} alt={item.title} width="600" height="320" style={{ height: '100%' }} />
+                <ImageReveal src={item.image} alt={item.title} width="600" height="320" style={{ height: '100%' }} objectPosition={item.objectPosition || 'center 25%'} />
                 <div 
                   style={{
                     position: 'absolute',
@@ -123,9 +158,13 @@ export default function GalleryPage({ onOpenEnquiry, setCurrentRoute }) {
       <Lightbox 
         item={currentItem}
         items={filteredItems}
-        onClose={() => setLightboxIndex(null)}
+        onClose={() => {
+          setLightboxIndex(null);
+          setLightboxPlaying(false);
+        }}
         onPrev={handlePrev}
         onNext={handleNext}
+        initialPlaying={lightboxPlaying}
       />
 
       <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />

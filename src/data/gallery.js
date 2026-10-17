@@ -47,6 +47,7 @@ export const galleryItems = [
     title: 'Inter-House Diwali Rangoli Artistry (Tagore House)',
     caption: 'Eco-friendly rangoli designs depicting unity, lights, and cultural celebration created by the four houses.',
     image: '/school-media/Diwali/IMG-20251019-WA0054.jpg',
+    objectPosition: 'center 28%',
     spanTwo: false
   },
   {
@@ -126,7 +127,39 @@ export const galleryItems = [
     category: 'Academics',
     title: 'Computer Science & Interactive Digital Coding Suites',
     caption: 'Students developing computational thinking, logic algorithms, and digital fluency in our modern IT laboratory.',
-    image: '/school-media/Digital Lab/computer_lab_students.jpg',
+    image: '/school-media/New Pages/Page 6/DSC07306.JPG',
     spanTwo: false
+  },
+  {
+    id: 17,
+    category: 'Academics',
+    title: 'Robotics & AI Hands-on Building Lab',
+    caption: 'Curiosity meets technology as students explore robotics, coding, sensors, and intelligent machines.',
+    image: '/school-media/New Pages/Page 6/DSC00033.JPG',
+    spanTwo: true
+  },
+  {
+    id: 18,
+    category: 'Student Life',
+    title: 'Montessori Learning Centre & Tactile Discovery',
+    caption: 'Hands-on sensorial materials developing coordination, concentration, and independence in early years.',
+    image: '/school-media/New Pages/Page 7/DSC07267.JPG',
+    spanTwo: false
+  },
+  {
+    id: 19,
+    category: 'Academics',
+    title: 'Public Speaking Arena & Oratory Confidence',
+    caption: 'Students learning to organise thoughts, articulate ideas clearly, and connect with audiences.',
+    image: '/school-media/New Pages/Page 9/IMG20260916111006.jpg',
+    spanTwo: false
+  },
+  {
+    id: 20,
+    category: 'Campus',
+    title: 'Smart Classrooms with Interactive Learning Tech',
+    caption: 'Spacious, air-conditioned smart classrooms bringing interactive lessons to life across all grades.',
+    image: '/school-media/New Pages/Page 5/DSC07332.JPG',
+    spanTwo: true
   }
 ];

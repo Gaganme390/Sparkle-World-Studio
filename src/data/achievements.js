@@ -13,7 +13,8 @@ export const achievementsData = [
     highlight: "Comprehensive Track & Field Laurels",
     desc: "Spirited student performance across 100m dashes, obstacle runs, relays, and long jump, celebrated with podium medal felicitations.",
     year: "2025",
-    image: "/school-media/Atheletic Meet/Winners.JPG"
+    image: "/school-media/Atheletic Meet/Winners.JPG",
+    objectPosition: "center 22%"
   },
   {
     category: "Cultural & Arts",
@@ -21,7 +22,8 @@ export const achievementsData = [
     highlight: "Tagore House Champions",
     desc: "Artistic excellence demonstrated among the four houses — Teresa, Vivekananda, Radhakrishnan, and Tagore — blending cultural heritage with eco-friendly motifs.",
     year: "2025",
-    image: "/school-media/Diwali/IMG-20251019-WA0054.jpg"
+    image: "/school-media/Diwali/IMG-20251019-WA0054.jpg",
+    objectPosition: "center 28%"
   },
   {
     category: "Academic Innovation",
@@ -29,7 +31,8 @@ export const achievementsData = [
     highlight: "Future-Ready Fluency Benchmark",
     desc: "Inauguration and parent demonstration by Principal Dr. Abin C. Raj, providing interactive audio-visual speech analysis and global communication skills.",
     year: "2025",
-    image: "/school-media/Digital Lab/1.jpeg"
+    image: "/school-media/Digital Lab/1.jpeg",
+    objectPosition: "center 38%"
   },
   {
     category: "Eco Stewardship",
@@ -37,7 +40,8 @@ export const achievementsData = [
     highlight: "UKG Eco Leadership",
     desc: "Young Goenkans learning the art of environmental responsibility by transforming discarded CDs and bulbs into artistic, functional clocks.",
     year: "2025",
-    image: "/school-media/E-Waste/12.jpg"
+    image: "/school-media/E-Waste/12.jpg",
+    objectPosition: "center 50%"
   }
 ];
 

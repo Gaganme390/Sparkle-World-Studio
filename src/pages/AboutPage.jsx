@@ -21,7 +21,7 @@ export default function AboutPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute 
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="OUR STORY & LEGACY."
+            text="OUR STORY & LEGACY"
             delay={0.1}
           />
 

@@ -27,7 +27,7 @@ export default function CareersPage({ onOpenEnquiry, setCurrentRoute }) {
         <div className="container">
           <span className="tag-label">JOIN OUR EDUCATIONAL FAMILY</span>
           <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            WORK WITH US.
+            WORK WITH US
           </h1>
           <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
             Build the future of learning with G.D. Goenka School, Ayodhya. We invite passionate educators and administrative professionals to shape young minds.

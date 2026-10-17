@@ -1,19 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './KineticText.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Line-by-line text reveal using clip-path masks.
- * Wraps each line in an overflow-hidden container and clips it upward.
- *
- * @param {string} text - The text to animate (or use children)
- * @param {string} as - HTML tag (default 'h2')
- * @param {string} className - Additional CSS classes
- * @param {object} style - Additional inline styles
- * @param {number} delay - Delay before animation starts
- * @param {number} stagger - Delay between lines (default 0.12)
+ * AnimatedText - Line-by-line reveal with GSAP interactive character bouncing.
+ * Renders pure React character spans that survive re-renders from async hooks (useSchoolData).
  */
 export default function AnimatedText({
   children,
@@ -26,6 +20,41 @@ export default function AnimatedText({
   ...rest
 }) {
   const containerRef = useRef(null);
+  const content = text || (typeof children === 'string' ? children : null);
+
+  const handleCharBounce = (e) => {
+    const target = e.currentTarget;
+    if (!target) return;
+    target.style.opacity = '1';
+    if (target.dataset.animating === 'true') return;
+    target.dataset.animating = 'true';
+
+    const angle = (Math.random() - 0.5) * 16;
+    gsap.killTweensOf(target);
+    gsap.to(target, {
+      y: -12,
+      scaleY: 1.2,
+      scaleX: 0.9,
+      rotate: angle,
+      duration: 0.16,
+      ease: 'power2.out',
+      onComplete: () => {
+        gsap.to(target, {
+          y: 0,
+          scaleY: 1,
+          scaleX: 1,
+          rotate: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1.2, 0.35)',
+          clearProps: 'transform',
+          onComplete: () => {
+            target.style.opacity = '1';
+            delete target.dataset.animating;
+          }
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     const el = containerRef.current;
@@ -34,62 +63,110 @@ export default function AnimatedText({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
+    const chars = el.querySelectorAll('.bouncy-char');
+    if (chars.length === 0) return;
+
     const ctx = gsap.context(() => {
-      const lines = el.querySelectorAll('.anim-line');
-      if (lines.length === 0) return;
-
-      gsap.set(lines, { 
-        y: '110%',
-        opacity: 0,
-      });
-
-      gsap.to(lines, {
-        y: '0%',
-        opacity: 1,
-        duration: 0.9,
-        stagger,
-        delay,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
+      gsap.fromTo(chars,
+        {
+          opacity: 0,
+          y: 20,
         },
-      });
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          delay: delay,
+          stagger: {
+            each: 0.015,
+            from: 'start'
+          },
+          ease: 'power2.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 92%',
+            toggleActions: 'play none none none',
+            once: true
+          },
+          onComplete: () => {
+            chars.forEach((c) => {
+              c.style.opacity = '1';
+              c.style.transform = '';
+            });
+          }
+        }
+      );
     }, el);
 
-    return () => ctx.revert();
-  }, [delay, stagger]);
+    return () => {
+      ctx.revert();
+      chars.forEach((c) => {
+        c.style.opacity = '1';
+        c.style.transform = '';
+      });
+    };
+  }, [content, delay, stagger]);
 
-  // If text prop is provided, split on <br> or newlines
-  const content = text || (typeof children === 'string' ? children : null);
-
-  if (content) {
-    const lines = content.split(/\n|<br\s*\/?>/gi).filter(Boolean);
+  if (!content) {
     return (
       <Tag ref={containerRef} className={className} style={style} {...rest}>
-        {lines.map((line, i) => (
-          <span key={i} className="anim-line-mask" style={{ display: 'block', overflow: 'hidden' }}>
-            <span className="anim-line" style={{ display: 'block' }}
-              dangerouslySetInnerHTML={{ __html: line.trim() }}
-            />
-          </span>
-        ))}
+        {children}
       </Tag>
     );
   }
 
-  // For JSX children, wrap each child in a mask
-  const childArray = React.Children.toArray(children);
-  return (
-    <Tag ref={containerRef} className={className} style={style} {...rest}>
-      {childArray.map((child, i) => (
-        <span key={i} className="anim-line-mask" style={{ display: 'block', overflow: 'hidden' }}>
-          <span className="anim-line" style={{ display: 'block' }}>
-            {child}
-          </span>
+  // Split lines on <br>
+  const rawLines = content.split(/<br\s*\/?>/gi).filter(Boolean);
+
+  const renderWords = (str) => {
+    const words = str.trim().split(/\s+/).filter(Boolean);
+    return words.map((word, wIdx) => (
+      <React.Fragment key={wIdx}>
+        <span className="bouncy-word">
+          {Array.from(word).map((char, cIdx) => (
+            <span
+              key={cIdx}
+              className="bouncy-char"
+              aria-hidden="true"
+              onMouseEnter={handleCharBounce}
+            >
+              {char}
+            </span>
+          ))}
         </span>
-      ))}
+        {wIdx < words.length - 1 && (
+          <span className="bouncy-space">&nbsp;</span>
+        )}
+      </React.Fragment>
+    ));
+  };
+
+  return (
+    <Tag 
+      ref={containerRef} 
+      className={`bouncy-text-wrap ${className}`} 
+      style={style} 
+      aria-label={content.replace(/<[^>]+>/g, ' ')} 
+      {...rest}
+    >
+      {rawLines.map((rawLine, lIdx) => {
+        const trimmed = rawLine.trim();
+        const isSpan = /^<span[^>]*>(.*?)<\/span>$/i.test(trimmed);
+        if (isSpan) {
+          const innerText = trimmed.replace(/^<span[^>]*>|<\/span>$/gi, '');
+          return (
+            <span key={lIdx} className="bouncy-line intro-accent-line" style={{ display: 'block' }}>
+              {renderWords(innerText)}
+            </span>
+          );
+        }
+        return (
+          <span key={lIdx} className="bouncy-line" style={{ display: 'block' }}>
+            {renderWords(trimmed)}
+          </span>
+        );
+      })}
     </Tag>
   );
 }

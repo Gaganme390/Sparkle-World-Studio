@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage({ onOpenEnquiry, setCurrentRoute }) {
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.25rem' }}
-            text="PRIVACY POLICY."
+            text="PRIVACY POLICY"
             delay={0.1}
           />
           <p className="text-editorial-lead" style={{ maxWidth: '820px' }}>

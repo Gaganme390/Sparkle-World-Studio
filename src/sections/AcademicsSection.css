@@ -110,11 +110,20 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 460px;
+}
+
+.academics-img-frame .hover-scale-img {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .academics-img-frame img {
-  width: 100%;
-  height: clamp(380px, 50vh, 520px);
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
   display: block;
 }

@@ -30,11 +30,12 @@ export default function Footer({ setCurrentRoute, onOpenEnquiry }) {
           {/* Brand Column */}
           <div className="footer-brand-col">
             <div className="footer-logo">
-              <div className="logo-crest" style={{ background: '#E09145', color: '#17181D' }}>G</div>
-              <div>
-                <span className="footer-logo-title">GD GOENKA</span>
-                <div className="footer-logo-subtitle">AYODHYA</div>
-              </div>
+              <img 
+                src="/branding/gd_goenka_logo_light.png" 
+                alt="G.D. Goenka School Ayodhya Logo" 
+                className="footer-brand-logo"
+                height="48"
+              />
             </div>
             <p className="footer-brand-desc">
               Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya.

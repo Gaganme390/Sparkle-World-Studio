@@ -112,22 +112,23 @@ export default function AdminImageUpload({
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <label className="admin-input-label" style={{ margin: 0 }}>{label}</label>
-        <div style={{ display: 'flex', gap: '0.25rem', background: '#1A1C23', padding: '2px', borderRadius: '6px' }}>
+        <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--color-warm-gray-100, #F3EFEA)', padding: '3px', borderRadius: '6px' }}>
           <button
             type="button"
             onClick={() => setMode('upload')}
             style={{
-              background: mode === 'upload' ? 'var(--color-accent)' : 'transparent',
-              color: mode === 'upload' ? '#14151A' : '#94A3B8',
+              background: mode === 'upload' ? 'var(--color-primary-dark, #123985)' : 'transparent',
+              color: mode === 'upload' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
               border: 'none',
-              padding: '0.2rem 0.6rem',
+              padding: '0.25rem 0.65rem',
               borderRadius: '4px',
-              fontSize: '0.72rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px'
+              gap: '4px',
+              transition: 'all 0.2s ease'
             }}
           >
             <Upload size={12} /> Upload File
@@ -136,17 +137,18 @@ export default function AdminImageUpload({
             type="button"
             onClick={() => setMode('url')}
             style={{
-              background: mode === 'url' ? 'var(--color-accent)' : 'transparent',
-              color: mode === 'url' ? '#14151A' : '#94A3B8',
+              background: mode === 'url' ? 'var(--color-primary-dark, #123985)' : 'transparent',
+              color: mode === 'url' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
               border: 'none',
-              padding: '0.2rem 0.6rem',
+              padding: '0.25rem 0.65rem',
               borderRadius: '4px',
-              fontSize: '0.72rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px'
+              gap: '4px',
+              transition: 'all 0.2s ease'
             }}
           >
             <LinkIcon size={12} /> Web / GDrive URL
@@ -162,8 +164,8 @@ export default function AdminImageUpload({
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
           style={{
-            border: isDragging ? '2px dashed var(--color-accent)' : '1px dashed rgba(255, 255, 255, 0.2)',
-            background: isDragging ? 'rgba(224, 145, 69, 0.08)' : '#1A1C23',
+            border: isDragging ? '2px dashed var(--color-accent, #b39759)' : '1px dashed rgba(18, 57, 133, 0.25)',
+            background: isDragging ? 'rgba(179, 151, 89, 0.12)' : '#FAF8F5',
             borderRadius: '8px',
             padding: '1.25rem 1rem',
             textAlign: 'center',
@@ -178,11 +180,11 @@ export default function AdminImageUpload({
             accept="image/*" 
             style={{ display: 'none' }} 
           />
-          <Upload size={22} style={{ color: 'var(--color-accent)', margin: '0 auto 0.5rem auto' }} />
-          <div style={{ fontSize: '0.85rem', color: '#FFFFFF', fontWeight: 600 }}>
+          <Upload size={22} style={{ color: 'var(--color-accent, #b39759)', margin: '0 auto 0.5rem auto' }} />
+          <div style={{ fontSize: '0.85rem', color: 'var(--color-primary-dark, #123985)', fontWeight: 700 }}>
             Click to upload or drag photo here
           </div>
-          <div style={{ fontSize: '0.72rem', color: '#94A3B8', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '0.74rem', color: 'var(--color-warm-gray-600, #666666)', marginTop: '0.25rem' }}>
             Supports JPG, PNG, WEBP • Automatically compressed & auto-adjusted
           </div>
         </div>
@@ -208,27 +210,28 @@ export default function AdminImageUpload({
       )}
 
       {/* Helper text */}
-      <div style={{ fontSize: '0.72rem', color: '#64748B' }}>
+      <div style={{ fontSize: '0.74rem', color: 'var(--color-warm-gray-600, #666666)' }}>
         {helperText}
       </div>
 
       {/* Live Preview with Auto-Adjust formatting */}
       {value && (
-        <div style={{ marginTop: '0.5rem', background: '#121318', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', padding: '0.75rem' }}>
+        <div style={{ marginTop: '0.5rem', background: '#FFFFFF', border: '1px solid rgba(18, 57, 133, 0.12)', borderRadius: '8px', padding: '0.85rem', boxShadow: '0 2px 10px rgba(18, 57, 133, 0.04)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-accent)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-accent, #b39759)', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <Check size={13} /> Auto-Adjusted Format (Cover & Centered)
             </span>
             <button
               type="button"
               onClick={handleClear}
               style={{
-                background: 'rgba(239, 68, 68, 0.2)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
-                color: '#F87171',
-                padding: '0.15rem 0.45rem',
+                background: 'rgba(239, 68, 68, 0.12)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                color: '#DC2626',
+                padding: '0.15rem 0.5rem',
                 borderRadius: '4px',
-                fontSize: '0.7rem',
+                fontSize: '0.72rem',
+                fontWeight: 600,
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -247,8 +250,8 @@ export default function AdminImageUpload({
               maxHeight: '180px',
               borderRadius: '6px',
               overflow: 'hidden',
-              background: '#0B0C10',
-              border: '1px solid rgba(255, 255, 255, 0.08)'
+              background: '#F3EFEA',
+              border: '1px solid rgba(18, 57, 133, 0.08)'
             }}
           >
             <img
@@ -266,9 +269,9 @@ export default function AdminImageUpload({
               }}
             />
           </div>
-          <div style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '0.35rem', display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--color-warm-gray-600, #666666)', marginTop: '0.35rem', display: 'flex', justifyContent: 'space-between' }}>
             <span>Will display seamlessly on live cards & pages</span>
-            <span style={{ color: 'var(--color-accent)' }}>object-fit: cover</span>
+            <span style={{ color: 'var(--color-accent, #b39759)', fontWeight: 600 }}>object-fit: cover</span>
           </div>
         </div>
       )}

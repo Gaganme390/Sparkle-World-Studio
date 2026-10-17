@@ -50,7 +50,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCeleb
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="HAPPENINGS AT GOENKA."
+            text="HAPPENINGS AT GOENKA"
             delay={0.1}
           />
 
@@ -139,7 +139,7 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCeleb
                   cursor: 'pointer' 
                 }}
               >
-                <ImageReveal src={item.image} alt={item.title} width="600" height="220" style={{ height: '220px' }} />
+                <ImageReveal src={item.image} alt={item.title} width="600" height="220" style={{ height: '220px' }} objectPosition={item.objectPosition || 'center 25%'} />
                 <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: '800', marginBottom: '0.5rem' }}>
                     <span>{item.category}</span>

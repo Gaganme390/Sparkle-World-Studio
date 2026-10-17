@@ -1,6 +1,7 @@
 import React from 'react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
+import KineticFlair from '../components/KineticFlair';
 import './WhyGoenkaSection.css';
 
 const whyGoenkaPillars = [
@@ -42,7 +43,10 @@ export default function WhyGoenkaSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">09 — THE GOENKA ADVANTAGE</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              THE GOENKA ADVANTAGE
+              <KineticFlair type="diamond" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 

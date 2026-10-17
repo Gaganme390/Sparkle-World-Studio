@@ -20,11 +20,12 @@ export default function Preloader() {
   return (
     <div className={`preloader-container ${loaded ? 'loaded' : ''}`}>
       <div className="preloader-logo">
-        <div className="preloader-crest">G</div>
-        <div>
-          <span className="preloader-title">GD GOENKA</span>
-          <div className="preloader-subtitle">AYODHYA</div>
-        </div>
+        <img 
+          src="/branding/gd_goenka_logo_light.png" 
+          alt="GD Goenka School Ayodhya Logo" 
+          className="preloader-brand-img"
+          height="56"
+        />
       </div>
       <div className="preloader-progress-bar">
         <div className="preloader-progress-fill" style={{ width: `${progress}%` }}></div>

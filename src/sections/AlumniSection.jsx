@@ -2,6 +2,7 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
+import KineticFlair from '../components/KineticFlair';
 import './AlumniSection.css';
 
 export default function AlumniSection() {
@@ -10,14 +11,17 @@ export default function AlumniSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">13 — COMMUNITY & ALUMNI LEGACY</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              COMMUNITY & ALUMNI LEGACY
+              <KineticFlair type="burst" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="THE JOURNEY CONTINUES."
+            text="THE JOURNEY CONTINUES"
             delay={0.1}
           />
         </div>

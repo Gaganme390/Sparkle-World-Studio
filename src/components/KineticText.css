@@ -1,0 +1,42 @@
+/* ==========================================================================
+   GSAP BOUNCY & KINETIC CHARACTER TYPOGRAPHY
+   ========================================================================== */
+
+.bouncy-text-wrap {
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+}
+
+.bouncy-line {
+  display: block;
+}
+
+.bouncy-word {
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+.bouncy-char {
+  display: inline-block !important;
+  position: relative;
+  opacity: 1;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.12s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.bouncy-char:hover {
+  z-index: 5;
+}
+
+.bouncy-space {
+  display: inline-block !important;
+  white-space: pre !important;
+}
+
+/* Accent variant */
+.bouncy-accent .bouncy-char {
+  color: var(--color-accent, #b39759);
+}

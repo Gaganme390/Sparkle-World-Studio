@@ -11,7 +11,7 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
         <div className="container">
           <span className="tag-label">DIRECT CAMPUS CONNECT</span>
           <h1 className="heading-hero" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            CONTACT US.
+            CONTACT US
           </h1>
           <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
             We welcome parents, guardians, and visitors to connect with our campus administration or visit us in Ayodhya.

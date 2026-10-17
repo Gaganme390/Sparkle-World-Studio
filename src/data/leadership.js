@@ -32,7 +32,7 @@ export const houseSystem = [
   {
     name: "TAGORE HOUSE",
     element: "Wisdom, Literature & Art",
-    color: "#E09145",
+    color: "#b39759",
     motto: "Where the Mind is Without Fear",
     desc: "Champions of the Diwali Inter-House Rangoli Competition and literary forums, inspiring creative expression and artistic mastery."
   },

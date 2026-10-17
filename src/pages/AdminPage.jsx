@@ -324,7 +324,7 @@ export default function AdminPage({ setCurrentRoute }) {
             </button>
           </form>
 
-          <div style={{ marginTop: '2rem', borderTop: '1px solid #22252F', paddingTop: '1.25rem' }}>
+          <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(18, 57, 133, 0.12)', paddingTop: '1.25rem' }}>
             <button 
               type="button" 
               onClick={() => setCurrentRoute('/')}
@@ -349,7 +349,7 @@ export default function AdminPage({ setCurrentRoute }) {
         <div className="admin-nav-brand">
           <div className="admin-crest-small">G</div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#FFFFFF', letterSpacing: '0.04em' }}>
+            <div style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--color-primary-dark, #123985)', letterSpacing: '0.04em' }}>
               GD GOENKA AYODHYA
             </div>
             <div style={{ fontSize: '0.75rem', color: 'var(--color-accent)' }}>
@@ -503,9 +503,9 @@ export default function AdminPage({ setCurrentRoute }) {
               {importStatusMessage && (
                 <div 
                   style={{
-                    background: importStatusMessage.type === 'success' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                    border: `1px solid ${importStatusMessage.type === 'success' ? '#22C55E' : '#EF4444'}`,
-                    color: importStatusMessage.type === 'success' ? '#4ADE80' : '#FCA5A5',
+                    background: importStatusMessage.type === 'success' ? '#F0FDF4' : '#FEF2F2',
+                    border: `1px solid ${importStatusMessage.type === 'success' ? '#BBF7D0' : '#FECACA'}`,
+                    color: importStatusMessage.type === 'success' ? '#15803D' : '#B91C1C',
                     padding: '1rem 1.25rem',
                     borderRadius: 'var(--radius-md)',
                     marginBottom: '1.5rem',
@@ -577,23 +577,23 @@ export default function AdminPage({ setCurrentRoute }) {
                       <button 
                         type="button" 
                         onClick={() => setImportPreview(null)}
-                        style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                        style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
                       >
                         <X size={20} />
                       </button>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem', background: '#1F222B', padding: '1rem', borderRadius: 'var(--radius-sm)' }}>
+                    <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem', background: 'var(--color-warm-gray-100, #F3EFEA)', border: '1px solid rgba(18, 57, 133, 0.08)', padding: '1rem', borderRadius: 'var(--radius-sm)' }}>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Total Rows</div>
-                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF' }}>{importPreview.totalRows}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>Total Rows</div>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary-dark, #123985)' }}>{importPreview.totalRows}</div>
                       </div>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Valid Records</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>Valid Records</div>
                         <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#22C55E' }}>{importPreview.validCount}</div>
                       </div>
                       <div>
-                        <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Birthdays Today</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>Birthdays Today</div>
                         <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-accent)' }}>
                           {importPreview.students.filter((s) => isBirthdayToday(s.dob, simulatedDate)).length}
                         </div>
@@ -601,7 +601,7 @@ export default function AdminPage({ setCurrentRoute }) {
                     </div>
 
                     {importPreview.warnings && importPreview.warnings.length > 0 && (
-                      <div style={{ background: 'rgba(234, 179, 8, 0.1)', border: '1px solid #EAB308', padding: '0.75rem', borderRadius: '4px', marginBottom: '1.5rem', fontSize: '0.8rem', color: '#FDE047' }}>
+                      <div style={{ background: '#FEFCE8', border: '1px solid #FDE047', padding: '0.75rem', borderRadius: '4px', marginBottom: '1.5rem', fontSize: '0.8rem', color: '#854D0E' }}>
                         <strong>Note:</strong> {importPreview.warnings.length} rows had warnings (e.g. missing dates defaulted to today).
                       </div>
                     )}
@@ -628,7 +628,7 @@ export default function AdminPage({ setCurrentRoute }) {
                         </tbody>
                       </table>
                       {importPreview.students.length > 10 && (
-                        <p style={{ textAlign: 'center', fontSize: '0.78rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+                        <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)', marginTop: '0.5rem' }}>
                           Showing first 10 of {importPreview.students.length} students...
                         </p>
                       )}
@@ -665,8 +665,8 @@ export default function AdminPage({ setCurrentRoute }) {
               {/* Date Simulator Bar (Test birthday banner for ANY date!) */}
               <div 
                 style={{
-                  background: '#17181D',
-                  border: '1px solid rgba(224, 145, 69, 0.25)',
+                  background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)',
+                  border: '1px solid rgba(179, 151, 89, 0.3)',
                   padding: '1rem 1.5rem',
                   borderRadius: 'var(--radius-md)',
                   marginBottom: '2rem',
@@ -680,10 +680,10 @@ export default function AdminPage({ setCurrentRoute }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <Sparkles size={18} style={{ color: 'var(--color-accent)' }} />
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>
                       Live Date Simulator
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                       Test what parents and students see on the website for any chosen date!
                     </div>
                   </div>
@@ -713,7 +713,7 @@ export default function AdminPage({ setCurrentRoute }) {
               {/* Search & Filter Controls */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
                 <div style={{ position: 'relative', width: '320px' }}>
-                  <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+                  <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-warm-gray-600, #555555)' }} />
                   <input 
                     type="text" 
                     className="admin-input"
@@ -784,14 +784,14 @@ export default function AdminPage({ setCurrentRoute }) {
                                   </div>
                                 )}
                                 <div>
-                                  <div style={{ fontWeight: 700, color: '#FFFFFF' }}>{student.name}</div>
-                                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>ID: {student.id.slice(0, 10)}</div>
+                                  <div style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>{student.name}</div>
+                                  <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>ID: {student.id.slice(0, 10)}</div>
                                 </div>
                               </div>
                             </td>
                             <td>
                               <span style={{ fontWeight: 600 }}>{student.grade}</span>
-                              {student.section && <span style={{ color: '#94A3B8' }}> - Sec {student.section}</span>}
+                              {student.section && <span style={{ color: 'var(--color-warm-gray-600, #555555)' }}> - Sec {student.section}</span>}
                             </td>
                             <td>{student.dob}</td>
                             <td>{age ? `${age} yrs` : '—'}</td>
@@ -804,7 +804,7 @@ export default function AdminPage({ setCurrentRoute }) {
                                 <span style={{ fontSize: '0.8rem', color: '#64748B' }}>Upcoming</span>
                               )}
                             </td>
-                            <td style={{ maxWidth: '240px', fontSize: '0.8rem', color: '#CBD5E1', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <td style={{ maxWidth: '240px', fontSize: '0.8rem', color: 'var(--color-warm-gray-800, #333333)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               "{student.wishes || '—'}"
                             </td>
                             <td style={{ textAlign: 'right' }}>
@@ -830,7 +830,7 @@ export default function AdminPage({ setCurrentRoute }) {
                       })
                     ) : (
                       <tr>
-                        <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#94A3B8' }}>
+                        <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                           No students matched your search criteria. Try clearing filters or importing your Excel sheet.
                         </td>
                       </tr>
@@ -889,8 +889,8 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* Quick Actions Card */}
-              <div style={{ background: '#17181D', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '1.1rem', color: '#FFFFFF', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--color-primary-dark, #123985)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Sparkles size={18} style={{ color: 'var(--color-accent)' }} /> Quick Actions
                 </h3>
                 <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -944,8 +944,8 @@ export default function AdminPage({ setCurrentRoute }) {
                   <div 
                     key={item.id}
                     style={{
-                      background: '#17181D',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)',
+                      border: '1px solid rgba(18, 57, 133, 0.08)',
                       borderRadius: 'var(--radius-md)',
                       overflow: 'hidden',
                       display: 'flex',
@@ -959,8 +959,8 @@ export default function AdminPage({ setCurrentRoute }) {
                           position: 'absolute',
                           top: '10px',
                           left: '10px',
-                          background: 'rgba(0,0,0,0.7)',
-                          color: 'var(--color-soft-accent)',
+                          background: 'rgba(0,0,0,0.75)',
+                          color: '#FFFFFF',
                           fontSize: '0.72rem',
                           fontWeight: 700,
                           padding: '0.2rem 0.6rem',
@@ -972,8 +972,8 @@ export default function AdminPage({ setCurrentRoute }) {
                     </div>
 
                     <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <h4 style={{ color: '#FFFFFF', fontSize: '1rem', marginBottom: '0.35rem' }}>{item.title}</h4>
-                      <p style={{ color: '#94A3B8', fontSize: '0.82rem', marginBottom: '1rem', flex: 1 }}>{item.caption}</p>
+                      <h4 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1rem', marginBottom: '0.35rem' }}>{item.title}</h4>
+                      <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.82rem', marginBottom: '1rem', flex: 1 }}>{item.caption}</p>
 
                       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <button 
@@ -1016,8 +1016,8 @@ export default function AdminPage({ setCurrentRoute }) {
                   <div 
                     key={item.id}
                     style={{
-                      background: '#17181D',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)',
+                      border: '1px solid rgba(18, 57, 133, 0.08)',
                       borderRadius: 'var(--radius-md)',
                       padding: '1.25rem',
                       display: 'flex',
@@ -1035,12 +1035,12 @@ export default function AdminPage({ setCurrentRoute }) {
                       />
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                          <span style={{ fontSize: '0.72rem', background: 'rgba(224, 145, 69, 0.2)', color: 'var(--color-soft-accent)', padding: '0.15rem 0.5rem', borderRadius: '4px', fontWeight: 700 }}>
+                          <span className="admin-badge-gold" style={{ fontSize: '0.72rem', padding: '0.15rem 0.55rem' }}>
                             {item.category}
                           </span>
-                          <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{item.date}</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>{item.date}</span>
                         </div>
-                        <h4 style={{ color: '#FFFFFF', fontSize: '1rem' }}>{item.title}</h4>
+                        <h4 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1rem' }}>{item.title}</h4>
                       </div>
                     </div>
 
@@ -1073,13 +1073,13 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* Birthday Banner Controls */}
-              <div style={{ background: '#17181D', border: '1px solid rgba(224, 145, 69, 0.3)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
+              <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(179, 151, 89, 0.35)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <Cake size={22} style={{ color: 'var(--color-accent)' }} />
                     <div>
-                      <h3 style={{ color: '#FFFFFF', fontSize: '1.15rem' }}>Website Birthday Celebration Banner</h3>
-                      <p style={{ color: '#94A3B8', fontSize: '0.85rem' }}>Displays automatically at the top of the website whenever students have birthdays today.</p>
+                      <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem' }}>Website Birthday Celebration Banner</h3>
+                      <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.85rem' }}>Displays automatically at the top of the website whenever students have birthdays today.</p>
                     </div>
                   </div>
 
@@ -1119,13 +1119,13 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* Urgent Admissions Ticker Controls */}
-              <div style={{ background: '#17181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+              <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <Megaphone size={22} style={{ color: 'var(--color-accent)' }} />
                     <div>
-                      <h3 style={{ color: '#FFFFFF', fontSize: '1.15rem' }}>Top Admissions / Alert Ticker</h3>
-                      <p style={{ color: '#94A3B8', fontSize: '0.85rem' }}>High-visibility notice strip for admission session updates and urgent school circulars.</p>
+                      <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem' }}>Top Admissions / Alert Ticker</h3>
+                      <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.85rem' }}>High-visibility notice strip for admission session updates and urgent school circulars.</p>
                     </div>
                   </div>
 
@@ -1207,13 +1207,13 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* Sub-tab Navigation */}
-              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(18, 57, 133, 0.08)', paddingBottom: '0.75rem' }}>
                 <button
                   type="button"
                   onClick={() => setEnquiriesSubTab('enquiries')}
                   style={{
-                    background: enquiriesSubTab === 'enquiries' ? 'var(--color-accent)' : '#1A1C23',
-                    color: enquiriesSubTab === 'enquiries' ? '#14151A' : '#94A3B8',
+                    background: enquiriesSubTab === 'enquiries' ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                    color: enquiriesSubTab === 'enquiries' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
                     border: 'none',
                     padding: '0.5rem 1.15rem',
                     borderRadius: '8px',
@@ -1232,8 +1232,8 @@ export default function AdminPage({ setCurrentRoute }) {
                   type="button"
                   onClick={() => setEnquiriesSubTab('visits')}
                   style={{
-                    background: enquiriesSubTab === 'visits' ? 'var(--color-accent)' : '#1A1C23',
-                    color: enquiriesSubTab === 'visits' ? '#14151A' : '#94A3B8',
+                    background: enquiriesSubTab === 'visits' ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                    color: enquiriesSubTab === 'visits' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
                     border: 'none',
                     padding: '0.5rem 1.15rem',
                     borderRadius: '8px',
@@ -1269,18 +1269,18 @@ export default function AdminPage({ setCurrentRoute }) {
                       {enquiries.length > 0 ? (
                         enquiries.map((enq) => (
                           <tr key={enq.id}>
-                            <td style={{ fontWeight: 700, color: '#FFFFFF' }}>{enq.parentName}</td>
+                            <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>{enq.parentName}</td>
                             <td>
                               <div>{enq.phone}</div>
-                              <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>{enq.email}</div>
+                              <div style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>{enq.email}</div>
                             </td>
                             <td>{enq.childName}</td>
                             <td>
-                              <span style={{ background: 'rgba(224, 145, 69, 0.15)', color: 'var(--color-soft-accent)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.78rem', fontWeight: 700 }}>
+                              <span className="admin-badge-gold" style={{ fontSize: '0.78rem' }}>
                                 {enq.applyingGrade}
                               </span>
                             </td>
-                            <td style={{ maxWidth: '240px', fontSize: '0.78rem', color: '#CBD5E1' }}>
+                            <td style={{ maxWidth: '240px', fontSize: '0.78rem', color: 'var(--color-warm-gray-800, #333333)' }}>
                               <div style={{ fontWeight: 600, color: 'var(--color-accent)', marginBottom: '2px' }}>
                                 {enq.preferredDate || 'General Query'}
                               </div>
@@ -1315,7 +1315,7 @@ export default function AdminPage({ setCurrentRoute }) {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#94A3B8' }}>
+                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                             No parent enquiries received yet.
                           </td>
                         </tr>
@@ -1344,7 +1344,7 @@ export default function AdminPage({ setCurrentRoute }) {
                       {(campusVisits && campusVisits.length > 0) ? (
                         campusVisits.map((vis) => (
                           <tr key={vis.id}>
-                            <td style={{ fontWeight: 700, color: '#FFFFFF' }}>
+                            <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>
                               <div>{vis.parentName}</div>
                               {vis.visitorCount && (
                                 <div style={{ fontSize: '0.75rem', color: 'var(--color-accent)' }}>
@@ -1354,29 +1354,29 @@ export default function AdminPage({ setCurrentRoute }) {
                             </td>
                             <td>
                               <div>{vis.phone}</div>
-                              <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>{vis.email}</div>
+                              <div style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>{vis.email}</div>
                             </td>
                             <td>
                               <div>{vis.childName || 'Prospective Student'}</div>
                               {vis.gradeApplying && (
-                                <span style={{ background: 'rgba(224, 145, 69, 0.15)', color: 'var(--color-soft-accent)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
+                                <span className="admin-badge-gold" style={{ fontSize: '0.75rem', marginTop: '4px' }}>
                                   {vis.gradeApplying}
                                 </span>
                               )}
                             </td>
                             <td>
-                              <div style={{ fontWeight: 600, color: '#FFFFFF' }}>{vis.preferredDate || 'TBD'}</div>
-                              <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{vis.preferredTime || 'Morning Session'}</div>
+                              <div style={{ fontWeight: 600, color: 'var(--color-primary-dark, #123985)' }}>{vis.preferredDate || 'TBD'}</div>
+                              <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>{vis.preferredTime || 'Morning Session'}</div>
                             </td>
                             <td style={{ maxWidth: '220px', fontSize: '0.78rem' }}>
                               <div style={{ color: 'var(--color-accent)', fontWeight: 600 }}>{vis.tourType || 'Comprehensive Campus Tour'}</div>
                               {vis.interests && vis.interests.length > 0 && (
-                                <div style={{ color: '#94A3B8', fontSize: '0.72rem', marginTop: '2px' }}>
+                                <div style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.72rem', marginTop: '2px' }}>
                                   {vis.interests.slice(0, 3).join(', ')}
                                 </div>
                               )}
                               {vis.specialRequests && (
-                                <div style={{ color: '#CBD5E1', fontStyle: 'italic', fontSize: '0.72rem', marginTop: '2px' }} title={vis.specialRequests}>
+                                <div style={{ color: 'var(--color-warm-gray-800, #333333)', fontStyle: 'italic', fontSize: '0.72rem', marginTop: '2px' }} title={vis.specialRequests}>
                                   "{vis.specialRequests.slice(0, 45)}{vis.specialRequests.length > 45 ? '...' : ''}"
                                 </div>
                               )}
@@ -1408,7 +1408,7 @@ export default function AdminPage({ setCurrentRoute }) {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#94A3B8' }}>
+                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                             No campus visit bookings received yet.
                           </td>
                         </tr>
@@ -1467,13 +1467,13 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* Subtabs for Careers */}
-              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid #22252F', paddingBottom: '1rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(18, 57, 133, 0.12)', paddingBottom: '1rem' }}>
                 <button
                   type="button"
                   onClick={() => setCareersSubTab('openings')}
                   style={{
-                    background: careersSubTab === 'openings' ? 'var(--color-accent)' : '#1A1C23',
-                    color: careersSubTab === 'openings' ? '#14151A' : '#94A3B8',
+                    background: careersSubTab === 'openings' ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                    color: careersSubTab === 'openings' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
                     border: 'none',
                     padding: '0.5rem 1.15rem',
                     borderRadius: '8px',
@@ -1492,8 +1492,8 @@ export default function AdminPage({ setCurrentRoute }) {
                   type="button"
                   onClick={() => setCareersSubTab('applications')}
                   style={{
-                    background: careersSubTab === 'applications' ? 'var(--color-accent)' : '#1A1C23',
-                    color: careersSubTab === 'applications' ? '#14151A' : '#94A3B8',
+                    background: careersSubTab === 'applications' ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                    color: careersSubTab === 'applications' ? '#FFFFFF' : 'var(--color-warm-gray-600, #555555)',
                     border: 'none',
                     padding: '0.5rem 1.15rem',
                     borderRadius: '8px',
@@ -1531,37 +1531,24 @@ export default function AdminPage({ setCurrentRoute }) {
                           const isOpen = job.status !== 'Closed';
                           return (
                             <tr key={job.id}>
-                              <td style={{ fontWeight: 700, color: '#FFFFFF', maxWidth: '280px' }}>
+                              <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)', maxWidth: '280px' }}>
                                 <div>{job.title}</div>
                                 {job.postedDate && (
-                                  <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>Posted: {job.postedDate}</div>
+                                  <div style={{ fontSize: '0.72rem', color: 'var(--color-warm-gray-600, #555555)' }}>Posted: {job.postedDate}</div>
                                 )}
                               </td>
                               <td>
-                                <span style={{ background: 'rgba(224, 145, 69, 0.15)', color: 'var(--color-soft-accent)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
+                                <span className="admin-badge-gold">
                                   {job.wing}
                                 </span>
                               </td>
                               <td>
-                                <span style={{ fontSize: '0.78rem', color: '#E2E8F0', fontWeight: 600 }}>{job.type}</span>
+                                <span style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-800, #333333)', fontWeight: 600 }}>{job.type}</span>
                               </td>
-                              <td style={{ fontSize: '0.82rem', color: '#CBD5E1' }}>{job.experience}</td>
-                              <td style={{ fontSize: '0.8rem', color: '#94A3B8', maxWidth: '220px' }}>{job.qualification}</td>
+                              <td style={{ fontSize: '0.82rem', color: 'var(--color-warm-gray-800, #333333)' }}>{job.experience}</td>
+                              <td style={{ fontSize: '0.8rem', color: 'var(--color-warm-gray-600, #555555)', maxWidth: '220px' }}>{job.qualification}</td>
                               <td>
-                                <span 
-                                  style={{ 
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    padding: '3px 10px',
-                                    borderRadius: '12px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 700,
-                                    background: isOpen ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                                    color: isOpen ? '#4ADE80' : '#F87171',
-                                    border: `1px solid ${isOpen ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
-                                  }}
-                                >
+                                <span className={isOpen ? 'admin-badge-success' : 'admin-badge-danger'}>
                                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: isOpen ? '#22C55E' : '#EF4444' }}></span>
                                   {isOpen ? 'Open' : 'Closed'}
                                 </span>
@@ -1575,8 +1562,9 @@ export default function AdminPage({ setCurrentRoute }) {
                                     padding: '0.35rem 0.75rem',
                                     fontSize: '0.75rem',
                                     marginRight: '0.5rem',
-                                    color: isOpen ? '#FCA5A5' : '#86EFAC',
-                                    borderColor: isOpen ? 'rgba(239, 68, 68, 0.4)' : 'rgba(34, 197, 94, 0.4)'
+                                    color: isOpen ? '#B91C1C' : '#15803D',
+                                    borderColor: isOpen ? 'rgba(185, 28, 28, 0.35)' : 'rgba(21, 128, 61, 0.35)',
+                                    background: isOpen ? 'rgba(239, 68, 68, 0.04)' : 'rgba(34, 197, 94, 0.04)'
                                   }}
                                   title={isOpen ? 'Close position to stop receiving applications' : 'Re-open position'}
                                 >
@@ -1600,7 +1588,7 @@ export default function AdminPage({ setCurrentRoute }) {
                         })
                       ) : (
                         <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#94A3B8' }}>
+                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                             No job openings created yet. Click "+ Post New Job Opening" to add one.
                           </td>
                         </tr>
@@ -1629,21 +1617,21 @@ export default function AdminPage({ setCurrentRoute }) {
                       {(jobApplications && jobApplications.length > 0) ? (
                         jobApplications.map((app) => (
                           <tr key={app.id}>
-                            <td style={{ fontWeight: 700, color: '#FFFFFF' }}>
+                            <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>
                               <div>{app.applicantName}</div>
-                              <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>Ref: {app.id}</div>
+                              <div style={{ fontSize: '0.72rem', color: 'var(--color-warm-gray-600, #555555)' }}>Ref: {app.id}</div>
                             </td>
                             <td>
                               <div>{app.phone}</div>
-                              <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>{app.email}</div>
+                              <div style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>{app.email}</div>
                             </td>
                             <td>
                               <div style={{ fontWeight: 600, color: 'var(--color-accent)' }}>{app.positionApplied}</div>
-                              <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>{app.wing}</span>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--color-warm-gray-600, #555555)' }}>{app.wing}</span>
                             </td>
                             <td style={{ fontSize: '0.8rem' }}>
-                              <div style={{ color: '#E2E8F0' }}>{app.experienceYears}</div>
-                              <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{app.qualification}</div>
+                              <div style={{ color: 'var(--color-warm-gray-800, #333333)' }}>{app.experienceYears}</div>
+                              <div style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>{app.qualification}</div>
                             </td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               {app.resumeFileData ? (
@@ -1651,7 +1639,7 @@ export default function AdminPage({ setCurrentRoute }) {
                                   href={app.resumeFileData} 
                                   download={app.resumeFileName || `${app.applicantName.replace(/\s+/g, '_')}_Resume.pdf`}
                                   className="btn-admin-secondary"
-                                  style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#86EFAC', borderColor: 'rgba(34, 197, 94, 0.4)' }}
+                                  style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#15803D', borderColor: 'rgba(21, 128, 61, 0.35)', background: 'rgba(34, 197, 94, 0.06)' }}
                                   title={`Download ${app.resumeFileName || 'Resume'}`}
                                 >
                                   <Download size={12} /> {app.resumeFileName ? (app.resumeFileName.length > 14 ? app.resumeFileName.slice(0, 14) + '...' : app.resumeFileName) : 'Attached CV'}
@@ -1712,7 +1700,7 @@ export default function AdminPage({ setCurrentRoute }) {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#94A3B8' }}>
+                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                             No candidate job applications received yet.
                           </td>
                         </tr>
@@ -1737,8 +1725,8 @@ export default function AdminPage({ setCurrentRoute }) {
               </div>
 
               {/* PIN Settings */}
-              <div style={{ background: '#17181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
-                <h3 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem', marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Shield size={18} style={{ color: 'var(--color-accent)' }} /> Admin Security PIN
                 </h3>
                 <div style={{ maxWidth: '360px' }}>
@@ -1750,18 +1738,18 @@ export default function AdminPage({ setCurrentRoute }) {
                     onChange={(e) => store.setAdminPin(e.target.value)}
                     style={{ marginBottom: '1rem' }}
                   />
-                  <p style={{ fontSize: '0.78rem', color: '#94A3B8' }}>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                     This PIN protects the administrative interface.
                   </p>
                 </div>
               </div>
 
               {/* Backup & Restore */}
-              <div style={{ background: '#17181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
-                <h3 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <RefreshCw size={18} style={{ color: 'var(--color-accent)' }} /> School Data Backup & Factory Reset
                 </h3>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1.5rem', maxWidth: '600px' }}>
+                <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.85rem', marginBottom: '1.5rem', maxWidth: '600px' }}>
                   Safely download all imported birthdays, custom news, and enquiry records as a JSON file, or restore school factory defaults.
                 </p>
 
@@ -1805,7 +1793,7 @@ export default function AdminPage({ setCurrentRoute }) {
               <button 
                 type="button" 
                 onClick={() => setIsAddStudentOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -1909,7 +1897,7 @@ export default function AdminPage({ setCurrentRoute }) {
               <button 
                 type="button" 
                 onClick={() => setIsAddGalleryOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -2000,7 +1988,7 @@ export default function AdminPage({ setCurrentRoute }) {
               <button 
                 type="button" 
                 onClick={() => setIsAddHappeningOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -2113,7 +2101,7 @@ export default function AdminPage({ setCurrentRoute }) {
               <button 
                 type="button" 
                 onClick={() => setIsAddJobOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -2242,66 +2230,66 @@ export default function AdminPage({ setCurrentRoute }) {
               <button 
                 type="button" 
                 onClick={() => setSelectedAppDetail(null)}
-                style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--color-warm-gray-600, #555555)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div style={{ marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid #22252F' }}>
+            <div style={{ marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(18, 57, 133, 0.12)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 700 }}>
                   REF: {selectedAppDetail.id}
                 </span>
-                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-warm-gray-600, #555555)' }}>
                   Received: {selectedAppDetail.appliedAt}
                 </span>
               </div>
-              <h2 style={{ fontSize: '1.5rem', color: '#FFFFFF', margin: 0 }}>
+              <h2 style={{ fontSize: '1.5rem', color: 'var(--color-primary-dark, #123985)', margin: 0 }}>
                 {selectedAppDetail.applicantName}
               </h2>
-              <div style={{ fontSize: '0.9rem', color: 'var(--color-soft-accent)', marginTop: '0.25rem', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.9rem', color: '#7A5B17', marginTop: '0.25rem', fontWeight: 600 }}>
                 Applying for: {selectedAppDetail.positionApplied} ({selectedAppDetail.wing})
               </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem', fontSize: '0.85rem' }}>
               <div>
-                <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Phone</span>
-                <strong style={{ color: '#FFFFFF' }}>{selectedAppDetail.phone}</strong>
+                <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Phone</span>
+                <strong style={{ color: 'var(--color-primary-dark, #123985)' }}>{selectedAppDetail.phone}</strong>
               </div>
               <div>
-                <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Email</span>
-                <strong style={{ color: '#FFFFFF' }}>{selectedAppDetail.email}</strong>
+                <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Email</span>
+                <strong style={{ color: 'var(--color-primary-dark, #123985)' }}>{selectedAppDetail.email}</strong>
               </div>
               <div>
-                <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Teaching Experience</span>
-                <strong style={{ color: '#FFFFFF' }}>{selectedAppDetail.experienceYears}</strong>
+                <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Teaching Experience</span>
+                <strong style={{ color: 'var(--color-primary-dark, #123985)' }}>{selectedAppDetail.experienceYears}</strong>
               </div>
               <div>
-                <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Qualification</span>
-                <strong style={{ color: '#FFFFFF' }}>{selectedAppDetail.qualification}</strong>
+                <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Qualification</span>
+                <strong style={{ color: 'var(--color-primary-dark, #123985)' }}>{selectedAppDetail.qualification}</strong>
               </div>
               {selectedAppDetail.currentSchool && (
                 <div style={{ gridColumn: 'span 2' }}>
-                  <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Current / Last School</span>
-                  <strong style={{ color: '#FFFFFF' }}>{selectedAppDetail.currentSchool}</strong>
+                  <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase' }}>Current / Last School</span>
+                  <strong style={{ color: 'var(--color-primary-dark, #123985)' }}>{selectedAppDetail.currentSchool}</strong>
                 </div>
               )}
             </div>
 
             {/* Attached Resume File */}
             {selectedAppDetail.resumeFileData && (
-              <div style={{ marginBottom: '1.25rem', padding: '0.85rem 1.15rem', background: '#1A1C23', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.35)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div style={{ marginBottom: '1.25rem', padding: '0.85rem 1.15rem', background: '#FAF8F5', border: '1px solid rgba(18, 57, 133, 0.1)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.35)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: 'rgba(34, 197, 94, 0.15)', color: '#4ADE80', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: 'rgba(34, 197, 94, 0.12)', color: '#15803D', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <FileText size={18} />
                   </div>
                   <div>
-                    <span style={{ color: '#4ADE80', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', fontWeight: 700 }}>
+                    <span style={{ color: '#15803D', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', fontWeight: 700 }}>
                       Attached Candidate Resume File
                     </span>
-                    <div style={{ color: '#FFFFFF', fontWeight: 600, fontSize: '0.88rem' }}>
+                    <div style={{ color: 'var(--color-primary-dark, #123985)', fontWeight: 600, fontSize: '0.88rem' }}>
                       {selectedAppDetail.resumeFileName || 'Resume.pdf'} {selectedAppDetail.resumeFileSize ? `(${selectedAppDetail.resumeFileSize})` : ''}
                     </div>
                   </div>
@@ -2331,8 +2319,8 @@ export default function AdminPage({ setCurrentRoute }) {
 
             {/* Cloud Resume / Portfolio Link */}
             {selectedAppDetail.resumeUrl && (
-              <div style={{ marginBottom: '1.25rem', padding: '0.75rem 1rem', background: '#1A1C23', borderRadius: '8px', border: '1px solid #2B2F3D' }}>
-                <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.35rem' }}>Cloud Resume / Portfolio Link</span>
+              <div style={{ marginBottom: '1.25rem', padding: '0.75rem 1rem', background: '#FAF8F5', border: '1px solid rgba(18, 57, 133, 0.1)', borderRadius: '8px', border: '1px solid rgba(18, 57, 133, 0.12)' }}>
+                <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.35rem' }}>Cloud Resume / Portfolio Link</span>
                 <a 
                   href={selectedAppDetail.resumeUrl} 
                   target="_blank" 
@@ -2345,17 +2333,17 @@ export default function AdminPage({ setCurrentRoute }) {
             )}
 
             <div style={{ marginBottom: '1.5rem' }}>
-              <span style={{ color: '#94A3B8', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+              <span style={{ color: 'var(--color-warm-gray-600, #555555)', display: 'block', fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
                 Pedagogical Statement / Cover Note
               </span>
-              <div style={{ background: '#14151A', padding: '1rem', borderRadius: '8px', border: '1px solid #22252F', fontSize: '0.85rem', color: '#CBD5E1', lineHeight: 1.6, maxHeight: '160px', overflowY: 'auto' }}>
+              <div style={{ background: '#F8F6F1', border: '1px solid rgba(18, 57, 133, 0.1)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(18, 57, 133, 0.12)', fontSize: '0.85rem', color: 'var(--color-warm-gray-800, #333333)', lineHeight: 1.6, maxHeight: '160px', overflowY: 'auto' }}>
                 {selectedAppDetail.coverNote || 'No additional note submitted.'}
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem', borderTop: '1px solid #22252F' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem', borderTop: '1px solid rgba(18, 57, 133, 0.12)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '0.8rem', color: '#94A3B8' }}>Application Status:</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-warm-gray-600, #555555)' }}>Application Status:</span>
                 <select 
                   value={selectedAppDetail.status || 'New'}
                   onChange={(e) => {

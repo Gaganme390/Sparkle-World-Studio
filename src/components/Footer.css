@@ -37,6 +37,14 @@
   margin-bottom: 1.25rem;
 }
 
+.footer-brand-logo {
+  height: 48px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  display: block;
+}
+
 .footer-logo-title {
   font-family: var(--font-display);
   font-size: 1.35rem;

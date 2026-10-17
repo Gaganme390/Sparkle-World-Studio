@@ -3,8 +3,20 @@ import { X, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Lightbox.css';
 
-export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
-  const [isPlaying, setIsPlaying] = useState(true);
+export default function Lightbox({ 
+  item, 
+  items, 
+  onClose, 
+  onPrev, 
+  onNext, 
+  initialPlaying = false 
+}) {
+  const [isPlaying, setIsPlaying] = useState(initialPlaying);
+
+  // Sync state when initialPlaying prop changes
+  useEffect(() => {
+    setIsPlaying(initialPlaying);
+  }, [initialPlaying]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -35,6 +47,17 @@ export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
   return (
     <AnimatePresence>
       <div className="lightbox-overlay" onClick={onClose} role="dialog" aria-modal="true">
+        {/* Active Slideshow Progress Indicator */}
+        {isPlaying && (
+          <motion.div 
+            key={`progress-${item.id}`}
+            className="lightbox-progress-bar"
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 4, ease: 'linear' }}
+          />
+        )}
+
         <div className="lightbox-topbar" onClick={(e) => e.stopPropagation()}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -48,27 +71,37 @@ export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
             <h3 className="lightbox-title">{item.title}</h3>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div className="lightbox-topbar-actions">
             <button 
+              type="button"
               className={`lightbox-action-btn ${isPlaying ? 'active' : ''}`}
               onClick={() => setIsPlaying((prev) => !prev)}
               aria-label={isPlaying ? 'Pause Automated Slideshow' : 'Play Automated Slideshow'}
               title={isPlaying ? 'Pause Slideshow (Space)' : 'Play Slideshow (Space)'}
             >
-              {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-              <span className="lightbox-btn-label">{isPlaying ? 'Slideshow Playing' : 'Play Slideshow'}</span>
+              {isPlaying ? <Pause size={18} /> : <Play size={18} fill="currentColor" />}
+              <span className="lightbox-btn-label">{isPlaying ? 'Slideshow Playing' : 'Start Slideshow'}</span>
             </button>
-            <button className="btn-close-modal" onClick={onClose} aria-label="Close Lightbox">
-              <X size={20} />
+
+            {/* High-visibility dedicated close button */}
+            <button 
+              type="button"
+              className="lightbox-close-btn" 
+              onClick={onClose} 
+              aria-label="Close Lightbox"
+              title="Close (Esc)"
+            >
+              <X size={22} strokeWidth={2.5} />
             </button>
           </div>
         </div>
 
-
         <button 
+          type="button"
           className="lightbox-nav-btn lightbox-nav-prev" 
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
           aria-label="Previous Image"
+          title="Previous Image"
         >
           <ChevronLeft size={24} />
         </button>
@@ -91,9 +124,11 @@ export default function Lightbox({ item, items, onClose, onPrev, onNext }) {
         </p>
 
         <button 
+          type="button"
           className="lightbox-nav-btn lightbox-nav-next" 
           onClick={(e) => { e.stopPropagation(); onNext(); }}
           aria-label="Next Image"
+          title="Next Image"
         >
           <ChevronRight size={24} />
         </button>

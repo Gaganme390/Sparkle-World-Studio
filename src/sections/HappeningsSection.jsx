@@ -5,6 +5,7 @@ import { useSchoolData } from '../hooks/useSchoolData';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import MagneticButton from '../components/MagneticButton';
+import KineticFlair from '../components/KineticFlair';
 import './HappeningsSection.css';
 
 export default function HappeningsSection({ setCurrentRoute }) {
@@ -72,14 +73,17 @@ export default function HappeningsSection({ setCurrentRoute }) {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <ScrollReveal variant="fadeUp">
-              <span className="tag-label">12 — CAMPUS CHRONICLES</span>
+              <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+                CAMPUS CHRONICLES
+                <KineticFlair type="diamond" size={15} />
+              </span>
             </ScrollReveal>
 
             <AnimatedText 
               as="h2"
               className="heading-section" 
               style={{ marginTop: '0.5rem' }}
-              text="LIFE AT GOENKA."
+              text="LIFE AT GOENKA"
               delay={0.1}
             />
           </div>

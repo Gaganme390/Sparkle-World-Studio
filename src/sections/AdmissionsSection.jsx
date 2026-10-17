@@ -4,6 +4,7 @@ import { admissionSteps } from '../data/admissions';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import MagneticButton from '../components/MagneticButton';
+import KineticFlair from '../components/KineticFlair';
 import './AdmissionsSection.css';
 
 export default function AdmissionsSection({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
@@ -13,7 +14,10 @@ export default function AdmissionsSection({ onOpenEnquiry, onOpenVisit, setCurre
         <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <ScrollReveal variant="fadeUp">
-              <span className="tag-label">14 — ADMISSIONS 2026-27</span>
+              <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+                ADMISSIONS 2026-27
+                <KineticFlair type="diamond" size={15} />
+              </span>
             </ScrollReveal>
 
             <AnimatedText 

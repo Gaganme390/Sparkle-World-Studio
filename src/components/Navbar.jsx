@@ -48,11 +48,12 @@ export default function Navbar({ onOpenMenu, onOpenEnquiry, currentRoute, setCur
           onClick={(e) => handleNavClick(e, '/')}
           aria-label="GD Goenka School Ayodhya Homepage"
         >
-          <div className="logo-crest">G</div>
-          <div className="logo-text-group">
-            <span className="logo-title">GD GOENKA</span>
-            <span className="logo-subtitle">AYODHYA</span>
-          </div>
+          <img 
+            src="/branding/gd_goenka_logo_dark.png" 
+            alt="GD Goenka School Ayodhya Logo" 
+            className="navbar-brand-logo"
+            height="46"
+          />
         </a>
 
         {/* Center Desktop Navigation */}

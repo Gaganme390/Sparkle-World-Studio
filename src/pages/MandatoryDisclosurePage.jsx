@@ -102,7 +102,7 @@ export default function MandatoryDisclosurePage({ onOpenEnquiry, onOpenVisit, on
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.25rem' }}
-            text="MANDATORY PUBLIC DISCLOSURE."
+            text="MANDATORY PUBLIC DISCLOSURE"
             delay={0.1}
           />
           <p className="text-editorial-lead" style={{ maxWidth: '820px' }}>

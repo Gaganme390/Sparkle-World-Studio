@@ -7,13 +7,18 @@
 }
 
 .philosophy-header {
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
+}
+
+.philosophy-subtitle {
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .philosophy-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -29,39 +34,262 @@
 }
 
 .philosophy-card {
-  padding: 2.25rem 1.75rem;
+  padding: 2.25rem 1.6rem;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--radius-md);
   transition: all var(--transition-medium);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  position: relative;
 }
 
 .philosophy-card:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
   border-color: var(--color-accent);
   transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.philosophy-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
 }
 
 .philosophy-card-num {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: var(--color-accent);
-  margin-bottom: 1.5rem;
+}
+
+.philosophy-card-icon-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(224, 145, 69, 0.12);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .philosophy-card-title {
   font-family: var(--font-display);
-  font-size: 1.65rem;
+  font-size: 1.55rem;
   color: var(--color-white);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   line-height: 1.1;
+  letter-spacing: 0.02em;
 }
 
 .philosophy-card-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.62;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.philosophy-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  transition: gap 0.2s ease;
+}
+
+.philosophy-card:hover .philosophy-card-cta {
+  gap: 0.85rem;
+}
+
+.philosophy-card:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   C-EXPANSION MODAL DIALOG (PDF 1 Page 5 & 6)
+   ========================================================================== */
+.c-expansion-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 16, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.c-expansion-modal {
+  background: #14171F;
+  border: 1px solid rgba(224, 145, 69, 0.3);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(224, 145, 69, 0.15);
+  border-radius: var(--radius-lg, 16px);
+  width: 100%;
+  max-width: 980px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.94) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.c-expansion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  gap: 1rem;
+}
+
+.c-expansion-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.c-tab-btn {
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.c-tab-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.c-tab-btn.active {
+  background: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 10px rgba(224, 145, 69, 0.4);
+}
+
+.c-expansion-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.c-expansion-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  transform: rotate(90deg);
+}
+
+.c-expansion-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2.25rem;
+  gap: 2.5rem;
+}
+
+@media (min-width: 820px) {
+  .c-expansion-body {
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+  }
+}
+
+.c-expansion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.c-expansion-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+.c-expansion-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: #FFFFFF;
+  line-height: 1.18;
+}
+
+.c-expansion-narrative {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.c-expansion-quote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+  font-size: 0.95rem;
   line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.c-expansion-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-radius: var(--radius-md, 12px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.c-expansion-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.c-expansion-caption {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.65rem 1rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  background: rgba(0, 0, 0, 0.3);
 }

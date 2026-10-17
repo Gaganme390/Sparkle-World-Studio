@@ -28,6 +28,7 @@ export default function ImageReveal({
   delay = 0,
   loading = 'lazy',
   fetchPriority = 'auto',
+  objectPosition = 'center 25%',
   ...rest
 }) {
   const containerRef = useRef(null);
@@ -98,6 +99,7 @@ export default function ImageReveal({
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+          objectPosition: objectPosition,
           display: 'block',
           willChange: 'transform',
         }}

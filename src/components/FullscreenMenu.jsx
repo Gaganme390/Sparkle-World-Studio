@@ -54,11 +54,12 @@ export default function FullscreenMenu({ isOpen, onClose, setCurrentRoute, onOpe
           {/* Menu Header */}
           <div className="container menu-overlay-header">
             <a href="/" className="navbar-logo" onClick={(e) => handleLinkClick(e, '/')}>
-              <div className="logo-crest">G</div>
-              <div className="logo-text-group">
-                <span className="logo-title" style={{ color: '#FFFFFF' }}>GD GOENKA</span>
-                <span className="logo-subtitle">AYODHYA</span>
-              </div>
+              <img 
+                src="/branding/gd_goenka_logo_light.png" 
+                alt="GD Goenka School Ayodhya Logo" 
+                className="navbar-brand-logo"
+                height="44"
+              />
             </a>
 
             <button 

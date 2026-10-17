@@ -28,7 +28,7 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeMo
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="ADMISSIONS JOURNEY."
+            text="ADMISSIONS JOURNEY"
             delay={0.1}
           />
 

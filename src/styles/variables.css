@@ -1,33 +1,33 @@
 :root {
-  /* MANDATORY BRAND PALETTE */
-  --color-primary-dark: #17181D;
-  --color-secondary-dark: #292C35;
-  --color-accent: #E09145;
-  --color-soft-accent: #FCD9B8;
+  /* OFFICIAL GD GOENKA BRAND PALETTE (K12 ASSETS STARTER PACK) */
+  --color-primary-dark: #123985;        /* Brand Blue: RGB 18, 57, 133 / HEX #123985 */
+  --color-secondary-dark: #0a214d;      /* Deep Midnight Navy for high contrast */
+  --color-accent: #b39759;              /* Brand Gold: RGB 179, 151, 89 / HEX #b39759 */
+  --color-accent-hover: #9c8249;        /* Polished Gold hover */
+  --color-soft-accent: #f5eedf;         /* Elegant warm gold champagne tint */
   
   --color-white: #FFFFFF;
   --color-warm-white: #FCFAF7;
 
-  /* Neutral support palette tailored for warm light mode */
+  /* Neutral support palette tailored with brand 80% Grey (#333333) */
   --color-warm-gray-50: #FAF8F5;
   --color-warm-gray-100: #F3EFEA;
   --color-warm-gray-200: #E6E0D7;
   --color-warm-gray-300: #D4CDC2;
   --color-warm-gray-400: #9E9689;
-  --color-warm-gray-600: #626570;
-  --color-warm-gray-800: #292C35;
-  --color-text-dark: #17181D;
-  --color-text-muted: #626570;
+  --color-warm-gray-600: #555555;
+  --color-warm-gray-800: #333333;
+  --color-text-dark: #333333;           /* Brand Tagline Grey: RGB 51, 51, 51 / HEX #333333 */
+  --color-text-muted: #666666;
   --color-text-light: #FFFFFF;
 
   /* Accent overlays */
-  --color-accent-hover: #C97E36;
-  --color-accent-subtle: rgba(224, 145, 69, 0.12);
-  --color-soft-accent-subtle: rgba(252, 217, 184, 0.3);
+  --color-accent-subtle: rgba(179, 151, 89, 0.14);
+  --color-soft-accent-subtle: rgba(179, 151, 89, 0.25);
 
-  /* Typography System */
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Brand Typography System: Polymath */
+  --font-display: "Polymath", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Polymath", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Spacing System */
   --space-xs: 0.5rem;   /* 8px */

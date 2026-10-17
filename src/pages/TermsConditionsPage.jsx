@@ -15,7 +15,7 @@ export default function TermsConditionsPage({ onOpenEnquiry, onOpenFeeModal, set
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.25rem' }}
-            text="TERMS & CONDITIONS."
+            text="TERMS & CONDITIONS"
             delay={0.1}
           />
           <p className="text-editorial-lead" style={{ maxWidth: '820px' }}>

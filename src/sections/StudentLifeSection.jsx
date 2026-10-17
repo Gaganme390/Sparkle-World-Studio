@@ -2,6 +2,7 @@ import React from 'react';
 import { Trophy, Music, Compass } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
+import KineticFlair from '../components/KineticFlair';
 import './StudentLifeSection.css';
 
 export default function StudentLifeSection() {
@@ -10,14 +11,17 @@ export default function StudentLifeSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">08 — STUDENT LIFE</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              STUDENT LIFE
+              <KineticFlair type="star" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="LIFE BEYOND THE TIMETABLE."
+            text="LIFE BEYOND THE TIMETABLE"
             delay={0.1}
           />
 

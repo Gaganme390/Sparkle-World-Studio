@@ -81,9 +81,9 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #E09145 0%, #B86F28 100%);
-  color: #17181D;
-  box-shadow: 0 4px 20px rgba(224, 145, 69, 0.4);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(179, 151, 89, 0.4);
   margin-bottom: 1rem;
 }
 
@@ -92,7 +92,7 @@
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 700;
   line-height: 1.15;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FCD9B8 60%, #E09145 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #f5eedf 60%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
@@ -198,7 +198,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: linear-gradient(135deg, #E09145 0%, #292C35 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary-dark) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -321,8 +321,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #E09145 0%, #C97E36 100%);
-  color: #17181D;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  color: #FFFFFF;
   border: none;
   padding: 0.55rem 1.25rem;
   border-radius: var(--radius-full);
@@ -330,7 +330,7 @@
   font-weight: 800;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 10px rgba(224, 145, 69, 0.3);
+  box-shadow: 0 2px 10px rgba(179, 151, 89, 0.3);
 }
 
 .btn-send-wish:hover {

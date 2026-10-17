@@ -4,6 +4,7 @@ import { testimonialsData } from '../data/testimonials';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
+import KineticFlair from '../components/KineticFlair';
 import './TestimonialsSection.css';
 
 export default function TestimonialsSection() {
@@ -12,7 +13,10 @@ export default function TestimonialsSection() {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">15 — COMMUNITY VOICES</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              COMMUNITY VOICES
+              <KineticFlair type="star" size={15} />
+            </span>
           </ScrollReveal>
 
 
@@ -20,7 +24,7 @@ export default function TestimonialsSection() {
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem', marginBottom: '1.25rem' }}
-            text="WHAT PARENTS & ALUMNI SAY."
+            text="WHAT PARENTS & ALUMNI SAY"
             delay={0.1}
           />
 

@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Scratch & temporary workspace files
+scratch_*
+drive_assets/
+New Docs/
+*.pdf
+*.txt
+*.ps1

@@ -21,19 +21,19 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="INSPIRED SPACES & BEYOND."
+            text="EXPERIENCE GOENKA"
             delay={0.1}
           />
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              A comprehensive overview of our 8 experience pillars: Inspired Spaces, Sports (Grow), Cultural Arts (Express), Goenkan Leadership Academy (GLA), Nurture, Conscientious Living, Safety, and Services.
+              A peek into the life of our little Goenkans. From bright smart classrooms, robotics, and Montessori inquiry to indoor meditation, performing arts, gymnastics, and public speaking.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* 8 Detailed Sections */}
+      {/* Detailed Sections */}
       <section className="section-padding theme-pure-white">
         <div className="container">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
@@ -53,7 +53,7 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
               >
                 <ScrollReveal variant={idx % 2 === 1 ? "fadeLeft" : "fadeRight"} delay={0.1} className="col-12 col-md-6" style={{ direction: 'ltr' }}>
                   <span style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.15em' }}>
-                    {item.number} — EXPERIENCE PILLAR
+                    EXPERIENCE PILLAR
                   </span>
                   <h2 className="heading-section" style={{ marginTop: '0.35rem', marginBottom: '0.5rem' }}>
                     {item.title}

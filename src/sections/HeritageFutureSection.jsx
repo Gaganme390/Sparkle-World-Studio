@@ -1,6 +1,7 @@
 import React from 'react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
+import KineticFlair from '../components/KineticFlair';
 import './HeritageFutureSection.css';
 
 export default function HeritageFutureSection() {
@@ -9,14 +10,17 @@ export default function HeritageFutureSection() {
       <div className="container">
         <div className="hf-header">
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">04 — HERITAGE × FUTURE</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              HERITAGE × FUTURE
+              <KineticFlair type="burst" size={16} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2" 
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="ROOTED HERE.<br />READY FOR TOMORROW."
+            text="ROOTED HERE<br />READY FOR TOMORROW"
             delay={0.1}
           />
 

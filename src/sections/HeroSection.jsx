@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Award, ChevronDown, ChevronLeft, ChevronRight, Compass, Sparkles, Monitor, Trophy } from 'lucide-react';
 import MagneticButton from '../components/MagneticButton';
+import KineticText from '../components/KineticText';
+import KineticFlair from '../components/KineticFlair';
 import './HeroSection.css';
 
 const HERO_SLIDES = [
   {
     id: 1,
-    meta: '01 / 05 • ARCHITECTURAL GRANDEUR',
-    tagline: 'Thrive. For Life.',
-    titleLine1: 'WHERE HERITAGE',
-    titleLine2: 'INSPIRES THE FUTURE.',
-    leadText: 'A future-ready CBSE learning environment where curiosity, character, creativity, and confidence grow together in the cultural heartland of Ayodhya.',
+    meta: 'ARCHITECTURAL GRANDEUR',
+    tagline: 'Front View & Modern Campus',
+    titleLine1: 'THRIVE',
+    titleLine2: 'FOR LIFE',
+    leadText: 'Nurturing confident, curious minds ready to thrive in an ever-changing world.',
     image: '/school-media/Opening Photos/campus_grand_exterior_banner.jpg',
-    imageAlt: 'G.D. Goenka Public School Ayodhya Grand Campus Architecture & Grounds',
+    imageAlt: 'G.D. Goenka Public School Ayodhya Grand Campus Front View Architecture',
     badgeIcon: Award,
     badgeTitle: 'CBSE Curriculum',
     badgeSub: 'STEM, Leadership & Values Integration',
@@ -21,12 +23,13 @@ const HERO_SLIDES = [
   },
   {
     id: 2,
-    meta: '02 / 05 • INNOVATION & DIGITAL FLUENCY',
+    meta: 'INNOVATION & DIGITAL FLUENCY',
     tagline: '1st in Ayodhya • Digital Language Lab',
-    titleLine1: 'SHAPING MINDS',
-    titleLine2: 'THROUGH TECHNOLOGY.',
+    titleLine1: 'THRIVE',
+    titleLine2: 'FOR LIFE',
     leadText: 'State-of-the-art multimedia workstations, phonetic listening booths, and digital coding labs empowering students with 21st-century fluency.',
-    image: '/school-media/Digital Lab/lab_honeycomb_panorama.jpg',
+    image: '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
+    objectPosition: 'center bottom',
     imageAlt: 'Modern Digital Language & Computer Science Laboratory at G.D. Goenka Ayodhya',
     badgeIcon: Monitor,
     badgeTitle: 'Digital Language Lab',
@@ -36,10 +39,10 @@ const HERO_SLIDES = [
   },
   {
     id: 3,
-    meta: '03 / 05 • ARTS & EXPRESSION',
+    meta: 'ARTS & EXPRESSION',
     tagline: 'Timeless Grace • Self-Discovery',
-    titleLine1: 'ROOTED IN CULTURE,',
-    titleLine2: 'ELEVATED IN EXPRESSION.',
+    titleLine1: 'THRIVE',
+    titleLine2: 'FOR LIFE',
     leadText: 'From Indian classical dance and theatrical storytelling to inter-house music ensembles, student creativity takes center stage in Ayodhya.',
     image: '/school-media/Cultural Celebration/cultural_fest_dandiya_banner.jpg',
     imageAlt: 'Vibrant cultural and performing arts celebrations at G.D. Goenka School Ayodhya',
@@ -51,10 +54,10 @@ const HERO_SLIDES = [
   },
   {
     id: 4,
-    meta: '04 / 05 • EARLY YEARS DISCOVERY',
+    meta: 'EARLY YEARS DISCOVERY',
     tagline: 'Experiential Play • Reggio Emilia Inspired',
-    titleLine1: 'WHERE JOYFUL CURIOSITY',
-    titleLine2: 'MEETS NURTURING CARE.',
+    titleLine1: 'THRIVE',
+    titleLine2: 'FOR LIFE',
     leadText: 'Sensory color immersion, phonetic literacy picnics, and colorful indoor play zones designed for gentle social-emotional growth and exploration.',
     image: '/school-media/Play Station/kindergarten_ball_pool_landscape.jpg',
     imageAlt: 'Joyful toddler in the indoor kindergarten play station ball pit',
@@ -66,10 +69,10 @@ const HERO_SLIDES = [
   },
   {
     id: 5,
-    meta: '05 / 05 • VIBRANT CAMPUS LIFE',
+    meta: 'VIBRANT CAMPUS LIFE',
     tagline: 'Experiential Days • Holistic Discovery',
-    titleLine1: 'WHERE EVERY DAY',
-    titleLine2: 'BECOMES A CELEBRATION.',
+    titleLine1: 'THRIVE',
+    titleLine2: 'FOR LIFE',
     leadText: 'From thematic color immersion days and balloon spectacles to district championship victories, joyful experiential growth flourishes in Ayodhya.',
     image: '/school-media/Blue Day/blue_day_celebration_banner.jpg',
     imageAlt: 'Joyful students celebrating experiential thematic learning day with blue balloons',
@@ -81,7 +84,7 @@ const HERO_SLIDES = [
   }
 ];
 
-const AUTO_SLIDE_INTERVAL = 4500; // 4.5s automated slide interval
+const AUTO_SLIDE_INTERVAL = 6500; // 6.5s automated slide interval (per PDF 1)
 
 export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -194,6 +197,7 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
                 src={s.image} 
                 alt={s.imageAlt}
                 className="hero-slide-bg-img"
+                style={s.objectPosition ? { objectPosition: s.objectPosition } : undefined}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -218,10 +222,31 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
             </span>
           </div>
 
-          {/* Headline with Gold Accent */}
-          <h1 className="hero-slider-title animate-hero-slide-up">
-            <span className="hero-title-block">{slide.titleLine1}</span>
-            <span className="hero-title-block hero-title-accent">{slide.titleLine2}</span>
+          {/* Headline with Gold Accent & GSAP Character Bouncing */}
+          <h1 className="hero-slider-title">
+            <span className="hero-title-block">
+              <KineticText 
+                text={slide.titleLine1} 
+                triggerKey={`${slide.id}-1`} 
+                delay={0.06} 
+                stagger={0.024}
+              />
+            </span>
+            <span className="hero-title-block hero-title-accent">
+              <KineticText 
+                text={slide.titleLine2} 
+                accent={true} 
+                triggerKey={`${slide.id}-2`} 
+                delay={0.22} 
+                stagger={0.024}
+              />
+              <KineticFlair 
+                type="star" 
+                size={30} 
+                className="hero-kinetic-star-flair"
+                style={{ marginLeft: '0.75rem', verticalAlign: 'middle', display: 'inline-flex' }}
+              />
+            </span>
           </h1>
 
           {/* Description */}
@@ -263,9 +288,11 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Slider Controls: Arrow Nav & Slide Pagination */}
-        <div className="hero-slider-bottom-bar">
+      {/* Slider Controls: Arrow Nav & Slide Pagination (Fixed safely above bottom edge) */}
+      <div className="hero-slider-bottom-bar-wrapper">
+        <div className="container hero-slider-bottom-bar">
           {/* Arrows */}
           <div className="hero-nav-arrows">
             <button 

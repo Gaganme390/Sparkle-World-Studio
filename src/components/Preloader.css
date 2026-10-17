@@ -20,8 +20,16 @@
 .preloader-logo {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
   margin-bottom: 2rem;
+}
+
+.preloader-brand-img {
+  height: 56px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  display: block;
 }
 
 .preloader-crest {

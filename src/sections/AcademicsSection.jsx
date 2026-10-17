@@ -5,6 +5,7 @@ import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
+import KineticFlair from '../components/KineticFlair';
 import './AcademicsSection.css';
 
 export default function AcademicsSection({ setCurrentRoute }) {
@@ -16,14 +17,17 @@ export default function AcademicsSection({ setCurrentRoute }) {
       <div className="container">
         <div>
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">05 — ACADEMICS</span>
+            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              ACADEMICS
+              <KineticFlair type="diamond" size={15} />
+            </span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h2"
             className="heading-section" 
             style={{ marginTop: '0.5rem' }}
-            text="LEARNING THAT GROWS WITH THEM."
+            text="LEARNING THAT GROWS WITH THEM"
             delay={0.1}
           />
 

@@ -43,8 +43,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: linear-gradient(135deg, #E09145 0%, #C97E36 100%);
-  color: #17181D;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  color: #FFFFFF;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -52,7 +52,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   flex-shrink: 0;
-  box-shadow: 0 2px 10px rgba(224, 145, 69, 0.35);
+  box-shadow: 0 2px 10px rgba(179, 151, 89, 0.35);
   transition: transform var(--transition-fast);
 }
 
