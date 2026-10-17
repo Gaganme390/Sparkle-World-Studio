@@ -120,7 +120,11 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeMo
                       <span className="badge-editorial">{g.status}</span>
                     </td>
                     <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right' }}>
-                      <button className="btn-enquire" onClick={onOpenEnquiry} style={{ padding: '0.4rem 1rem', fontSize: '0.8rem' }}>
+                      <button 
+                        className="btn-enquire" 
+                        onClick={() => onOpenEnquiry(g.grade)} 
+                        style={{ padding: '0.4rem 1rem', fontSize: '0.8rem' }}
+                      >
                         Apply Now
                       </button>
                     </td>

@@ -25,7 +25,7 @@ export default function FeeStructureModal({ isOpen, onClose }) {
     phone: '',
     email: '',
     childName: '',
-    targetGrade: 'Nursery / KG',
+    targetGrade: 'Pre-Nursery / Nursery',
     deliveryMode: 'Email & WhatsApp',
     feeComponents: ['Tuition & Academic Fee', 'Transport Routes & Fee'],
     consent: true
@@ -231,10 +231,11 @@ export default function FeeStructureModal({ isOpen, onClose }) {
                     value={formData.targetGrade}
                     onChange={(e) => setFormData({ ...formData, targetGrade: e.target.value })}
                   >
-                    <option value="Pre-Nursery / Nursery / KG">Early Years (Pre-Nursery / Nursery / KG)</option>
-                    <option value="Primary (Grade 1 - 5)">Primary Wing (Grades 1 - 5)</option>
-                    <option value="Middle (Grade 6 - 8)">Middle Wing (Grades 6 - 8)</option>
-                    <option value="Senior (Grade 9 - 11)">Senior Secondary (Grades 9 - 11)</option>
+                    <option value="Pre-Nursery / Nursery">Pre-Nursery / Nursery (Age 3-4)</option>
+                    <option value="KG / Prep">KG / Prep (Age 4-5)</option>
+                    <option value="Grades I to V (Primary Wing)">Grades I to V (Primary Wing)</option>
+                    <option value="Grades VI to VIII (Middle Wing)">Grades VI to VIII (Middle Wing)</option>
+                    <option value="Grades IX & XI (Senior Wing)">Grades IX & XI (Senior Wing)</option>
                   </select>
                 </div>
 

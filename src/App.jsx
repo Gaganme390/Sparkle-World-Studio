@@ -55,9 +55,19 @@ export default function App() {
   const [currentRoute, setCurrentRouteState] = useState(getNormalizedRoute);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const [enquiryInitialGrade, setEnquiryInitialGrade] = useState('');
   const [isVisitOpen, setIsVisitOpen] = useState(false);
   const [isFeeOpen, setIsFeeOpen] = useState(false);
   const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
+
+  const handleOpenEnquiry = (grade) => {
+    if (typeof grade === 'string' && grade.trim()) {
+      setEnquiryInitialGrade(grade.trim());
+    } else {
+      setEnquiryInitialGrade('');
+    }
+    setIsEnquiryOpen(true);
+  };
 
   // Track if overlay chunk has been loaded (lazy-load on first open, keep mounted for exit animation)
   const [menuMounted, setMenuMounted] = useState(false);
@@ -187,7 +197,7 @@ export default function App() {
 
   const renderCurrentPage = () => {
     const commonProps = {
-      onOpenEnquiry: () => setIsEnquiryOpen(true),
+      onOpenEnquiry: handleOpenEnquiry,
       onOpenVisit: () => setIsVisitOpen(true),
       onOpenFeeModal: () => setIsFeeOpen(true),
       onOpenCelebration: () => setIsCelebrationOpen(true),
@@ -259,7 +269,7 @@ export default function App() {
         <BirthdayTickerBanner onOpenCelebration={() => setIsCelebrationOpen(true)} />
         <Navbar 
           onOpenMenu={() => setIsMenuOpen(true)}
-          onOpenEnquiry={() => setIsEnquiryOpen(true)}
+          onOpenEnquiry={() => handleOpenEnquiry()}
           currentRoute={currentRoute}
           setCurrentRoute={setCurrentRoute}
         />
@@ -287,7 +297,11 @@ export default function App() {
         {enquiryMounted && (
           <EnquiryModal 
             isOpen={isEnquiryOpen}
-            onClose={() => setIsEnquiryOpen(false)}
+            onClose={() => {
+              setIsEnquiryOpen(false);
+              setEnquiryInitialGrade('');
+            }}
+            initialGrade={enquiryInitialGrade}
           />
         )}
       </Suspense>
@@ -312,7 +326,7 @@ export default function App() {
 
       {renderCurrentPage()}
 
-      <Footer setCurrentRoute={setCurrentRoute} onOpenEnquiry={() => setIsEnquiryOpen(true)} />
+      <Footer setCurrentRoute={setCurrentRoute} onOpenEnquiry={() => handleOpenEnquiry()} />
       <ScrollToTop />
 
       {/* Floating Admin Quick Switcher Pill (if logged in) */}

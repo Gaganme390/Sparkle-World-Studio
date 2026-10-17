@@ -6,7 +6,42 @@ import MagneticButton from './MagneticButton';
 import './Modal.css';
 
 
-export default function EnquiryModal({ isOpen, onClose }) {
+export const GRADE_OPTIONS = [
+  { value: 'Pre-Nursery / Nursery', label: 'Pre-Nursery / Nursery (Age 3-4)' },
+  { value: 'KG / Prep', label: 'KG / Prep (Age 4-5)' },
+  { value: 'Grades I to V (Primary Wing)', label: 'Grades I to V (Primary Wing)' },
+  { value: 'Grades VI to VIII (Middle Wing)', label: 'Grades VI to VIII (Middle Wing)' },
+  { value: 'Grades IX & XI (Senior Wing)', label: 'Grades IX & XI (Senior Wing)' }
+];
+
+export const normalizeGrade = (grade) => {
+  if (!grade) return 'Pre-Nursery / Nursery';
+  const g = String(grade).trim();
+  const lower = g.toLowerCase();
+
+  const direct = GRADE_OPTIONS.find(opt => opt.value.toLowerCase() === lower);
+  if (direct) return direct.value;
+
+  if (lower === 'pre-nursery' || (lower.includes('nursery') && !lower.includes('kg'))) {
+    return 'Pre-Nursery / Nursery';
+  }
+  if (lower.includes('kg') || lower.includes('prep') || lower.includes('kindergarten')) {
+    return 'KG / Prep';
+  }
+  if (lower.includes('primary') || lower.includes('i to v') || lower.includes('1 to 5') || lower.includes('grade 1-5') || lower.includes('grade 1 - 5')) {
+    return 'Grades I to V (Primary Wing)';
+  }
+  if (lower.includes('middle') || lower.includes('vi to viii') || lower.includes('6 to 8') || lower.includes('grade 6-8') || lower.includes('grade 6 - 8')) {
+    return 'Grades VI to VIII (Middle Wing)';
+  }
+  if (lower.includes('senior') || lower.includes('ix & xi') || lower.includes('ix') || lower.includes('xi') || lower.includes('grade 9-11') || lower.includes('grade 9 - 11')) {
+    return 'Grades IX & XI (Senior Wing)';
+  }
+
+  return g;
+};
+
+export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -21,17 +56,27 @@ export default function EnquiryModal({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
-
   const [formData, setFormData] = useState({
     parentName: '',
     phone: '',
     email: '',
     childName: '',
-    applyingGrade: 'Nursery',
+    applyingGrade: normalizeGrade(initialGrade),
     preferredDate: '',
     message: '',
     consent: true
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      if (initialGrade) {
+        setFormData((prev) => ({
+          ...prev,
+          applyingGrade: normalizeGrade(initialGrade)
+        }));
+      }
+    }
+  }, [isOpen, initialGrade]);
 
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -90,7 +135,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
       phone: '',
       email: '',
       childName: '',
-      applyingGrade: 'Nursery',
+      applyingGrade: normalizeGrade(initialGrade),
       preferredDate: '',
       message: '',
       consent: true
@@ -207,11 +252,14 @@ export default function EnquiryModal({ isOpen, onClose }) {
                     value={formData.applyingGrade}
                     onChange={(e) => setFormData({ ...formData, applyingGrade: e.target.value })}
                   >
-                    <option value="Pre-Nursery">Pre-Nursery</option>
-                    <option value="Nursery">Nursery / KG</option>
-                    <option value="Grade 1-5">Primary Wing (Grade 1 - 5)</option>
-                    <option value="Grade 6-8">Middle Wing (Grade 6 - 8)</option>
-                    <option value="Grade 9-11">Senior Wing (Grade 9 - 11)</option>
+                    {GRADE_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                    {!GRADE_OPTIONS.some(o => o.value === formData.applyingGrade) && formData.applyingGrade && (
+                      <option value={formData.applyingGrade}>{formData.applyingGrade}</option>
+                    )}
                   </select>
                 </div>
 

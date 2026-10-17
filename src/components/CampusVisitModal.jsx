@@ -25,7 +25,7 @@ export default function CampusVisitModal({ isOpen, onClose }) {
     phone: '',
     email: '',
     childName: '',
-    applyingGrade: 'Nursery',
+    applyingGrade: 'Pre-Nursery / Nursery',
     visitDate: '',
     timeSlot: '10:00 AM - 11:30 AM',
     interests: ['STEM & AI Suites', 'Classroom Tour'],
@@ -231,10 +231,11 @@ export default function CampusVisitModal({ isOpen, onClose }) {
                     value={formData.applyingGrade}
                     onChange={(e) => setFormData({ ...formData, applyingGrade: e.target.value })}
                   >
-                    <option value="Nursery">Nursery / KG</option>
-                    <option value="Grade 1-5">Primary (Grades 1-5)</option>
-                    <option value="Grade 6-8">Middle (Grades 6-8)</option>
-                    <option value="Grade 9-12">Senior Secondary (Grades 9-12)</option>
+                    <option value="Pre-Nursery / Nursery">Pre-Nursery / Nursery (Age 3-4)</option>
+                    <option value="KG / Prep">KG / Prep (Age 4-5)</option>
+                    <option value="Grades I to V (Primary Wing)">Grades I to V (Primary Wing)</option>
+                    <option value="Grades VI to VIII (Middle Wing)">Grades VI to VIII (Middle Wing)</option>
+                    <option value="Grades IX & XI (Senior Wing)">Grades IX & XI (Senior Wing)</option>
                   </select>
                 </div>
 
