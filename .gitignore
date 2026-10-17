@@ -28,6 +28,6 @@ scratch_*
 drive_assets/
 New Docs/
 *.pdf
-generate_alignment_pdf.py
+*.py
 *.txt
 *.ps1
