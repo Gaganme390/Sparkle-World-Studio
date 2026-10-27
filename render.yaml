@@ -1,9 +1,22 @@
 services:
-  - type: static
+  - type: web
     name: gd-goenka-ayodhya-school
-    buildCommand: npm run build
-    staticPublishPath: ./dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gd-goenka-ayodhya-db
+          property: connectionString
+
+databases:
+  - name: gd-goenka-ayodhya-db
+    plan: free
+    databaseName: gd_goenka_db
+    user: gd_goenka_admin

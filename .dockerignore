@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+dist
+.git
+.gitignore
+.env
+.env.local
+scratch_*
+check_orig_logos.ps1
+ocr_digital_lab.ps1
+generate_*.py
+*.pdf
+*.zip
+*.docx
+*.xlsx

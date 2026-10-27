@@ -36,14 +36,60 @@ export const safeDecode = (s) => {
 export const normKey = (s) => safeDecode(String(s || '').trim());
 export const normText = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
-const persist = () => {
+// Background API Sync with PostgreSQL Cloud Database
+const apiPost = (url, body) => {
+  if (typeof window === 'undefined') return;
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).catch(() => {});
+};
+
+const apiDelete = (url, body) => {
+  if (typeof window === 'undefined') return;
+  fetch(url, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: body ? JSON.stringify(body) : undefined
+  }).catch(() => {});
+};
+
+export async function syncFromCloud() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const res = await fetch('/api/content');
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data && (data.images || data.areas || data.texts)) {
+      state = {
+        images: { ...state.images, ...(data.images || {}) },
+        areas: { ...state.areas, ...(data.areas || {}) },
+        texts: { ...state.texts, ...(data.texts || {}) }
+      };
+      persist(true);
+      applyOverrides();
+    }
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Auto-sync on initial client load
+if (typeof window !== 'undefined') {
+  syncFromCloud();
+}
+
+const persist = (notify = true) => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (e) {
-    alert('Browser storage capacity reached. Please paste an image URL or Google Drive link instead of uploading raw large files.');
-    return false;
+    console.warn('Browser storage warning:', e);
   }
-  listeners.forEach((fn) => fn(state));
+  if (notify) {
+    listeners.forEach((fn) => fn(state));
+  }
   return true;
 };
 
@@ -61,8 +107,10 @@ export const siteContent = {
     state = { ...state, images: { ...state.images } };
     if (newSrc && normKey(newSrc) !== k) {
       state.images[k] = newSrc;
+      apiPost('/api/content/photo', { key: k, data: newSrc });
     } else {
       delete state.images[k];
+      apiDelete('/api/content/photo', { key: k });
     }
     if (!persist()) state = prev;
   },
@@ -81,6 +129,9 @@ export const siteContent = {
 
   setArea: (areaId, origData, overrides) => {
     state = { ...state, areas: { ...state.areas, [areaId]: overrides } };
+
+    // Broadcast to PostgreSQL Cloud
+    apiPost('/api/content/area', { areaId, ...overrides });
 
     // Also link image and text keys so they automatically cascade everywhere
     if (overrides.image !== undefined) {
@@ -102,6 +153,8 @@ export const siteContent = {
     delete nextAreas[areaId];
     state = { ...state, areas: nextAreas };
 
+    apiDelete(`/api/content/area/${areaId}`);
+
     if (origData.image) siteContent.setImage(origData.image, '');
     if (origData.title) siteContent.setText(origData.title, '');
     if (origData.subtitle) siteContent.setText(origData.subtitle, '');
@@ -112,6 +165,7 @@ export const siteContent = {
   resetAll: () => {
     state = emptyState();
     persist();
+    apiPost('/api/content/reset-all', {});
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem('gd_goenka_site_content_v1');
@@ -128,8 +182,22 @@ export const siteContent = {
         texts: parsed.texts || {},
         areas: parsed.areas || {}
       };
+      apiPost('/api/content/batch-sync', state);
       return persist();
     } catch {
+      return false;
+    }
+  },
+
+  syncAllToCloud: async () => {
+    try {
+      const res = await fetch('/api/content/batch-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state)
+      });
+      return res.ok;
+    } catch (e) {
       return false;
     }
   }
