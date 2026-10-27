@@ -1,80 +1,281 @@
-.leadership-section {
-  background-color: var(--color-warm-white);
-  border-top: var(--border-thin);
+/* ==========================================================================
+   LEADERSHIP & CHAIRMAN SECTION (MATCHING SCREENSHOT)
+   The Flagship School of India's Leading Education Conglomerate
+   ========================================================================== */
+
+.legacy-leadership-section {
+  background: #FFFFFF;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(18, 57, 133, 0.08);
 }
 
-.leadership-grid {
+.legacy-grid-layout {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 3rem;
-  margin-top: 3.5rem;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
 }
 
-@media (min-width: 850px) {
-  .leadership-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+@media (min-width: 992px) {
+  .legacy-grid-layout {
+    grid-template-columns: 1.08fr 1fr;
+    gap: 3.5rem;
   }
 }
 
-.leader-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: var(--border-thin);
-  box-shadow: var(--shadow-subtle);
+@media (min-width: 1200px) {
+  .legacy-grid-layout {
+    grid-template-columns: 1.15fr 0.95fr;
+    gap: 4.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   LEFT COLUMN: HEADINGS, NARRATIVE & STATS
+   -------------------------------------------------------------------------- */
+
+.legacy-tag {
+  display: inline-block;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent, #b39759);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.legacy-heading {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: clamp(2rem, 3.4vw, 2.95rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-primary-dark, #123985);
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.legacy-narrative {
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  gap: 1.1rem;
+  margin-bottom: 2.75rem;
 }
 
-.leader-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card);
+.legacy-narrative p {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: #4A5568;
+  margin: 0;
 }
 
-.leader-img-box {
-  width: 100%;
-  height: 360px;
-  overflow: hidden;
+/* Stats Row */
+.legacy-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(18, 57, 133, 0.1);
+}
+
+.legacy-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.legacy-stat-number {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  line-height: 1.05;
+  margin-bottom: 0.4rem;
+}
+
+.legacy-stat-label {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   RIGHT COLUMN: PORTRAIT LEADERSHIP CARDS (MATCHING SCREENSHOT)
+   -------------------------------------------------------------------------- */
+
+.legacy-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: start;
+}
+
+.legacy-leader-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
-.leader-img-box img {
+.legacy-leader-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Card 1: Navy Blue Offset Frame (Exact Screenshot Effect) */
+.legacy-photo-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  position: relative;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.legacy-leader-card.with-navy-frame .legacy-photo-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary-dark, #123985);
+  border-radius: 4px;
+  z-index: 1;
+  opacity: 0;
+  transform: translate(0, 0);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.legacy-leader-card.with-navy-frame:hover .legacy-photo-wrap::before {
+  opacity: 1;
+  transform: translate(-8px, 10px);
+}
+
+.legacy-photo-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #F1EFEA;
+  box-shadow: 0 10px 24px rgba(11, 26, 56, 0.08);
+}
+
+.legacy-photo-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.leader-content {
-  padding: 2.25rem;
+.legacy-photo-inner img.chairman-img {
+  object-position: center 20%;
+}
+
+.legacy-photo-inner img.principal-img {
+  object-position: center 15%;
+}
+
+.legacy-leader-card:hover .legacy-photo-inner img {
+  transform: scale(1.04);
+}
+
+/* Leader Info Below Photo */
+.legacy-leader-info {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  gap: 0.2rem;
 }
 
-.leader-role {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
+.legacy-leader-name {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0b1a38;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  transition: color 0.25s ease;
 }
 
-.leader-name {
-  font-family: var(--font-display);
-  font-size: 1.85rem;
-  color: var(--color-primary-dark);
-  margin-bottom: 1rem;
+.legacy-leader-card:hover .legacy-leader-name {
+  color: var(--color-accent, #b39759);
 }
 
-.leader-message {
-  font-size: 0.95rem;
-  color: var(--color-warm-gray-800);
-  line-height: 1.65;
+.legacy-arrow-icon {
+  color: var(--color-primary-dark, #123985);
+  transition: transform 0.25s ease;
+}
+
+.legacy-leader-card:hover .legacy-arrow-icon {
+  transform: translateX(4px);
+  color: var(--color-accent, #b39759);
+}
+
+.legacy-leader-role {
+  font-size: 0.82rem;
   font-style: italic;
-  margin-bottom: 1.5rem;
-  flex: 1;
+  color: #64748B;
+  font-family: var(--font-body, "Outfit", sans-serif);
+}
+
+.legacy-leader-org {
+  font-size: 0.78rem;
+  color: #8C99A8;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Secondary Campus Leadership Toggle / Switch Bar */
+.legacy-campus-switch {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F8FAFC;
+  border: 1px solid rgba(18, 57, 133, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.legacy-campus-switch-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.legacy-campus-switch-btn:hover {
+  color: var(--color-accent, #b39759);
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  .legacy-stats-row {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .legacy-stat-number {
+    font-size: 2.4rem;
+  }
 }

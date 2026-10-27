@@ -4,12 +4,13 @@ import {
   FileSpreadsheet, Download, Upload, Plus, Trash2, Edit3, 
   CheckCircle, AlertCircle, Eye, Search, Filter, Sparkles,
   Image as ImageIcon, Megaphone, Inbox, Settings, RefreshCw, X,
-  Briefcase, FileText, Check, CheckSquare
+  Briefcase, FileText, Check, CheckSquare, Layers
 } from 'lucide-react';
 import { useSchoolData } from '../hooks/useSchoolData';
 import { parseBirthdayExcel, downloadBirthdayExcelTemplate } from '../utils/excelBirthdayParser';
 import { isBirthdayToday, calculateAge } from '../utils/schoolStore';
 import AdminImageUpload from '../components/AdminImageUpload';
+import SiteContentManager from '../components/SiteContentManager';
 import './AdminPage.css';
 
 export default function AdminPage({ setCurrentRoute }) {
@@ -458,10 +459,22 @@ export default function AdminPage({ setCurrentRoute }) {
             <Settings size={18} />
             <span>Settings & Backups</span>
           </button>
+
+          <button 
+            className={`admin-tab-btn ${activeTab === 'sitecontent' ? 'active' : ''}`}
+            onClick={() => setActiveTab('sitecontent')}
+            style={{ fontWeight: 700 }}
+          >
+            <Layers size={18} />
+            <span>Website Photos & Content</span>
+            <span className="admin-tab-badge" style={{ background: 'var(--color-accent, #b39759)', color: '#fff' }}>ALL CMS</span>
+          </button>
         </aside>
 
         {/* Right Content Area */}
         <main className="admin-main-content">
+          {activeTab === 'sitecontent' && <SiteContentManager />}
+
           {/* ========================================================
               TAB 1: STUDENT BIRTHDAYS & EXCEL IMPORTER
           ======================================================== */}

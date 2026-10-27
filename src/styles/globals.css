@@ -15,12 +15,12 @@ html {
   background-color: var(--color-warm-white);
   color: var(--color-text-dark);
   font-size: 16px;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   background-color: var(--color-warm-white);
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   min-height: 100vh;
 }
@@ -171,6 +171,140 @@ button {
   background-color: var(--color-accent);
 }
 
+/* ==========================================================================
+   GLOBAL ACADEMIC & CATEGORY TAB PILLS
+   Used by AcademicsPage, HappeningsPage, GalleryPage, etc.
+   ========================================================================== */
+
+.academic-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.65rem;
+  border-radius: var(--radius-full, 9999px);
+  background: #FFFFFF;
+  border: 1px solid rgba(18, 57, 133, 0.16);
+  color: var(--color-primary-dark, #123985);
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(18, 57, 133, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  user-select: none;
+}
+
+.academic-tab-btn:hover {
+  border-color: var(--color-accent, #b39759);
+  color: var(--color-primary-dark, #123985);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(18, 57, 133, 0.12);
+}
+
+.academic-tab-btn.active {
+  background: var(--color-primary-dark, #123985) !important;
+  color: #FFFFFF !important;
+  border-color: var(--color-primary-dark, #123985) !important;
+  box-shadow: 0 6px 20px rgba(18, 57, 133, 0.22);
+}
+
+.academics-grade-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent, #b39759);
+  padding: 0.4rem 0.9rem;
+  background: rgba(179, 151, 89, 0.1);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(179, 151, 89, 0.25);
+}
+
+/* Universal Form Controls */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .form-grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 1.5rem;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.15rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 0.9rem 1.15rem;
+  border-radius: var(--radius-sm, 6px);
+  border: 1.5px solid var(--color-warm-gray-300, #E2DED9);
+  background-color: #FFFFFF;
+  font-family: var(--font-body, inherit);
+  font-size: 0.95rem;
+  color: var(--color-primary-dark, #17181D);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all var(--transition-fast, 0.2s ease);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent, #C59B27);
+  box-shadow: 0 0 0 3.5px rgba(197, 155, 39, 0.2);
+  background-color: #FFFFFF;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #9CA3AF;
+  font-family: var(--font-body, inherit);
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C59B27' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 16px;
+  padding-right: 2.75rem;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 95px;
+  line-height: 1.55;
+}
+
 /* Authentic School Photography Luxury Enhancement */
 .hover-scale-img img,
 .image-reveal-wrapper img,
@@ -193,6 +327,116 @@ button {
   transform: scale(1.07) !important;
 }
 
+/* Core Button Utility Classes (Wings Pages & Site-wide) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-weight: 700;
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.25s cubic-bezier(0.16, 1, 0.3, 1));
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-accent, #b39759);
+  color: #FFFFFF !important;
+  border: 1.5px solid var(--color-accent, #b39759);
+  box-shadow: 0 4px 14px rgba(179, 151, 89, 0.28);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover, #9c8249);
+  border-color: var(--color-accent-hover, #9c8249);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(179, 151, 89, 0.4);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--color-primary-dark, #123985) !important;
+  border: 1.5px solid rgba(18, 57, 133, 0.35);
+  box-shadow: 0 2px 8px rgba(11, 26, 56, 0.05);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(18, 57, 133, 0.06);
+  border-color: var(--color-primary-dark, #123985);
+  color: var(--color-primary-dark, #123985) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(11, 26, 56, 0.1);
+}
+
+.btn-sm {
+  padding: 0.65rem 1.35rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+/* Wing Page Hero Action Buttons */
+.wing-hero-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wing-hero-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.68rem 1.45rem;
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none !important;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.wing-hero-btn-primary {
+  background: linear-gradient(135deg, #c5a967 0%, #b39759 100%) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #b39759 !important;
+  box-shadow: 0 4px 14px rgba(179, 151, 89, 0.32);
+}
+
+.wing-hero-btn-primary:hover {
+  background: linear-gradient(135deg, #b39759 0%, #9c8249 100%) !important;
+  border-color: #9c8249 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(179, 151, 89, 0.45);
+}
+
+.wing-hero-btn-secondary {
+  background: #FFFFFF !important;
+  color: var(--color-primary-dark, #123985) !important;
+  border: 1.5px solid rgba(18, 57, 133, 0.3) !important;
+  box-shadow: 0 2px 8px rgba(11, 26, 56, 0.05);
+}
+
+.wing-hero-btn-secondary:hover {
+  background: rgba(18, 57, 133, 0.06) !important;
+  border-color: var(--color-primary-dark, #123985) !important;
+  color: var(--color-primary-dark, #123985) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(11, 26, 56, 0.12);
+}
+
 /* Reduced Motion Compliance */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -202,3 +446,4 @@ button {
     scroll-behavior: auto !important;
   }
 }
+

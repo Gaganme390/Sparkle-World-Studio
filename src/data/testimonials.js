@@ -20,11 +20,11 @@ export const testimonialsData = [
   {
     id: 3,
     name: "Priya Tandon",
-    role: "Goenkan Alumni & AI Research Fellow",
+    role: "Educationist & Campus Visitor",
     image: "/school-media/Opening Photos/B/SPF_7322.JPG",
-    quote: "The Goenkan Leadership Academy laid the foundation for my career. The mindset of continuous inquiry, technological fluency, and ethical leadership stays with you forever.",
+    quote: "Visiting GD Goenka Ayodhya was an inspiring experience. The modern learning labs, student confidence, and ethical leadership environment stand out remarkably.",
     rating: 5,
-    tag: "Alumni Voice"
+    tag: "Visitor Voice"
   },
   {
     id: 4,

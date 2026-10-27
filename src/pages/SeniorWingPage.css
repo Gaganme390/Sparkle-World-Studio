@@ -1,0 +1,714 @@
+/* ==========================================================================
+   SENIOR WING & INSPIRED SPACES PAGE STYLES (PDF 2: PAGES 23 - 32)
+   ========================================================================== */
+
+.senior-wing-page {
+  background-color: var(--color-warm-white, #FCFAF7);
+}
+
+/* --------------------------------------------------------------------------
+   1. Hero Collage (Page 23 of PDF 2)
+   -------------------------------------------------------------------------- */
+
+.sw-hero-section {
+  position: relative;
+  background-color: #0b1a38;
+  overflow: hidden;
+  padding: 1.5rem 1rem;
+}
+
+.sw-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .sw-hero-grid {
+    grid-template-columns: 1.1fr 1.4fr 1.1fr;
+    grid-template-rows: repeat(2, 260px);
+    gap: 1.25rem;
+  }
+}
+
+.sw-collage-img-wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius-sm, 8px);
+  position: relative;
+}
+
+.sw-collage-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.sw-collage-img-wrap:hover img {
+  transform: scale(1.04);
+}
+
+@media (min-width: 900px) {
+  .sw-img-lab {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .sw-img-classroom {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+  .sw-hero-center-card {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+  .sw-img-library {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  .sw-img-robotics {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+  }
+}
+
+/* Center Hero Card */
+.sw-hero-center-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: var(--radius-md, 16px);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(179, 151, 89, 0.3);
+}
+
+.sw-hero-tag {
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--color-accent, #b39759);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.sw-hero-title {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.sw-hero-subtitle {
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-warm-gray-800, #333333);
+  margin: 0 0 1.25rem;
+}
+
+.sw-hero-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+}
+
+.sw-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-warm-gray-100, #F3EFEA);
+  color: var(--color-primary-dark, #123985);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Wing Page Hero Action Buttons */
+.sw-hero-center-card .wing-hero-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wing-hero-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.68rem 1.45rem;
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none !important;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.wing-hero-btn-primary {
+  background: linear-gradient(135deg, #c5a967 0%, #b39759 100%) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #b39759 !important;
+  box-shadow: 0 4px 14px rgba(179, 151, 89, 0.32);
+}
+
+.wing-hero-btn-primary:hover {
+  background: linear-gradient(135deg, #b39759 0%, #9c8249 100%) !important;
+  border-color: #9c8249 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(179, 151, 89, 0.45);
+}
+
+.wing-hero-btn-secondary {
+  background: #FFFFFF !important;
+  color: var(--color-primary-dark, #123985) !important;
+  border: 1.5px solid rgba(18, 57, 133, 0.3) !important;
+  box-shadow: 0 2px 8px rgba(11, 26, 56, 0.05);
+}
+
+.wing-hero-btn-secondary:hover {
+  background: rgba(18, 57, 133, 0.06) !important;
+  border-color: var(--color-primary-dark, #123985) !important;
+  color: var(--color-primary-dark, #123985) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(11, 26, 56, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   2. Sticky Sub Navigation
+   -------------------------------------------------------------------------- */
+
+.sw-subnav-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: var(--site-header-height, var(--header-height, 90px));
+  z-index: 900;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(18, 57, 133, 0.1);
+  box-shadow: 0 4px 16px rgba(11, 26, 56, 0.06);
+}
+
+#overview, #streams, #robotics, #spaces, #prep {
+  scroll-margin-top: calc(var(--site-header-height, var(--header-height, 90px)) + 55px);
+}
+
+.sw-subnav-container {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 3.5vw, 3rem);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+}
+
+.sw-subnav-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-warm-gray-800, #4A5568);
+  padding: 0.5rem 0.25rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.25s ease;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sw-subnav-btn:hover {
+  color: var(--color-primary-dark, #123985);
+}
+
+.sw-subnav-btn.active {
+  color: var(--color-primary-dark, #123985);
+}
+
+.sw-subnav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.85rem;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-accent, #b39759);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Overview Section
+   -------------------------------------------------------------------------- */
+
+.sw-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .sw-overview-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.sw-section-tag {
+  display: inline-block;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--color-accent, #b39759);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.sw-overview-heading {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: clamp(2rem, 2.8vw, 2.65rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  line-height: 1.22;
+  margin: 0 0 1.35rem;
+}
+
+.sw-overview-lead {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--color-warm-gray-800, #2D3748);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.sw-timing-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-warm-gray-100, #F3EFEA);
+  border-left: 4px solid var(--color-accent, #b39759);
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--radius-sm, 8px);
+  margin-top: 1.5rem;
+}
+
+.sw-timing-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-dark, #123985);
+  flex-shrink: 0;
+}
+
+.sw-timing-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-warm-gray-600, #718096);
+}
+
+.sw-timing-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+}
+
+.sw-overview-img-wrap {
+  position: relative;
+  border-radius: var(--radius-md, 16px);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.sw-overview-img-wrap img {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+.sw-overview-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-left: 3px solid var(--color-accent, #b39759);
+}
+
+.sw-badge-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #123985);
+}
+
+.sw-badge-sub {
+  font-size: 0.78rem;
+  color: var(--color-warm-gray-600, #718096);
+}
+
+/* --------------------------------------------------------------------------
+   4. Academic Streams Section (Grades 11 - 12)
+   -------------------------------------------------------------------------- */
+
+.sw-streams-section {
+  background: #FFFFFF;
+}
+
+.sw-streams-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 900px) {
+  .sw-streams-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sw-stream-card {
+  background: var(--color-warm-gray-50, #F9F8F6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-md, 16px);
+  padding: 2.25rem 1.85rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sw-stream-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-accent, #b39759);
+  opacity: 0.4;
+  transition: opacity 0.35s ease;
+}
+
+.sw-stream-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(18, 57, 133, 0.1);
+  border-color: rgba(18, 57, 133, 0.2);
+}
+
+.sw-stream-card:hover::before {
+  opacity: 1;
+}
+
+.sw-stream-icon-box {
+  width: 52px;
+  height: 52px;
+  background: var(--color-primary-dark, #123985);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.sw-stream-title {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  margin: 0 0 0.85rem;
+}
+
+.sw-stream-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-warm-gray-700, #4A5568);
+  margin-bottom: 1.5rem;
+}
+
+.sw-stream-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sw-stream-subitem {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-warm-gray-800, #2D3748);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sw-stream-subitem::before {
+  content: '✓';
+  color: var(--color-accent, #b39759);
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   4b. Robotics & AI Innovation Spotlight
+   -------------------------------------------------------------------------- */
+
+.sw-robotics-section {
+  background: #FFFFFF;
+  border-top: 1px solid rgba(18, 57, 133, 0.08);
+}
+
+.sw-robotics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .sw-robotics-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.sw-robotics-heading {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: clamp(2rem, 2.8vw, 2.65rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  line-height: 1.22;
+  margin: 0 0 1.25rem;
+}
+
+.sw-robotics-lead {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--color-warm-gray-800, #2D3748);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.sw-robotics-desc {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--color-warm-gray-700, #4A5568);
+  margin-bottom: 2rem;
+}
+
+.sw-robotics-highlights {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+@media (min-width: 600px) {
+  .sw-robotics-highlights {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sw-robotics-hl-item {
+  background: var(--color-warm-gray-50, #F9F8F6);
+  border: 1px solid rgba(18, 57, 133, 0.08);
+  border-radius: var(--radius-sm, 10px);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sw-robotics-hl-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #123985);
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.sw-robotics-hl-desc {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--color-warm-gray-600, #718096);
+  margin: 0;
+}
+
+.sw-robotics-img-wrap {
+  position: relative;
+  border-radius: var(--radius-md, 16px);
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(18, 57, 133, 0.15);
+}
+
+.sw-robotics-img-wrap img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+}
+
+.sw-robotics-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: rgba(10, 33, 77, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-left: 3px solid var(--color-accent, #b39759);
+  color: #FFFFFF;
+}
+
+.sw-robotics-badge-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.sw-robotics-badge-sub {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* --------------------------------------------------------------------------
+   5. Inspired Spaces Cards (Pages 24 - 32 of PDF 2)
+   -------------------------------------------------------------------------- */
+
+.sw-spaces-section {
+  background: var(--color-warm-gray-50, #F9F8F6);
+}
+
+.sw-spaces-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .sw-spaces-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sw-spaces-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sw-space-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md, 14px);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sw-space-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  border-color: rgba(179, 151, 89, 0.4);
+}
+
+.sw-space-img-wrap {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sw-space-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.sw-space-card:hover .sw-space-img-wrap img {
+  transform: scale(1.05);
+}
+
+.sw-space-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(18, 57, 133, 0.9);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full, 9999px);
+  backdrop-filter: blur(4px);
+}
+
+.sw-space-body {
+  padding: 1.65rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sw-space-title {
+  font-family: var(--font-display, "Polymath", serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
+  margin: 0 0 0.4rem;
+}
+
+.sw-space-motto {
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--color-accent, #b39759);
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.sw-space-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--color-warm-gray-700, #4A5568);
+  margin: 0;
+}

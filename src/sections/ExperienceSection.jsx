@@ -1,83 +1,66 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { experiencePillars } from '../data/experience';
-import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
-import ImageReveal from '../components/ImageReveal';
-import MagneticButton from '../components/MagneticButton';
-import KineticFlair from '../components/KineticFlair';
-import './ExperienceSection.css';
+import './SanctuariesCollage.css';
+
+const IMG = {
+  lab: ['/school-media/Digital Lab/language_lab_headset.jpg', 'Student engaged in computer and digital learning lab'],
+  smart: ['/school-media/facilities/smart_classrooms.jpg', 'Teacher writing on interactive display in smart classroom'],
+  library: ['/school-media/facilities/library.jpg', 'Children reading together in the school library'],
+  math: ['/school-media/facilities/mathematics_exploration_lab.jpg', 'Hands-on math lab manipulatives'],
+  class: ['/school-media/New Pages/Page 17/WhatsApp Image 2026-10-07 at 5.28.58 PM.jpeg', 'Students seated in a collaborative classroom'],
+  science: ['/school-media/facilities/science_laboratories.jpg', 'Students examining specimens in the science lab'],
+  robotics: ['/school-media/facilities/robotics_and_ai_lab.jpg', 'Students building and coding robotics hardware']
+};
+
+const Tile = ({ k, eager }) => (
+  <div className="sanct-tile">
+    <img src={IMG[k][0]} alt={IMG[k][1]} loading={eager ? 'eager' : 'lazy'} />
+  </div>
+);
 
 export default function ExperienceSection({ setCurrentRoute }) {
+  const go = (e) => {
+    e?.preventDefault();
+    if (setCurrentRoute) setCurrentRoute('/inspired-spaces');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <section className="experience-section section-padding" id="experience">
-      <div className="container">
-        <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
-            <ScrollReveal variant="fadeUp">
-              <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
-                EXPERIENCE GOENKA
-                <KineticFlair type="burst" size={15} />
+    <section className="experience-section sanct-section" id="experience" aria-label="Sanctuaries of Discovery">
+      <ScrollReveal variant="fadeUp">
+        <a
+          href="/inspired-spaces"
+          onClick={go}
+          className="sanct-collage"
+          aria-label="Explore all Sanctuaries of Discovery"
+        >
+          <div className="sanct-tall"><Tile k="lab" eager /></div>
+
+          <div className="sanct-mid">
+            <div className="sanct-mid-top">
+              <Tile k="smart" />
+              <Tile k="library" />
+            </div>
+
+            <div className="sanct-card">
+              <h2 className="sanct-title">SANCTUARIES OF DISCOVERY</h2>
+              <p className="sanct-sub">Where curiosity meets possibility</p>
+              <span className="sanct-cta">
+                Explore all spaces <ArrowRight size={16} />
               </span>
-            </ScrollReveal>
-            
-            <AnimatedText 
-              as="h2"
-              className="heading-section" 
-              style={{ marginTop: '0.5rem' }}
-              text="A PEEK INTO THE LIFE<br />OF OUR LITTLE GOENKANS"
-              delay={0.1}
-            />
+            </div>
+
+            <div className="sanct-mid-bottom">
+              <Tile k="math" />
+              <Tile k="class" />
+              <Tile k="science" />
+            </div>
           </div>
 
-          <ScrollReveal variant="fadeUp" delay={0.2}>
-            <MagneticButton strength={4}>
-              <button 
-                className="btn-enquire" 
-                onClick={() => { setCurrentRoute('/experience'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                style={{ marginTop: '1.5rem' }}
-                aria-label="Explore All Experience Pillars"
-              >
-                Explore All Facilities <ArrowRight size={16} />
-              </button>
-            </MagneticButton>
-          </ScrollReveal>
-        </div>
-
-        <ScrollReveal className="experience-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.3}>
-          {experiencePillars.map((item) => (
-            <div key={item.id} className="exp-pillar-card hover-lift">
-              <div className="exp-img-wrap">
-                <ImageReveal 
-                  src={item.image} 
-                  alt={item.title} 
-                  width="400"
-                  height="200"
-                />
-              </div>
-              <div className="exp-body">
-                <h3 className="exp-title">{item.title}</h3>
-                <p className="exp-desc">{item.subtitle}</p>
-                <a 
-                  href={`/experience#${item.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentRoute('/experience');
-                    setTimeout(() => {
-                      const el = document.getElementById(item.id);
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }, 150);
-                  }}
-                  style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--color-accent)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
-                  aria-label={`Learn more about ${item.title}`}
-                >
-                  Learn More <ArrowRight size={14} />
-                </a>
-              </div>
-            </div>
-          ))}
-        </ScrollReveal>
-      </div>
+          <div className="sanct-tall"><Tile k="robotics" /></div>
+        </a>
+      </ScrollReveal>
     </section>
   );
 }

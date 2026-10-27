@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Heart, Award } from 'lucide-react';
-import { houseSystem, leadershipData } from '../data/leadership';
+import { leadershipData } from '../data/leadership';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
@@ -154,42 +154,6 @@ export default function AboutPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute 
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* House System */}
-      <section className="section-padding theme-pure-white" id="houses">
-        <div className="container">
-          <div style={{ marginBottom: '3rem' }}>
-            <ScrollReveal variant="fadeUp">
-              <span className="tag-label">STUDENT LIFE GOVERNANCE</span>
-            </ScrollReveal>
-
-            <AnimatedText 
-              as="h2"
-              className="heading-section" 
-              style={{ marginTop: '0.5rem' }}
-              text="OUR FOUR HOUSES"
-              delay={0.1}
-            />
-
-            <ScrollReveal variant="fadeUp" delay={0.2}>
-              <p className="text-body" style={{ maxWidth: '640px', marginTop: '0.5rem' }}>
-                Fostering camaraderie, healthy competition, sportsmanship, and leadership across four house identities.
-              </p>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal className="editorial-grid" stagger staggerAmount={0.1} variant="fadeUp" delay={0.3}>
-            {houseSystem.map((house, idx) => (
-              <div key={idx} className="col-12 col-md-3 hover-lift" style={{ padding: '2rem', borderRadius: 'var(--radius-md)', border: 'var(--border-thin)', background: 'var(--color-warm-white)' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: '800', color: house.color, letterSpacing: '0.15em' }}>{house.element}</span>
-                <h3 className="font-display" style={{ fontSize: '1.75rem', color: 'var(--color-primary-dark)', marginTop: '0.25rem', marginBottom: '0.5rem' }}>{house.name}</h3>
-                <p style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--color-accent)', marginBottom: '0.75rem' }}>Motto: {house.motto}</p>
-                <p className="text-body" style={{ fontSize: '0.9rem' }}>{house.desc}</p>
-              </div>
-            ))}
-          </ScrollReveal>
         </div>
       </section>
 

@@ -7,6 +7,8 @@ import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import FinalCTA from '../components/FinalCTA';
+import BirthdayTickerBanner from '../components/BirthdayTickerBanner';
+import AchievementsSection from '../sections/AchievementsSection';
 
 export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCelebration, setCurrentRoute }) {
   const { happenings, todaysBirthdays } = useSchoolData();
@@ -43,69 +45,42 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCeleb
       <section className="section-padding theme-warm-soft">
         <div className="container">
           <ScrollReveal variant="fadeUp">
-            <span className="tag-label">CAMPUS CHRONICLES & NEWS</span>
+            <span className="tag-label">CAMPUS CHRONICLES • NEWS & ARTICLES</span>
           </ScrollReveal>
 
           <AnimatedText 
             as="h1"
             className="heading-hero" 
             style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}
-            text="HAPPENINGS AT GOENKA"
+            text="NEWS, ARTICLES & HAPPENINGS"
             delay={0.1}
           />
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              Stay informed with our latest campus announcements, daily student birthday recognitions, STEM achievements, and educational insights.
+              Stay informed with our latest news and articles, campus announcements, daily student birthday recognitions, and our culture of excellence in Ayodhya.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Today's Student Birthday Recognition Banner */}
-      <section style={{ background: 'var(--color-primary-dark)', padding: '1rem 0', color: '#FFFFFF', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-accent)', color: '#17181D', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.08em', flexShrink: 0 }}>
-              <Cake size={16} /> TODAY'S BIRTHDAY RECOGNITION
+      {/* Student Birthdays Recognition Stream */}
+      <div className="happenings-birthday-stream" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+        {todaysBirthdays.length > 0 ? (
+          <BirthdayTickerBanner onOpenCelebration={onOpenCelebration} hideClose={true} />
+        ) : (
+          <section style={{ background: 'linear-gradient(135deg, #17181D 0%, #22252F 50%, #17181D 100%)', padding: '0.85rem 0', color: '#FFFFFF', borderBottom: '1px solid rgba(224, 145, 69, 0.35)' }}>
+            <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-accent)', color: '#17181D', padding: '0.35rem 0.85rem', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '0.08em' }}>
+                <Cake size={15} /> GOENKAN BIRTHDAY RECOGNITION
+              </div>
+              <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)' }}>
+                No student birthdays scheduled for today. Check back tomorrow for daily campus celebrations!
+              </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>
-              {todaysBirthdays.length > 0 ? (
-                todaysBirthdays.map((b, idx) => (
-                  <span key={b.id || idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                    🎉 <strong>{b.name}</strong> <span style={{ color: 'var(--color-soft-accent)', fontSize: '0.8rem' }}>({b.grade}{b.section ? `-${b.section}` : ''})</span>
-                    {idx < todaysBirthdays.length - 1 && <span style={{ color: 'rgba(255,255,255,0.3)', marginLeft: '0.75rem' }}>•</span>}
-                  </span>
-                ))
-              ) : (
-                <span style={{ color: 'rgba(255,255,255,0.6)' }}>No birthdays registered for today.</span>
-              )}
-            </div>
-          </div>
-
-          {todaysBirthdays.length > 0 && onOpenCelebration && (
-            <button 
-              type="button" 
-              onClick={onOpenCelebration}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(224, 145, 69, 0.4)',
-                color: 'var(--color-soft-accent)',
-                padding: '0.35rem 0.9rem',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              <Sparkles size={14} style={{ color: 'var(--color-accent)' }} /> Celebrate With Us
-            </button>
-          )}
-        </div>
-      </section>
+          </section>
+        )}
+      </div>
 
       {/* Category Tabs */}
       <section className="section-padding theme-pure-white">
@@ -178,6 +153,9 @@ export default function HappeningsPage({ onOpenEnquiry, onOpenVisit, onOpenCeleb
           </ScrollReveal>
         </div>
       </section>
+
+      {/* A Culture of Excellence (Milestones, Statistics & Laurels) */}
+      <AchievementsSection />
 
       {/* Full Article Reader Floating Popup Modal */}
       <AnimatePresence>

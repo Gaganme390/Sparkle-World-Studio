@@ -6,8 +6,10 @@ import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
+import StudentLifeSection from '../sections/StudentLifeSection';
+import SportsGroundSection from '../sections/SportsGroundSection';
 
-export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
+export default function ExperiencePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
       {/* Header */}
@@ -27,7 +29,7 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              A peek into the life of our little Goenkans. From bright smart classrooms, robotics, and Montessori inquiry to indoor meditation, performing arts, gymnastics, and public speaking.
+              Sanctuaries of discovery where curiosity meets possibility. From bright smart classrooms, robotics, and Montessori inquiry to indoor meditation, performing arts, gymnastics, and public speaking.
             </p>
           </ScrollReveal>
         </div>
@@ -97,7 +99,13 @@ export default function ExperiencePage({ onOpenEnquiry, setCurrentRoute }) {
         </div>
       </section>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      {/* Outdoor Championship Sports Ground Complex Showcase (Drone Aerial View) */}
+      <SportsGroundSection onOpenEnquiry={onOpenEnquiry} />
+
+      {/* Life Beyond the Timetable Section */}
+      <StudentLifeSection onOpenEnquiry={onOpenEnquiry} />
+
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }

@@ -1,18 +1,44 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle, Clock, Users, BookOpen } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Users, BookOpen, Compass, ChevronRight, Sparkles } from 'lucide-react';
 import { academicWings, academicPillars } from '../data/academics';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
 import FinalCTA from '../components/FinalCTA';
+import './AcademicsPage.css';
 
-export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
+const WING_ROUTES = {
+  junior: '/junior-wing',
+  primary: '/primary-wing',
+  middle: '/middle-wing',
+  senior: '/senior-wing'
+};
+
+const WING_COVER_IMAGES = {
+  junior: '/school-media/academics/junior_wing_card.jpg',
+  primary: '/school-media/academics/primary_wing_card.jpg',
+  middle: '/school-media/academics/middle_wing_card.jpg',
+  senior: '/school-media/academics/senior_wing_card.jpg'
+};
+
+export default function AcademicsPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
   const [selectedWing, setSelectedWing] = useState(academicWings[0]);
+
+  const handleNavigateToWing = (e, wingId) => {
+    e?.preventDefault();
+    const route = WING_ROUTES[wingId] || '/junior-wing';
+    if (setCurrentRoute) {
+      setCurrentRoute(route);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (typeof window !== 'undefined') {
+      window.location.href = route;
+    }
+  };
 
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
-      {/* Header */}
+      {/* 1. Header */}
       <section className="section-padding theme-warm-soft">
         <div className="container">
           <ScrollReveal variant="fadeUp">
@@ -29,13 +55,13 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              A curriculum calibrated to each stage of growth — spanning Early Foundational Literacy to Senior Board & Competitive Entrance Preparedness.
+              A curriculum calibrated to each stage of growth — spanning Early Foundational Literacy to Senior Board &amp; Competitive Entrance Preparedness.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Pedagogical Pillars */}
+      {/* 2. Pedagogical Pillars */}
       <section className="section-padding theme-pure-white">
         <div className="container">
           <div style={{ marginBottom: '3.5rem' }}>
@@ -64,149 +90,243 @@ export default function AcademicsPage({ onOpenEnquiry, setCurrentRoute }) {
         </div>
       </section>
 
-      {/* Wing Breakdown Tabs */}
-      <section className="section-padding theme-warm-white" id="wings">
+      {/* 3. Modern Four Academic Wings Showcase */}
+      <section className="academics-wings-suite" id="wings">
         <div className="container">
-          <ScrollReveal variant="fadeUp">
-            <span className="tag-label">DEVELOPMENTAL STAGES</span>
-          </ScrollReveal>
-
-          <AnimatedText 
-            as="h2"
-            className="heading-section" 
-            style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}
-            text="Explore Our Four Academic Wings"
-            delay={0.1}
-          />
-
-          <ScrollReveal variant="fadeUp" delay={0.2} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
-            {academicWings.map((wing) => (
-              <button
-                key={wing.id}
-                onClick={() => setSelectedWing(wing)}
-                className={`academic-tab-btn ${selectedWing.id === wing.id ? 'active' : ''}`}
-                style={{ padding: '0.85rem 1.75rem' }}
-              >
-                {wing.title} ({wing.grades})
-              </button>
-            ))}
-          </ScrollReveal>
-
-          {/* Wing Main Spotlight */}
-          <div className="editorial-grid" style={{ alignItems: 'center', background: '#FFFFFF', padding: '3rem', borderRadius: 'var(--radius-lg)', border: 'var(--border-thin)', boxShadow: 'var(--shadow-card)' }}>
-            <ScrollReveal variant="fadeRight" delay={0.1} className="col-12 col-md-6" key={selectedWing.id}>
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-                <span className="academics-grade-tag">{selectedWing.grades} • AGES {selectedWing.ageGroup}</span>
-                {selectedWing.timings && (
-                  <span className="academics-grade-tag" style={{ background: 'rgba(23, 24, 29, 0.05)', color: 'var(--color-primary-dark)' }}>
-                    <Clock size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
-                    {selectedWing.timings}
-                  </span>
-                )}
-                {selectedWing.ratio && (
-                  <span className="academics-grade-tag" style={{ background: 'rgba(23, 24, 29, 0.05)', color: 'var(--color-primary-dark)' }}>
-                    <Users size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
-                    {selectedWing.ratio}
-                  </span>
-                )}
-              </div>
-              <h3 className="font-display" style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '0.5rem 0' }}>{selectedWing.title}</h3>
-              <p style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--color-warm-gray-800)', marginBottom: '1.5rem' }}>{selectedWing.subtitle}</p>
-              <p className="text-body" style={{ marginBottom: '1.75rem' }}>{selectedWing.description}</p>
-              
-              <h4 style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}>KEY HIGHLIGHTS:</h4>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '2rem' }}>
-                {selectedWing.keyFeatures.map((f, fIdx) => (
-                  <li key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.95rem', color: 'var(--color-primary-dark)' }}>
-                    <CheckCircle size={16} style={{ color: 'var(--color-accent)' }} /> {f}
-                  </li>
-                ))}
-              </ul>
-
-              <MagneticButton strength={4}>
-                <button className="btn-enquire" onClick={onOpenEnquiry}>
-                  Enquire for {selectedWing.title} <ArrowRight size={16} />
-                </button>
-              </MagneticButton>
+          
+          <div className="academics-wings-header">
+            <ScrollReveal variant="fadeUp">
+              <span className="tag-label">DEVELOPMENTAL STAGES • NURSERY TO GRADE 12</span>
             </ScrollReveal>
 
-            <div className="col-12 col-md-6">
-              <ImageReveal 
-                key={selectedWing.id}
-                src={selectedWing.image} 
-                alt={selectedWing.title} 
-                width="800"
-                height="420"
-                delay={0.1}
-                style={{ borderRadius: 'var(--radius-md)' }}
-              />
-            </div>
+            <AnimatedText 
+              as="h2"
+              className="heading-section" 
+              style={{ marginTop: '0.5rem', marginBottom: '1.25rem' }}
+              text="Explore Our Four Academic Wings"
+              delay={0.1}
+            />
+
+            <ScrollReveal variant="fadeUp" delay={0.15}>
+              <p className="text-body" style={{ maxWidth: '780px', fontSize: '1.05rem', lineHeight: '1.75' }}>
+                Each wing is an intentionally structured educational realm with age-appropriate architecture, dedicated faculty, and specialized cognitive pathways. Select any wing below to explore its stage curriculum.
+              </p>
+            </ScrollReveal>
           </div>
 
-          {/* Grade Breakdown Cards (from PDF 2) */}
-          {selectedWing.detailedGrades && (
-            <div style={{ marginTop: '4rem' }}>
-              <div style={{ marginBottom: '2rem' }}>
-                <span className="tag-label" style={{ color: 'var(--color-accent)' }}>CURRICULUM BREAKDOWN</span>
-                <h3 className="font-display" style={{ fontSize: '2rem', color: 'var(--color-primary-dark)', marginTop: '0.35rem' }}>
-                  Progressive Learning in {selectedWing.title}
-                </h3>
-              </div>
+          {/* 4 Cards Grid Showcase (All 4 Wings Visible Simultaneously) */}
+          <div className="academics-wings-cards-grid">
+            {academicWings.map((wing, idx) => {
+              const isSelected = selectedWing.id === wing.id;
+              const coverImg = WING_COVER_IMAGES[wing.id] || wing.image;
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                {selectedWing.detailedGrades.map((g, gIdx) => (
+              return (
+                <ScrollReveal 
+                  key={wing.id} 
+                  variant="fadeUp" 
+                  delay={0.1 + idx * 0.08}
+                >
                   <div 
-                    key={gIdx} 
-                    className="hover-lift"
-                    style={{ 
-                      background: '#FFFFFF', 
-                      borderRadius: 'var(--radius-md)', 
-                      overflow: 'hidden', 
-                      border: 'var(--border-thin)',
-                      boxShadow: 'var(--shadow-subtle)',
-                      display: 'flex',
-                      flexDirection: 'column'
-                    }}
+                    className={`wing-showcase-card ${isSelected ? 'active' : ''}`}
+                    onClick={() => setSelectedWing(wing)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Select and view details for ${wing.title}`}
+                    onKeyDown={(e) => { if (e.key === 'Enter') setSelectedWing(wing); }}
                   >
-                    <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
+                    <div className="wing-showcase-img-wrap">
                       <img 
-                        src={g.image} 
-                        alt={g.grade} 
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }}
+                        src={coverImg} 
+                        alt={wing.title} 
+                        className="wing-showcase-img"
                         loading="lazy"
                       />
-                      <span style={{ 
-                        position: 'absolute', 
-                        bottom: '0.75rem', 
-                        left: '0.75rem', 
-                        background: 'rgba(15, 16, 20, 0.85)', 
-                        color: 'var(--color-accent)', 
-                        padding: '0.3rem 0.75rem', 
-                        borderRadius: '9999px',
-                        fontSize: '0.75rem',
-                        fontWeight: '800',
-                        letterSpacing: '0.08em'
-                      }}>
-                        {g.grade}
-                      </span>
+                      <div className="wing-showcase-overlay" />
                     </div>
-                    <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                      <h4 className="font-display" style={{ fontSize: '1.25rem', color: 'var(--color-primary-dark)', marginBottom: '0.5rem' }}>
-                        {g.focus}
-                      </h4>
-                      <p className="text-body" style={{ fontSize: '0.9rem', lineHeight: '1.65' }}>
-                        {g.desc}
-                      </p>
+
+                    <div className="wing-showcase-top">
+                      <span className="wing-showcase-age-badge">
+                        AGES {wing.ageGroup}
+                      </span>
+                      <span className="wing-showcase-indicator" />
+                    </div>
+
+                    <div className="wing-showcase-bottom">
+                      <h3 className="wing-showcase-title">{wing.title}</h3>
+                      <span className="wing-showcase-grades">{wing.grades}</span>
+                      <div className="wing-showcase-cta">
+                        <span>{isSelected ? 'Currently Viewing' : 'Explore Stage'}</span>
+                        <ChevronRight size={14} />
+                      </div>
                     </div>
                   </div>
-                ))}
+                </ScrollReveal>
+              );
+            })}
+          </div>
+
+          {/* Modern Editorial Bento Spotlight for Selected Wing */}
+          <div className="wing-spotlight-bento-card">
+            <ScrollReveal variant="fadeUp" delay={0.1} key={selectedWing.id}>
+              
+              {/* 1. Aligned Spotlight Header Bar */}
+              <div className="wing-bento-top-bar">
+                <div className="wing-bento-title-group">
+                  <div className="wing-bento-tag-line">
+                    <span className="wing-bento-stage-tag">
+                      {selectedWing.grades} • AGES {selectedWing.ageGroup}
+                    </span>
+                  </div>
+                  <h3 className="wing-bento-main-title">{selectedWing.title}</h3>
+                  <p className="wing-bento-tagline">“{selectedWing.subtitle}”</p>
+                </div>
+
+                <div className="wing-bento-pills-row">
+                  {selectedWing.timings && (
+                    <span className="wing-bento-meta-pill">
+                      <Clock size={14} className="wing-bento-pill-icon" />
+                      <span>{selectedWing.timings}</span>
+                    </span>
+                  )}
+                  {selectedWing.ratio && (
+                    <span className="wing-bento-meta-pill">
+                      <Users size={14} className="wing-bento-pill-icon" />
+                      <span>{selectedWing.ratio}</span>
+                    </span>
+                  )}
+                  <span className="wing-bento-meta-pill highlight">
+                    <Sparkles size={14} className="wing-bento-pill-icon" />
+                    <span>CBSE &amp; NEP 2020</span>
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+
+              {/* 2. Main Balanced Bento Split Grid */}
+              <div className="wing-bento-grid">
+                
+                {/* Left Column: Narrative, Key Highlights List, Actions */}
+                <div className="wing-bento-left-col">
+                  <p className="wing-bento-desc-p">{selectedWing.description}</p>
+
+                  {/* Key Highlights Uniform List */}
+                  <div className="wing-bento-highlights-block">
+                    <div className="wing-bento-highlights-title">
+                      KEY WING HIGHLIGHTS:
+                    </div>
+                    <div className="wing-highlights-list">
+                      {selectedWing.keyFeatures.map((f, fIdx) => (
+                        <div key={fIdx} className="wing-highlight-item">
+                          <div className="wing-highlight-icon-wrap">
+                            <CheckCircle size={15} />
+                          </div>
+                          <span className="wing-highlight-text">{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="wing-bento-actions-row">
+                    <button 
+                      type="button"
+                      className="btn-enquire" 
+                      onClick={(e) => handleNavigateToWing(e, selectedWing.id)}
+                      style={{ padding: '0.85rem 1.85rem', fontSize: '0.92rem' }}
+                    >
+                      Explore Dedicated {selectedWing.title} Page <ArrowRight size={16} />
+                    </button>
+                    <button 
+                      type="button"
+                      className="btn-outline-gold" 
+                      onClick={onOpenEnquiry}
+                      style={{ padding: '0.85rem 1.85rem', fontSize: '0.92rem' }}
+                    >
+                      Enquire for Admission
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right Column: Visual Frame + Curriculum Framework Box */}
+                <div className="wing-bento-right-col">
+                  <div className="wing-bento-image-wrapper">
+                    <img 
+                      src={WING_COVER_IMAGES[selectedWing.id] || selectedWing.image} 
+                      alt={selectedWing.title} 
+                      loading="lazy"
+                      className="wing-bento-hero-img"
+                    />
+                    <div className="wing-bento-img-overlay" />
+                    
+                    <div className="wing-bento-floating-top">
+                      <span className="wing-bento-campus-badge">
+                        GD Goenka Ayodhya Campus
+                      </span>
+                    </div>
+
+                    <div className="wing-bento-floating-bottom">
+                      <div className="wing-bento-floating-title">{selectedWing.title}</div>
+                      <div className="wing-bento-floating-meta">
+                        {selectedWing.grades} • {selectedWing.ratio || 'Individual Mentorship'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Curriculum Architecture & Pedagogy Card */}
+                  {selectedWing.curriculumHighlight && (
+                    <div className="wing-bento-framework-box">
+                      <div className="wing-bento-framework-header">
+                        <BookOpen size={16} className="wing-bento-framework-icon" />
+                        <span>CURRICULUM ARCHITECTURE &amp; PEDAGOGY</span>
+                      </div>
+                      <p className="wing-bento-framework-text">
+                        {selectedWing.curriculumHighlight}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+
+              {/* 4. Sub-Grades Progressive Learning Breakdown */}
+              {selectedWing.detailedGrades && (
+                <div className="wing-subgrades-section">
+                  <div className="wing-subgrades-header">
+                    <span className="wing-subgrades-tag">STAGE CHECKPOINTS</span>
+                    <h4 className="wing-subgrades-heading">
+                      Progressive Grade Milestones in {selectedWing.title}
+                    </h4>
+                  </div>
+
+                  <div className="wing-subgrades-grid">
+                    {selectedWing.detailedGrades.map((g, gIdx) => (
+                      <div key={gIdx} className="wing-subgrade-card">
+                        <div className="wing-subgrade-img-box">
+                          <img 
+                            src={g.image} 
+                            alt={g.grade} 
+                            loading="lazy"
+                          />
+                          <span className="wing-subgrade-badge-chip">{g.grade}</span>
+                        </div>
+                        <div className="wing-subgrade-body">
+                          <h5 className="wing-subgrade-name">{g.grade}</h5>
+                          <div className="wing-subgrade-focus">{g.focus}</div>
+                          <p className="wing-subgrade-desc">{g.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </ScrollReveal>
+          </div>
+
         </div>
       </section>
 
-      <FinalCTA onOpenEnquiry={onOpenEnquiry} setCurrentRoute={setCurrentRoute} />
+      {/* 4. Final CTA */}
+      <FinalCTA onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
     </main>
   );
 }

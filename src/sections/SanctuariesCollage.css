@@ -1,0 +1,114 @@
+.sanct-section {
+  padding: 1.25rem 1rem;
+  background: #fff;
+}
+
+.sanct-collage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 1520px;
+  margin: 0 auto;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .sanct-collage {
+    grid-template-columns: 1.15fr 3.4fr 1.15fr;
+    min-height: 560px;
+  }
+}
+
+.sanct-tall { display: none; }
+@media (min-width: 992px) {
+  .sanct-tall { display: block; height: 100%; }
+}
+
+.sanct-tile {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #e9e4dc;
+}
+
+.sanct-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sanct-collage:hover .sanct-tile img { transform: scale(1.04); }
+
+.sanct-mid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.sanct-mid-top,
+.sanct-mid-bottom {
+  display: grid;
+  gap: 12px;
+}
+.sanct-mid-top { grid-template-columns: 1fr 1fr; height: 170px; }
+.sanct-mid-bottom { grid-template-columns: repeat(3, 1fr); height: 160px; }
+
+.sanct-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(179, 151, 89, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.sanct-collage:hover .sanct-card {
+  box-shadow: 0 18px 50px rgba(18, 57, 133, 0.12);
+  border-color: var(--color-accent, #b39759);
+}
+
+.sanct-title {
+  font-family: var(--font-display, "Polymath", serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.6vw, 3.1rem);
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  color: var(--color-primary-dark, #123985);
+  margin: 0;
+}
+
+.sanct-sub {
+  margin: 0.85rem 0 0;
+  font-size: 1rem;
+  color: var(--color-text-muted, #6b6b6b);
+}
+
+.sanct-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent, #b39759);
+}
+
+.sanct-cta svg { transition: transform 0.3s ease; }
+.sanct-collage:hover .sanct-cta svg { transform: translateX(6px); }
+
+@media (max-width: 640px) {
+  .sanct-mid-top { height: 120px; }
+  .sanct-mid-bottom { height: 100px; }
+}

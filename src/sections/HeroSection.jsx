@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Award, ChevronDown, ChevronLeft, ChevronRight, Compass, Sparkles, Monitor, Trophy } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '../components/MagneticButton';
 import KineticText from '../components/KineticText';
 import KineticFlair from '../components/KineticFlair';
@@ -8,79 +8,49 @@ import './HeroSection.css';
 const HERO_SLIDES = [
   {
     id: 1,
-    meta: 'ARCHITECTURAL GRANDEUR',
-    tagline: 'Front View & Modern Campus',
     titleLine1: 'THRIVE',
     titleLine2: 'FOR LIFE',
     leadText: 'Nurturing confident, curious minds ready to thrive in an ever-changing world.',
     image: '/school-media/Opening Photos/campus_grand_exterior_banner.jpg',
     imageAlt: 'G.D. Goenka Public School Ayodhya Grand Campus Front View Architecture',
-    badgeIcon: Award,
-    badgeTitle: 'CBSE Curriculum',
-    badgeSub: 'STEM, Leadership & Values Integration',
-    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'enquiry' },
-    ctaSecondary: { text: 'Explore Our School ↓', type: 'explore' }
+    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'route', route: '/admissions' }
   },
   {
     id: 2,
-    meta: 'INNOVATION & DIGITAL FLUENCY',
-    tagline: '1st in Ayodhya • Digital Language Lab',
     titleLine1: 'THRIVE',
     titleLine2: 'FOR LIFE',
     leadText: 'State-of-the-art multimedia workstations, phonetic listening booths, and digital coding labs empowering students with 21st-century fluency.',
     image: '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
     objectPosition: 'center bottom',
     imageAlt: 'Modern Digital Language & Computer Science Laboratory at G.D. Goenka Ayodhya',
-    badgeIcon: Monitor,
-    badgeTitle: 'Digital Language Lab',
-    badgeSub: 'Bilingual Workstations & Audio Booths',
-    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'enquiry' },
-    ctaSecondary: { text: 'Explore Academics →', type: 'route', route: '/academics' }
+    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'route', route: '/admissions' }
   },
   {
     id: 3,
-    meta: 'ARTS & EXPRESSION',
-    tagline: 'Timeless Grace • Self-Discovery',
     titleLine1: 'THRIVE',
     titleLine2: 'FOR LIFE',
     leadText: 'From Indian classical dance and theatrical storytelling to inter-house music ensembles, student creativity takes center stage in Ayodhya.',
     image: '/school-media/Cultural Celebration/cultural_fest_dandiya_banner.jpg',
     imageAlt: 'Vibrant cultural and performing arts celebrations at G.D. Goenka School Ayodhya',
-    badgeIcon: Sparkles,
-    badgeTitle: 'Performing Arts',
-    badgeSub: 'Classical Dance, Music & Heritage',
-    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'enquiry' },
-    ctaSecondary: { text: 'Experience Goenka →', type: 'route', route: '/experience' }
+    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'route', route: '/admissions' }
   },
   {
     id: 4,
-    meta: 'EARLY YEARS DISCOVERY',
-    tagline: 'Experiential Play • Reggio Emilia Inspired',
     titleLine1: 'THRIVE',
     titleLine2: 'FOR LIFE',
     leadText: 'Sensory color immersion, phonetic literacy picnics, and colorful indoor play zones designed for gentle social-emotional growth and exploration.',
     image: '/school-media/Play Station/kindergarten_ball_pool_landscape.jpg',
     imageAlt: 'Joyful toddler in the indoor kindergarten play station ball pit',
-    badgeIcon: Compass,
-    badgeTitle: 'Junior Wing',
-    badgeSub: 'Foundational Play & Sensory Discovery',
-    ctaPrimary: { text: 'Apply for Pre-Nursery →', type: 'enquiry' },
-    ctaSecondary: { text: 'Schedule Campus Visit', type: 'visit' }
+    ctaPrimary: { text: 'Apply for Pre-Nursery →', type: 'route', route: '/admissions' }
   },
   {
     id: 5,
-    meta: 'VIBRANT CAMPUS LIFE',
-    tagline: 'Experiential Days • Holistic Discovery',
     titleLine1: 'THRIVE',
     titleLine2: 'FOR LIFE',
     leadText: 'From thematic color immersion days and balloon spectacles to district championship victories, joyful experiential growth flourishes in Ayodhya.',
     image: '/school-media/Blue Day/blue_day_celebration_banner.jpg',
     imageAlt: 'Joyful students celebrating experiential thematic learning day with blue balloons',
-    badgeIcon: Sparkles,
-    badgeTitle: 'Holistic Campus Life',
-    badgeSub: 'Thematic Days, Athletics & Assemblies',
-    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'enquiry' },
-    ctaSecondary: { text: 'Explore Experience →', type: 'route', route: '/experience' }
+    ctaPrimary: { text: 'Admissions 2026-27 →', type: 'route', route: '/admissions' }
   }
 ];
 
@@ -158,22 +128,26 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
   };
 
   const handleCtaClick = (cta) => {
-    if (cta.type === 'enquiry') {
-      if (onOpenEnquiry) onOpenEnquiry();
-    } else if (cta.type === 'visit') {
-      if (onOpenVisit) onOpenVisit();
-    } else if (cta.type === 'explore') {
-      scrollToExplore();
-    } else if (cta.type === 'route' && cta.route) {
+    if (cta.type === 'route' && cta.route) {
       if (setCurrentRoute) {
         setCurrentRoute(cta.route);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+    } else if (cta.type === 'enquiry') {
+      if (setCurrentRoute) {
+        setCurrentRoute('/admissions');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (onOpenEnquiry) {
+        onOpenEnquiry();
+      }
+    } else if (cta.type === 'visit') {
+      if (onOpenVisit) onOpenVisit();
+    } else if (cta.type === 'explore') {
+      scrollToExplore();
     }
   };
 
   const slide = HERO_SLIDES[currentSlide];
-  const BadgeIcon = slide.badgeIcon;
 
   return (
     <section 
@@ -211,17 +185,6 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
       {/* Main Content Overlay */}
       <div className="container hero-slider-content-container">
         <div className="hero-slider-inner-content" key={slide.id}>
-          {/* Header Meta / Tagline Pill */}
-          <div className="hero-meta-row animate-hero-fade">
-            <span className="hero-slide-meta-badge">
-              <span className="hero-slide-pulse-dot" />
-              {slide.meta}
-            </span>
-            <span className="hero-delhi-tagline">
-              {slide.tagline}
-            </span>
-          </div>
-
           {/* Headline with Gold Accent & GSAP Character Bouncing */}
           <h1 className="hero-slider-title">
             <span className="hero-title-block">
@@ -254,7 +217,7 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
             {slide.leadText}
           </p>
 
-          {/* Action CTAs */}
+          {/* Action CTA */}
           <div className="hero-slider-cta-row animate-hero-slide-up-delay">
             <MagneticButton strength={5}>
               <button 
@@ -265,27 +228,6 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
                 {slide.ctaPrimary.text}
               </button>
             </MagneticButton>
-
-            <MagneticButton strength={5}>
-              <button 
-                className="btn-menu-trigger hero-cta-btn-secondary" 
-                onClick={() => handleCtaClick(slide.ctaSecondary)}
-                aria-label={slide.ctaSecondary.text}
-              >
-                {slide.ctaSecondary.text}
-              </button>
-            </MagneticButton>
-          </div>
-
-          {/* Floating Key Highlight Badge */}
-          <div className="hero-slide-feature-badge animate-hero-pop">
-            <div className="hero-feature-icon-box">
-              <BadgeIcon size={20} />
-            </div>
-            <div className="hero-feature-text-box">
-              <h4 className="hero-feature-title">{slide.badgeTitle}</h4>
-              <p className="hero-feature-sub">{slide.badgeSub}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -320,7 +262,7 @@ export default function HeroSection({ onOpenEnquiry, onOpenVisit, setCurrentRout
                   key={s.id}
                   className={`hero-pagination-item ${isActive ? 'active' : ''}`}
                   onClick={() => goToSlide(idx)}
-                  aria-label={`Go to slide ${idx + 1}: ${s.badgeTitle}`}
+                  aria-label={`Go to slide ${idx + 1}`}
                 >
                   <span className="hero-pagination-number">0{idx + 1}</span>
                   <span className="hero-pagination-bar">

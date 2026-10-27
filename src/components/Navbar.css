@@ -1,14 +1,20 @@
 .site-header-stack {
-  position: relative;
-  width: 100%;
-  z-index: 1000;
-  background-color: var(--color-warm-white);
-}
-
-.site-header-stack .navbar-header {
   position: sticky;
   top: 0;
   left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-warm-white);
+  transition: box-shadow var(--transition-medium);
+}
+
+.site-header-stack.scrolled,
+.site-header-stack:has(.navbar-header.scrolled) {
+  box-shadow: 0 4px 24px rgba(23, 24, 29, 0.08);
+}
+
+.site-header-stack .navbar-header {
+  position: relative;
   width: 100%;
   height: var(--header-height);
   z-index: 1000;
@@ -50,9 +56,9 @@
 }
 
 .navbar-brand-logo {
-  height: 44px;
+  height: 48px;
   width: auto;
-  max-width: 220px;
+  max-width: 260px;
   object-fit: contain;
   display: block;
 }

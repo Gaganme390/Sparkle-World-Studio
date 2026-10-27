@@ -28,12 +28,11 @@ export function formatImageUrl(url) {
  * and compresses it to a lightweight data URL (~80-150KB) to ensure rapid loading
  * and prevent exceeding localStorage quotas.
  */
-function compressAndReadImage(file, callback) {
+export function compressAndReadImage(file, callback, maxDim = 1200, quality = 0.82) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
     img.onload = () => {
-      const maxDim = 1200;
       let width = img.width;
       let height = img.height;
 
@@ -54,7 +53,7 @@ function compressAndReadImage(file, callback) {
       ctx.drawImage(img, 0, 0, width, height);
 
       // Convert to compressed jpeg data URL
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+      const dataUrl = canvas.toDataURL('image/jpeg', quality);
       callback(dataUrl);
     };
     img.src = e.target.result;

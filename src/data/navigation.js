@@ -19,7 +19,6 @@ export const fullscreenMenuStructure = [
       { label: "Director's Message", href: '/about#director' },
       { label: "Principal's Desk", href: '/about#principal' },
       { label: 'Our Team', href: '/about#team' },
-      { label: 'Our Houses', href: '/about#houses' },
     ],
   },
   {
@@ -34,7 +33,7 @@ export const fullscreenMenuStructure = [
   {
     category: 'EXPERIENCE GOENKA',
     links: [
-      { label: 'Inspired Spaces', href: '/experience#spaces' },
+      { label: 'Inspired Spaces', href: '/inspired-spaces' },
       { label: 'Grow', href: '/experience#grow' },
       { label: 'Express', href: '/experience#express' },
       { label: 'GLA', href: '/experience#gla' },
@@ -48,7 +47,6 @@ export const fullscreenMenuStructure = [
     category: 'DISCOVER',
     links: [
       { label: 'Achievements', href: '/happenings#achievements' },
-      { label: 'Alumni', href: '/about#alumni' },
       { label: 'Happenings', href: '/happenings' },
       { label: 'Events', href: '/happenings#events' },
       { label: 'Media & Press', href: '/happenings#media' },

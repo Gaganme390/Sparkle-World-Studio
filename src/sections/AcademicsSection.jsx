@@ -1,97 +1,113 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { academicWings } from '../data/academics';
-import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
-import ImageReveal from '../components/ImageReveal';
 import MagneticButton from '../components/MagneticButton';
-import KineticFlair from '../components/KineticFlair';
 import './AcademicsSection.css';
 
+export const wingsData = [
+  {
+    id: 'junior-wing',
+    route: '/junior-wing',
+    title: 'JUNIOR WING',
+    grades: 'Nursery – Grade 2',
+    image: '/school-media/academics/junior_wing_card.jpg',
+    alt: 'Junior Wing students engaged in joyful foundational learning at GD Goenka Ayodhya'
+  },
+  {
+    id: 'primary-wing',
+    route: '/primary-wing',
+    title: 'PRIMARY WING',
+    grades: 'Grades 3–5',
+    image: '/school-media/academics/primary_wing_card.jpg',
+    alt: 'Primary Wing student discovering literature in the Ayodhya campus library'
+  },
+  {
+    id: 'middle-wing',
+    route: '/middle-wing',
+    title: 'MIDDLE WING',
+    grades: 'Grades 6–8',
+    image: '/school-media/academics/middle_wing_card.jpg',
+    alt: 'Middle Wing student mastering computational fluency and digital language lab'
+  },
+  {
+    id: 'senior-wing',
+    route: '/senior-wing',
+    title: 'SENIOR WING',
+    grades: 'Grades 9–12',
+    image: '/school-media/academics/senior_wing_card.jpg',
+    alt: 'Senior Wing student preparing for CBSE board mastery and competitive excellence'
+  }
+];
+
 export default function AcademicsSection({ setCurrentRoute }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const currentWing = academicWings[activeIdx];
+  const handleWingClick = (route) => {
+    if (setCurrentRoute) {
+      setCurrentRoute(route);
+    } else if (typeof window !== 'undefined') {
+      window.location.href = route;
+    }
+  };
 
   return (
-    <section className="academics-section section-padding" id="academics">
-      <div className="container">
-        <div>
-          <ScrollReveal variant="fadeUp">
-            <span className="tag-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
-              ACADEMICS
-              <KineticFlair type="diamond" size={15} />
-            </span>
-          </ScrollReveal>
-
-          <AnimatedText 
-            as="h2"
-            className="heading-section" 
-            style={{ marginTop: '0.5rem' }}
-            text="LEARNING THAT GROWS WITH THEM"
-            delay={0.1}
-          />
-
-          <ScrollReveal variant="fadeUp" delay={0.2}>
-            <p className="text-body" style={{ maxWidth: '640px', marginTop: '0.75rem' }}>
-              A continuous pedagogical progression tailored to each developmental stage from early childhood foundational discovery to senior secondary board mastery.
-            </p>
-          </ScrollReveal>
+    <section className="academics-v2-section" id="academics">
+      <div className="academics-v2-container">
+        
+        {/* 4 Wing Cards Side-by-Side (Left Block) */}
+        <div className="academics-v2-cards-grid">
+          {wingsData.map((wing, idx) => (
+            <ScrollReveal 
+              key={wing.id} 
+              variant="fadeUp" 
+              delay={0.1 + idx * 0.08}
+              className="academics-v2-card-wrap"
+            >
+              <div 
+                className="academics-v2-card"
+                onClick={() => handleWingClick(wing.route)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter') handleWingClick(wing.route); }}
+                aria-label={`Explore ${wing.title} (${wing.grades})`}
+              >
+                <div className="academics-v2-img-container">
+                  <img 
+                    src={wing.image} 
+                    alt={wing.alt} 
+                    className="academics-v2-img"
+                    loading="lazy"
+                  />
+                  <div className="academics-v2-card-overlay" />
+                </div>
+                
+                <div className="academics-v2-card-footer">
+                  <h3 className="academics-v2-card-title">{wing.title}</h3>
+                  <span className="academics-v2-card-grades">{wing.grades}</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
 
-        {/* Tab Selection */}
-        <ScrollReveal variant="fadeUp" delay={0.3} className="academics-nav-tabs">
-          {academicWings.map((wing, idx) => (
-            <button
-              key={wing.id}
-              className={`academic-tab-btn ${activeIdx === idx ? 'active' : ''}`}
-              onClick={() => setActiveIdx(idx)}
-              aria-label={`Select ${wing.title}`}
+        {/* Section Headline & Overview (Right Block) */}
+        <ScrollReveal variant="fadeLeft" delay={0.2} className="academics-v2-heading-block">
+          <span className="academics-v2-tag">ACADEMICS</span>
+          <h2 className="academics-v2-title">
+            A CURRICULUM CALIBRATED TO EACH STAGE OF GROWTH.
+          </h2>
+          <p className="academics-v2-desc">
+            A continuous pedagogical progression tailored to every developmental stage—from early childhood sensory discovery in our Junior Wing to secondary board mastery in our Senior Wing.
+          </p>
+
+          <MagneticButton strength={4}>
+            <button 
+              className="academics-v2-explore-btn"
+              onClick={() => handleWingClick('/junior-wing')}
             >
-              {wing.title} ({wing.grades})
+              Explore Junior Wing <ArrowRight size={16} />
             </button>
-          ))}
+          </MagneticButton>
         </ScrollReveal>
 
-        {/* Active Wing Card Content */}
-        <div className="academics-card-grid">
-          <ScrollReveal variant="fadeRight" delay={0.1} className="academics-info-side" key={currentWing.id}>
-            <span className="academics-grade-tag">{currentWing.grades} • AGES {currentWing.ageGroup}</span>
-            <h3 className="academics-wing-title">{currentWing.title}</h3>
-            <p className="academics-wing-sub">{currentWing.subtitle}</p>
-            <p className="academics-wing-desc">{currentWing.description}</p>
-
-            <ul className="academics-feature-list">
-              {currentWing.keyFeatures.map((feat, fIdx) => (
-                <li key={fIdx} className="academics-feature-item">
-                  <span className="academics-feature-dot"></span>
-                  {feat}
-                </li>
-              ))}
-            </ul>
-
-            <MagneticButton strength={4}>
-              <button 
-                className="btn-enquire"
-                onClick={() => { setCurrentRoute('/academics'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                style={{ alignSelf: 'flex-start' }}
-                aria-label={`Explore ${currentWing.title} Details`}
-              >
-                Explore {currentWing.title} Details <ArrowRight size={16} />
-              </button>
-            </MagneticButton>
-          </ScrollReveal>
-
-          <div className="academics-img-frame">
-            <ImageReveal 
-              key={currentWing.id}
-              src={currentWing.image} 
-              alt={currentWing.title} 
-              width="600"
-              height="400"
-              delay={0.1}
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

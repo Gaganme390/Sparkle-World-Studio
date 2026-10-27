@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 
 import Navbar from './components/Navbar';
 import Preloader from './components/Preloader';
@@ -24,14 +24,22 @@ const AdminPage = lazy(() => import('./pages/AdminPage'));
 const MandatoryDisclosurePage = lazy(() => import('./pages/MandatoryDisclosurePage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsConditionsPage = lazy(() => import('./pages/TermsConditionsPage'));
+const ThrivePage = lazy(() => import('./pages/ThrivePage'));
+const JuniorWingPage = lazy(() => import('./pages/JuniorWingPage'));
+const PrimaryWingPage = lazy(() => import('./pages/PrimaryWingPage'));
+const MiddleWingPage = lazy(() => import('./pages/MiddleWingPage'));
+const SeniorWingPage = lazy(() => import('./pages/SeniorWingPage'));
+const WingDetailPage = lazy(() => import('./pages/WingDetailPage'));
+const InspiredSpacesPage = lazy(() => import('./pages/InspiredSpacesPage'));
+const LeadershipPage = lazy(() => import('./pages/LeadershipPage'));
 
-import BirthdayTickerBanner from './components/BirthdayTickerBanner';
 import BirthdayCelebrationModal from './components/BirthdayCelebrationModal';
 import UrgentNoticeBar from './components/UrgentNoticeBar';
 
 import PageTransition, { animatePageTransition } from './components/PageTransition';
 import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
+import SiteContentApplier from './components/SiteContentApplier';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -77,13 +85,22 @@ export default function App() {
 
   // Transition-wrapped route updater with HTML5 History API support
   const setCurrentRoute = (newRoute) => {
-    if (newRoute === currentRoute) return;
-    if (typeof window !== 'undefined' && window.location.pathname !== newRoute) {
+    if (newRoute === currentRoute) {
+      if (newRoute.includes('#')) {
+        const hashId = newRoute.split('#')[1];
+        const el = document.getElementById(hashId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+    if (typeof window !== 'undefined' && window.location.pathname !== newRoute.split('#')[0]) {
       window.history.pushState({}, '', newRoute);
     }
     animatePageTransition(() => {
       setCurrentRouteState(newRoute);
-      window.scrollTo(0, 0);
+      if (!newRoute.includes('#')) {
+        window.scrollTo(0, 0);
+      }
     });
   };
 
@@ -105,6 +122,32 @@ export default function App() {
   const [isAdminAuth, setIsAdminAuth] = useState(() => {
     return typeof window !== 'undefined' && sessionStorage.getItem('gd_goenka_admin_auth') === 'true';
   });
+
+  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const updateHeaderHeight = () => {
+      const h = el.offsetHeight;
+      if (h > 0) {
+        document.documentElement.style.setProperty('--site-header-height', `${h}px`);
+      }
+    };
+    updateHeaderHeight();
+    const ro = new ResizeObserver(updateHeaderHeight);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsHeaderScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -204,12 +247,41 @@ export default function App() {
       setCurrentRoute
     };
 
-    switch (currentRoute) {
+    const cleanRoute = currentRoute ? currentRoute.split('#')[0].split('?')[0] : '/';
+
+    switch (cleanRoute) {
       case '/':
       case '':
         return <HomePage {...commonProps} />;
+      case '/thrive':
+      case '/thrive-for-life':
+      case '/values':
+      case '/our-values':
+        return <ThrivePage {...commonProps} />;
       case '/about':
         return <AboutPage {...commonProps} />;
+      case '/junior-wing':
+      case '/academics/junior-wing':
+      case '/program/junior-wing':
+        return <JuniorWingPage {...commonProps} />;
+      case '/primary-wing':
+      case '/academics/primary-wing':
+      case '/program/primary-wing':
+        return <PrimaryWingPage {...commonProps} />;
+      case '/middle-wing':
+      case '/academics/middle-wing':
+      case '/program/middle-wing':
+        return <MiddleWingPage {...commonProps} />;
+      case '/senior-wing':
+      case '/academics/senior-wing':
+      case '/program/senior-wing':
+        return <SeniorWingPage {...commonProps} />;
+      case '/inspired-spaces':
+      case '/inspired-space':
+      case '/experience/inspired-spaces':
+      case '/spaces':
+      case '/sanctuaries-of-discovery':
+        return <InspiredSpacesPage {...commonProps} />;
       case '/academics':
         return <AcademicsPage {...commonProps} />;
       case '/experience':
@@ -217,6 +289,10 @@ export default function App() {
       case '/admissions':
         return <AdmissionsPage {...commonProps} />;
       case '/happenings':
+      case '/news':
+      case '/articles':
+      case '/news-articles':
+      case '/news-and-articles':
         return <HappeningsPage {...commonProps} />;
       case '/gallery':
         return <GalleryPage {...commonProps} />;
@@ -224,6 +300,12 @@ export default function App() {
         return <CareersPage {...commonProps} />;
       case '/contact':
         return <ContactPage {...commonProps} />;
+      case '/leadership':
+      case '/leadership-desk':
+      case '/principal-and-chairman':
+      case '/chairman-and-principal':
+      case '/governance':
+        return <LeadershipPage {...commonProps} />;
       case '/mandatory-disclosure':
       case '/disclosure':
       case '/cbse-disclosure':
@@ -262,11 +344,11 @@ export default function App() {
       <CustomCursor />
       <PageTransition />
       <Preloader />
+      <SiteContentApplier />
 
       {/* Unified Top Header Stack with Sticky Pinning */}
-      <header className="site-header-stack">
+      <header ref={headerRef} className={`site-header-stack ${isHeaderScrolled ? 'scrolled' : ''}`}>
         <UrgentNoticeBar setCurrentRoute={setCurrentRoute} />
-        <BirthdayTickerBanner onOpenCelebration={() => setIsCelebrationOpen(true)} />
         <Navbar 
           onOpenMenu={() => setIsMenuOpen(true)}
           onOpenEnquiry={() => handleOpenEnquiry()}

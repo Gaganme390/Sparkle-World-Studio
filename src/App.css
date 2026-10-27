@@ -2,7 +2,7 @@
 
 .app-root {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Page Transition Layer */

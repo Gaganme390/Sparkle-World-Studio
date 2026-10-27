@@ -143,15 +143,25 @@ export default function CampusSection({ onOpenVisit, setCurrentRoute }) {
               <h4 className="inspired-space-title">{activeSpace.title}</h4>
               <p className="inspired-space-tagline">“{activeSpace.tagline}”</p>
               <p className="text-body inspired-space-desc">{activeSpace.desc}</p>
-              <MagneticButton strength={4}>
-                <button 
-                  className="btn-enquire" 
-                  onClick={onOpenVisit}
-                  style={{ marginTop: '1.25rem' }}
-                >
-                  Experience This Space <ArrowRight size={16} />
-                </button>
-              </MagneticButton>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.25rem' }}>
+                <MagneticButton strength={4}>
+                  <button 
+                    className="btn-enquire" 
+                    onClick={onOpenVisit}
+                  >
+                    Experience This Space <ArrowRight size={16} />
+                  </button>
+                </MagneticButton>
+                <MagneticButton strength={4}>
+                  <button 
+                    className="campus-gallery-btn" 
+                    onClick={() => { setCurrentRoute('/inspired-spaces'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    All Campus Spaces <ArrowRight size={14} />
+                  </button>
+                </MagneticButton>
+              </div>
             </div>
 
             <div className="inspired-space-visual">

@@ -3,12 +3,12 @@ import { Cake, Sparkles, X, ChevronRight, Users } from 'lucide-react';
 import { useSchoolData } from '../hooks/useSchoolData';
 import './BirthdayTickerBanner.css';
 
-export default function BirthdayTickerBanner({ onOpenCelebration }) {
+export default function BirthdayTickerBanner({ onOpenCelebration, hideClose = false }) {
   const { bannerConfig, todaysBirthdays } = useSchoolData();
   const [dismissed, setDismissed] = useState(false);
 
   // If banner is disabled in admin or no birthdays today or user dismissed it
-  if (!bannerConfig.enabled || todaysBirthdays.length === 0 || dismissed) {
+  if (!bannerConfig.enabled || todaysBirthdays.length === 0 || (!hideClose && dismissed)) {
     return null;
   }
 
@@ -105,15 +105,17 @@ export default function BirthdayTickerBanner({ onOpenCelebration }) {
             <ChevronRight size={14} />
           </button>
 
-          <button 
-            type="button" 
-            className="btn-bday-close"
-            onClick={() => setDismissed(true)}
-            aria-label="Dismiss birthday announcement"
-            title="Dismiss"
-          >
-            <X size={15} />
-          </button>
+          {!hideClose && (
+            <button 
+              type="button" 
+              className="btn-bday-close"
+              onClick={() => setDismissed(true)}
+              aria-label="Dismiss birthday announcement"
+              title="Dismiss"
+            >
+              <X size={15} />
+            </button>
+          )}
         </div>
       </div>
     </aside>
