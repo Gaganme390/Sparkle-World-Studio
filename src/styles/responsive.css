@@ -1,0 +1,551 @@
+/* ==============================================================================
+   GD GOENKA AYODHYA SCHOOL - MASTER MOBILE RESPONSIVE STYLESHEET
+   Comprehensive, non-destructive responsive layer for all mobile & tablet devices:
+   - Smartphones: 320px - 480px (iPhone, Pixel, Samsung Galaxy)
+   - Large Phones / Phablets: 481px - 767px
+   - Tablets / Small Laptops: 768px - 1024px
+   ============================================================================== */
+
+/* ------------------------------------------------------------------------------
+   1. Universal Overflow & Viewport Protection
+   ------------------------------------------------------------------------------ */
+html, body {
+  max-width: 100vw !important;
+  overflow-x: clip !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------------------------
+   2. Responsive Breakpoint: Tablet & Below (<= 1024px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  /* Footer 2-column layout on tablets */
+  .footer-top-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2.5rem !important;
+  }
+
+  /* Fullscreen Menu */
+  .menu-grid-container {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 2.5rem !important;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+   3. Responsive Breakpoint: Mobile & Tablet Portrait (<= 768px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  /* Dynamic Header Scale */
+  :root {
+    --header-height: 70px !important;
+    --site-header-height: 70px !important;
+  }
+
+  /* Padding Scale */
+  .section-padding {
+    padding-top: clamp(2.75rem, 6vw, 4.5rem) !important;
+    padding-bottom: clamp(2.75rem, 6vw, 4.5rem) !important;
+  }
+
+  .section-padding-sm {
+    padding-top: clamp(2rem, 4vw, 3rem) !important;
+    padding-bottom: clamp(2rem, 4vw, 3rem) !important;
+  }
+
+  .container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Top Navigation Bar */
+  .site-header-stack .navbar-header {
+    height: var(--header-height, 70px) !important;
+  }
+
+  .navbar-brand-logo {
+    height: 38px !important;
+    max-width: 175px !important;
+  }
+
+  .navbar-actions {
+    gap: 0.5rem !important;
+  }
+
+  .btn-enquire {
+    padding: 0.45rem 0.85rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .btn-menu-trigger {
+    padding: 0.45rem 0.85rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* Top Birthday Ticker Banner */
+  .bday-banner-root {
+    padding: 0.45rem 0 !important;
+  }
+
+  .bday-banner-container {
+    gap: 0.65rem !important;
+  }
+
+  .bday-badge-tag {
+    padding: 0.28rem 0.65rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .btn-bday-celebrate {
+    padding: 0.32rem 0.75rem !important;
+    font-size: 0.74rem !important;
+  }
+
+  /* Homepage Hero Section */
+  .hero-slider-section {
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 580px !important;
+    padding-top: 2rem !important;
+  }
+
+  .hero-slider-content-container {
+    padding-bottom: 5rem !important;
+  }
+
+  .hero-slider-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.65rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-slider-lead {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .hero-slide-feature-badge {
+    padding: 0.65rem 0.95rem !important;
+  }
+
+  /* All Wing Detail Pages (Junior, Primary, Middle, Senior, Custom) */
+  .jw-hero-section,
+  .pw-hero-section,
+  .mw-hero-section,
+  .sw-hero-section,
+  .wing-hero-section {
+    padding: 1.25rem 0.75rem !important;
+  }
+
+  .jw-hero-grid,
+  .pw-hero-grid,
+  .mw-hero-grid,
+  .sw-hero-grid,
+  .wing-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Center Hero Card on Mobile */
+  .jw-hero-center-card,
+  .pw-hero-center-card,
+  .mw-hero-center-card,
+  .sw-hero-center-card,
+  .wing-hero-center-card {
+    padding: 1.85rem 1.25rem !important;
+    order: -1; /* Display hero text and actions first on mobile screens */
+    border-radius: 16px !important;
+  }
+
+  .jw-hero-title,
+  .pw-hero-title,
+  .mw-hero-title,
+  .sw-hero-title,
+  .wing-hero-title {
+    font-size: clamp(1.75rem, 6vw, 2.35rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .jw-hero-subtitle,
+  .pw-hero-subtitle,
+  .mw-hero-subtitle,
+  .sw-hero-subtitle,
+  .wing-hero-subtitle {
+    font-size: 1rem !important;
+  }
+
+  /* Collage images on mobile */
+  .jw-collage-img-wrap,
+  .pw-collage-img-wrap,
+  .mw-collage-img-wrap,
+  .sw-collage-img-wrap,
+  .wing-collage-img-wrap {
+    min-height: 220px !important;
+    height: 220px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Sticky Sub-Navigation Bars across all Wings */
+  .jw-subnav-sticky,
+  .pw-subnav-sticky,
+  .mw-subnav-sticky,
+  .sw-subnav-sticky,
+  .wing-subnav-sticky {
+    top: var(--site-header-height, 70px) !important;
+  }
+
+  .jw-subnav-container,
+  .pw-subnav-container,
+  .mw-subnav-container,
+  .sw-subnav-container,
+  .wing-subnav-container {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 1.5rem !important;
+    padding: 0.65rem 1rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .jw-subnav-container::-webkit-scrollbar,
+  .pw-subnav-container::-webkit-scrollbar,
+  .mw-subnav-container::-webkit-scrollbar,
+  .sw-subnav-container::-webkit-scrollbar,
+  .wing-subnav-container::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .jw-subnav-btn,
+  .pw-subnav-btn,
+  .mw-subnav-btn,
+  .sw-subnav-btn,
+  .wing-subnav-btn {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.08em !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Wing Overview Grids */
+  .jw-overview-grid,
+  .pw-overview-grid,
+  .mw-overview-grid,
+  .sw-overview-grid,
+  .wing-overview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .jw-overview-heading,
+  .pw-overview-heading,
+  .mw-overview-heading,
+  .sw-overview-heading,
+  .wing-overview-heading {
+    font-size: clamp(1.65rem, 5vw, 2.15rem) !important;
+  }
+
+  .jw-timing-box,
+  .pw-timing-box,
+  .mw-timing-box,
+  .sw-timing-box {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Wing Academics Tabs & Cards */
+  .jw-tabs-bar,
+  .pw-tabs-bar,
+  .mw-tabs-bar,
+  .sw-tabs-bar {
+    gap: 0.5rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .jw-tab-btn,
+  .pw-tab-btn,
+  .mw-tab-btn,
+  .sw-tab-btn {
+    padding: 0.6rem 1.15rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  .jw-tab-card-grid,
+  .pw-tab-card-grid,
+  .mw-tab-card-grid,
+  .sw-tab-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .jw-tab-img-col,
+  .pw-tab-img-col,
+  .mw-tab-img-col,
+  .sw-tab-img-col {
+    min-height: 220px !important;
+    height: 220px !important;
+  }
+
+  .jw-tab-text-col,
+  .pw-tab-text-col,
+  .mw-tab-text-col,
+  .sw-tab-text-col {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Sports Ground Aerial Showcase */
+  .sports-ground-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .sports-drone-hero-card {
+    border-radius: 16px !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .sports-drone-controls-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.85rem !important;
+    padding: 0.85rem 1.15rem !important;
+  }
+
+  .sports-drone-tabs {
+    width: 100% !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .sports-drone-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sports-drone-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.74rem !important;
+  }
+
+  .sports-drone-viewport {
+    height: clamp(260px, 45vh, 400px) !important;
+  }
+
+  .sports-drone-stats-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding: 1.25rem 1rem !important;
+  }
+
+  .sports-stat-item {
+    padding: 0.5rem 0.25rem !important;
+  }
+
+  .sports-stat-num {
+    font-size: 1.55rem !important;
+  }
+
+  .sports-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Admissions Page Form & Sidebar */
+  .admission-form-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .admission-form-card {
+    padding: 1.85rem 1.25rem !important;
+  }
+
+  .admission-sidebar {
+    position: static !important;
+    padding: 2rem 1.5rem !important;
+  }
+
+  .journey-steps-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* All Modals (Enquiry, Fees, Campus Visit, Birthdays, Careers) */
+  .modal-backdrop {
+    padding: 0.5rem !important;
+    align-items: center !important;
+  }
+
+  .modal-content {
+    padding: 1.65rem 1.15rem !important;
+    max-height: 92vh !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .visit-modal-header {
+    margin: -1.65rem -1.15rem 1.5rem -1.15rem !important;
+    padding: 1.25rem 1.15rem !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+  }
+
+  .modal-title {
+    font-size: 1.45rem !important;
+  }
+
+  .form-grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .tour-slot-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Fullscreen Navigation Menu */
+  .menu-overlay {
+    padding: var(--header-height, 70px) 1.25rem 3rem !important;
+  }
+
+  .menu-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .menu-link-item a {
+    font-size: 1.15rem !important;
+  }
+
+  /* Footer Layout */
+  .footer-wrapper {
+    padding-top: 3.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  /* Admin Panel Mobile Adjustments */
+  .admin-navbar {
+    padding: 0.75rem 1rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem !important;
+  }
+
+  .admin-main-content {
+    padding: 1rem !important;
+  }
+
+  .admin-section-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+
+  .admin-table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+   4. Ultra-Compact Smartphone Breakpoint (<= 480px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Hero action buttons stack neatly */
+  .hero-slider-cta-row {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .hero-cta-btn-primary,
+  .hero-cta-btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Wing Hero Action Buttons */
+  .wing-hero-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.65rem !important;
+  }
+
+  .wing-hero-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.84rem !important;
+  }
+
+  /* Fluid Headings for small phone screens */
+  h1, .heading-hero {
+    font-size: clamp(1.75rem, 7.5vw, 2.35rem) !important;
+  }
+
+  h2, .heading-section {
+    font-size: clamp(1.5rem, 6vw, 1.95rem) !important;
+  }
+
+  /* Stats Numbers */
+  .sports-drone-stats-bar {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+    padding: 1rem 0.5rem !important;
+  }
+
+  .sports-stat-num {
+    font-size: 1.35rem !important;
+  }
+
+  .sports-stat-lbl {
+    font-size: 0.7rem !important;
+  }
+
+  /* Modals Full Bleed on Smallest Screens */
+  .modal-backdrop {
+    padding: 0.25rem !important;
+  }
+
+  .modal-content {
+    padding: 1.35rem 1rem !important;
+  }
+
+  .visit-modal-header {
+    margin: -1.35rem -1rem 1.25rem -1rem !important;
+    padding: 1.1rem 1rem !important;
+  }
+}
