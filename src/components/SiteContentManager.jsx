@@ -103,6 +103,11 @@ function VisualAreaCard({ area, overrides }) {
     formValues.subtitle !== area.subtitle || 
     formValues.desc !== area.desc;
 
+  const hasCustomPhoto = 
+    formValues.image !== area.image || 
+    Boolean(imageOverride) || 
+    Boolean(areaOverride.image);
+
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -120,6 +125,27 @@ function VisualAreaCard({ area, overrides }) {
     setFormValues(prev => ({ ...prev, image: formatted }));
     siteContent.setImage(area.image, formatted);
     setUrlInput('');
+  };
+
+  const handleDeletePhoto = () => {
+    // 1. Remove image override from siteContent store
+    siteContent.setImage(area.image, '');
+    
+    // 2. Remove area image override if present
+    if (overrides.areas?.[area.id]) {
+      const updatedArea = { ...overrides.areas[area.id] };
+      delete updatedArea.image;
+      if (Object.keys(updatedArea).length === 0) {
+        siteContent.resetArea(area.id, area);
+      } else {
+        siteContent.setArea(area.id, area, updatedArea);
+      }
+    }
+    
+    // 3. Reset local form state
+    setFormValues(prev => ({ ...prev, image: area.image }));
+    setUrlInput('');
+    if (fileRef.current) fileRef.current.value = '';
   };
 
   const handleSave = () => {
@@ -162,9 +188,9 @@ function VisualAreaCard({ area, overrides }) {
           <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-primary-dark, #123985)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Photo Area
           </span>
-          {isModified && (
+          {hasCustomPhoto && (
             <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#2E7D32', padding: '2px 8px', borderRadius: '99px' }}>
-              CUSTOMIZED
+              CUSTOM PHOTO
             </span>
           )}
         </div>
@@ -185,6 +211,35 @@ function VisualAreaCard({ area, overrides }) {
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             onError={(e) => { e.target.style.opacity = '0.4'; }}
           />
+
+          {hasCustomPhoto && (
+            <button
+              type="button"
+              onClick={handleDeletePhoto}
+              title="Delete custom photo and restore original default"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                right: '8px',
+                background: '#DC2626',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '4px 8px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '0.7rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                transition: 'all 0.2s ease',
+                zIndex: 2
+              }}
+            >
+              <Trash2 size={12} /> Delete Photo
+            </button>
+          )}
         </div>
 
         <div style={{ fontSize: '0.68rem', color: '#777777', marginTop: '0.35rem', wordBreak: 'break-all' }}>
@@ -221,6 +276,35 @@ function VisualAreaCard({ area, overrides }) {
               Apply
             </button>
           </div>
+
+          {hasCustomPhoto ? (
+            <button 
+              type="button" 
+              onClick={handleDeletePhoto}
+              style={{
+                background: '#FEE2E2',
+                color: '#DC2626',
+                border: '1px solid #FCA5A5',
+                borderRadius: '6px',
+                padding: '0.45rem 0.75rem',
+                fontSize: '0.76rem',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title="Delete custom photo and restore original default"
+            >
+              <Trash2 size={13} /> Delete Photo (Restore Default)
+            </button>
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '0.7rem', color: '#6B7280', padding: '0.2rem 0' }}>
+              <Check size={12} color="#16A34A" /> Default school photo active
+            </div>
+          )}
         </div>
       </div>
 
@@ -309,6 +393,7 @@ function VisualAreaCard({ area, overrides }) {
 function StandalonePhotoRow({ item, override }) {
   const [url, setUrl] = useState('');
   const effective = override || item.src;
+  const hasCustom = Boolean(override);
 
   const onFile = (e) => {
     const f = e.target.files?.[0];
@@ -318,18 +403,54 @@ function StandalonePhotoRow({ item, override }) {
     e.target.value = '';
   };
 
+  const handleDelete = () => {
+    siteContent.setImage(item.key, '');
+    setUrl('');
+  };
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '1rem', padding: '0.9rem', background: '#FFFFFF', border: '1px solid rgba(18,57,133,0.1)', borderRadius: 10, alignItems: 'center' }}>
-      <div style={{ width: 120, height: 80, borderRadius: 8, overflow: 'hidden', background: '#F3EFEA' }}>
+      <div style={{ width: 120, height: 80, borderRadius: 8, overflow: 'hidden', background: '#F3EFEA', position: 'relative' }}>
         <img src={effective} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {hasCustom && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            title="Delete custom photo and restore original"
+            style={{
+              position: 'absolute',
+              top: 4,
+              right: 4,
+              background: '#DC2626',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '50%',
+              width: 22,
+              height: 22,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.3)'
+            }}
+          >
+            <Trash2 size={12} />
+          </button>
+        )}
       </div>
       <div style={{ minWidth: 0 }}>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <strong style={{ fontSize: '0.8rem', wordBreak: 'break-all' }}>{item.src.split('/').pop()}</strong>
-          {override && <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#2E7D32', padding: '2px 8px', borderRadius: 99 }}>CUSTOM PHOTO</span>}
+          {hasCustom ? (
+            <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#2E7D32', padding: '2px 8px', borderRadius: 99 }}>
+              CUSTOM PHOTO
+            </span>
+          ) : (
+            <span style={{ fontSize: '0.68rem', color: '#6B7280' }}>Default Asset</span>
+          )}
         </div>
         <div style={{ fontSize: '0.72rem', color: '#6b6b6b', margin: '0.2rem 0 0.5rem' }}>Used in: {item.pages.join(' • ')}</div>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <label className="btn-admin-secondary" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.78rem' }}>
             <Upload size={14} /> Upload photo
             <input type="file" accept="image/*" onChange={onFile} style={{ display: 'none' }} />
@@ -345,9 +466,26 @@ function StandalonePhotoRow({ item, override }) {
           <button type="button" className="btn-admin-primary" disabled={!url.trim()} onClick={() => { siteContent.setImage(item.key, formatImageUrl(url)); setUrl(''); }} style={{ fontSize: '0.78rem' }}>
             Apply
           </button>
-          {override && (
-            <button type="button" className="btn-admin-secondary" onClick={() => siteContent.setImage(item.key, '')} style={{ fontSize: '0.78rem' }}>
-              <RotateCcw size={14} /> Reset
+          {hasCustom && (
+            <button 
+              type="button" 
+              onClick={handleDelete} 
+              style={{
+                background: '#FEE2E2',
+                color: '#DC2626',
+                border: '1px solid #FCA5A5',
+                borderRadius: '6px',
+                padding: '0.35rem 0.75rem',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer'
+              }}
+              title="Delete custom photo and restore original default"
+            >
+              <Trash2 size={13} /> Delete Photo
             </button>
           )}
         </div>
