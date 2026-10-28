@@ -36,6 +36,11 @@ export const safeDecode = (s) => {
 export const normKey = (s) => safeDecode(String(s || '').trim());
 export const normText = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
+// Universal Neutral Placeholder for when a photo (custom or default) is deleted by Admin
+export const CLEARED_PHOTO_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='100%25' height='100%25' fill='%23F4EFEA'/%3E%3Ccircle cx='300' cy='185' r='55' fill='%23DDD7CD'/%3E%3Cpath d='M220 315 C220 260 255 240 300 240 C345 240 380 260 380 315 Z' fill='%23DDD7CD'/%3E%3Crect x='190' y='345' width='220' height='28' rx='14' fill='%23E8E2D7'/%3E%3Ctext x='50%25' y='364' font-family='sans-serif' font-size='12' font-weight='800' fill='%238C8275' letter-spacing='1.5' text-anchor='middle'%3EPHOTO REMOVED%3C/text%3E%3C/svg%3E";
+
+export const isPhotoCleared = (url) => Boolean(url && (url.includes('PHOTO%20REMOVED') || url === '__CLEARED__'));
+
 // Background API Sync with PostgreSQL Cloud Database
 const apiPost = (url, body) => {
   if (typeof window === 'undefined') return;

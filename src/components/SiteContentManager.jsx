@@ -17,7 +17,7 @@ import {
   RefreshCw,
   Database
 } from 'lucide-react';
-import { siteContent, normKey, normText } from '../utils/siteContent';
+import { siteContent, normKey, normText, CLEARED_PHOTO_PLACEHOLDER, isPhotoCleared } from '../utils/siteContent';
 import { compressAndReadImage, formatImageUrl } from './AdminImageUpload';
 import { SITE_VISUAL_AREAS } from '../data/siteVisualAreas';
 
@@ -106,16 +106,18 @@ function VisualAreaCard({ area, overrides }) {
     formValues.subtitle !== area.subtitle || 
     formValues.desc !== area.desc;
 
-  const hasCustomPhoto = 
-    formValues.image !== area.image || 
-    Boolean(imageOverride) || 
-    Boolean(areaOverride.image);
+  const isCleared = isPhotoCleared(currentImage) || isPhotoCleared(formValues.image);
+  const hasCustomPhoto = !isCleared && (
+    (formValues.image !== area.image && Boolean(formValues.image)) || 
+    (Boolean(imageOverride) && !isPhotoCleared(imageOverride)) || 
+    (Boolean(areaOverride.image) && !isPhotoCleared(areaOverride.image))
+  );
+  const isDefault = !hasCustomPhoto && !isCleared;
 
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       compressAndReadImage(file, (dataUrl) => {
-        // Clear old photo override first to ensure fresh replacement
         siteContent.setImage(area.image, '');
         siteContent.setImage(area.image, dataUrl);
         setFormValues(prev => ({ ...prev, image: dataUrl }));
@@ -127,7 +129,6 @@ function VisualAreaCard({ area, overrides }) {
   const handleApplyUrl = () => {
     if (!urlInput.trim()) return;
     const formatted = formatImageUrl(urlInput);
-    // Clear old photo override first to ensure fresh replacement
     siteContent.setImage(area.image, '');
     siteContent.setImage(area.image, formatted);
     setFormValues(prev => ({ ...prev, image: formatted }));
@@ -135,30 +136,63 @@ function VisualAreaCard({ area, overrides }) {
   };
 
   const handleDeletePhoto = () => {
-    if (!hasCustomPhoto) {
-      alert("This card is currently using the default school photo (no custom photo has been uploaded yet).\n\nTo replace this photo, click 'Upload New Photo' or paste an image URL and click 'Apply'.");
+    // Case 1: Photo is currently deleted/cleared -> Prompt to restore default
+    if (isCleared) {
+      const confirmRestore = window.confirm(
+        "This photo is currently deleted from the website.\n\nWould you like to restore the original default school photo?"
+      );
+      if (confirmRestore) {
+        siteContent.setImage(area.image, '');
+        if (overrides.areas?.[area.id]) {
+          const updatedArea = { ...overrides.areas[area.id] };
+          delete updatedArea.image;
+          siteContent.setArea(area.id, area, updatedArea);
+        }
+        setFormValues(prev => ({ ...prev, image: area.image }));
+        setUrlInput('');
+        if (fileRef.current) fileRef.current.value = '';
+        alert("Original default photo restored successfully.");
+      }
       return;
     }
 
-    // 1. Remove image override from siteContent store
-    siteContent.setImage(area.image, '');
-    
-    // 2. Remove area image override if present
-    if (overrides.areas?.[area.id]) {
-      const updatedArea = { ...overrides.areas[area.id] };
-      delete updatedArea.image;
-      if (Object.keys(updatedArea).length === 0) {
-        siteContent.resetArea(area.id, area);
-      } else {
-        siteContent.setArea(area.id, area, updatedArea);
+    // Case 2: Custom photo is active -> Confirm and delete custom photo
+    if (hasCustomPhoto) {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this custom photo?\n\nClick OK to delete it from the cloud database and restore the original default school asset, or Cancel to keep it."
+      );
+      if (confirmDelete) {
+        siteContent.setImage(area.image, '');
+        if (overrides.areas?.[area.id]) {
+          const updatedArea = { ...overrides.areas[area.id] };
+          delete updatedArea.image;
+          siteContent.setArea(area.id, area, updatedArea);
+        }
+        setFormValues(prev => ({ ...prev, image: area.image }));
+        setUrlInput('');
+        if (fileRef.current) fileRef.current.value = '';
+        alert("Custom photo deleted successfully. Restored to default school asset.");
       }
+      return;
     }
-    
-    // 3. Reset local form state
-    setFormValues(prev => ({ ...prev, image: area.image }));
-    setUrlInput('');
-    if (fileRef.current) fileRef.current.value = '';
-    alert("Custom photo deleted successfully. Restored to default school asset.");
+
+    // Case 3: Default photo is active -> Confirm and DELETE DEFAULT PHOTO!
+    const confirmDeleteDefault = window.confirm(
+      "Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo."
+    );
+    if (confirmDeleteDefault) {
+      siteContent.setImage(area.image, CLEARED_PHOTO_PLACEHOLDER);
+      siteContent.setArea(area.id, area, {
+        image: CLEARED_PHOTO_PLACEHOLDER,
+        title: formValues.title,
+        subtitle: formValues.subtitle,
+        desc: formValues.desc
+      });
+      setFormValues(prev => ({ ...prev, image: CLEARED_PHOTO_PLACEHOLDER }));
+      setUrlInput('');
+      if (fileRef.current) fileRef.current.value = '';
+      alert("Default photo deleted successfully from the website. It has been replaced with a clean placeholder.");
+    }
   };
 
   const handleSave = () => {
@@ -201,7 +235,11 @@ function VisualAreaCard({ area, overrides }) {
           <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--color-primary-dark, #123985)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Photo Area
           </span>
-          {hasCustomPhoto ? (
+          {isCleared ? (
+            <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#D97706', padding: '2px 8px', borderRadius: '99px' }}>
+              PHOTO DELETED
+            </span>
+          ) : hasCustomPhoto ? (
             <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#2E7D32', padding: '2px 8px', borderRadius: '99px' }}>
               CUSTOM PHOTO
             </span>
@@ -232,12 +270,12 @@ function VisualAreaCard({ area, overrides }) {
           <button
             type="button"
             onClick={handleDeletePhoto}
-            title={hasCustomPhoto ? "Delete custom photo and restore original default" : "Reset / Revert photo to original default"}
+            title={isCleared ? "Restore original default photo" : hasCustomPhoto ? "Delete custom photo" : "Delete default photo from website"}
             style={{
               position: 'absolute',
               top: '8px',
               right: '8px',
-              background: '#DC2626',
+              background: isCleared ? '#2563EB' : '#DC2626',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '6px',
@@ -253,7 +291,8 @@ function VisualAreaCard({ area, overrides }) {
               zIndex: 2
             }}
           >
-            <Trash2 size={13} /> Delete Photo
+            {isCleared ? <RotateCcw size={13} /> : <Trash2 size={13} />}
+            {isCleared ? 'Restore Default' : hasCustomPhoto ? 'Delete Photo' : 'Delete Default Photo'}
           </button>
         </div>
 
@@ -296,9 +335,9 @@ function VisualAreaCard({ area, overrides }) {
             type="button" 
             onClick={handleDeletePhoto}
             style={{
-              background: hasCustomPhoto ? '#FEE2E2' : '#FFF1F2',
-              color: '#DC2626',
-              border: '1.5px solid #FCA5A5',
+              background: isCleared ? '#EFF6FF' : hasCustomPhoto ? '#FEE2E2' : '#FFF1F2',
+              color: isCleared ? '#1D4ED8' : '#DC2626',
+              border: `1.5px solid ${isCleared ? '#93C5FD' : '#FCA5A5'}`,
               borderRadius: '6px',
               padding: '0.5rem 0.75rem',
               fontSize: '0.78rem',
@@ -310,14 +349,20 @@ function VisualAreaCard({ area, overrides }) {
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}
-            title={hasCustomPhoto ? "Delete custom photo and restore original default" : "Reset / Revert photo to original default"}
+            title={isCleared ? "Restore original default photo" : hasCustomPhoto ? "Delete custom photo" : "Delete default photo from website"}
           >
-            <Trash2 size={14} /> {hasCustomPhoto ? 'Delete Custom Photo (Restore Default)' : 'Delete / Reset Photo to Default'}
+            {isCleared ? <RotateCcw size={14} /> : <Trash2 size={14} />}
+            {isCleared ? 'Restore Original Default Photo' : hasCustomPhoto ? 'Delete Custom Photo (Restore Default)' : 'Delete Default Photo from Website'}
           </button>
 
-          {!hasCustomPhoto && (
+          {isDefault && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '0.7rem', color: '#6B7280', padding: '0.1rem 0' }}>
               <Check size={12} color="#16A34A" /> Default school photo active
+            </div>
+          )}
+          {isCleared && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '0.7rem', color: '#D97706', padding: '0.1rem 0' }}>
+              Photo removed from website. Upload new photo or click Restore.
             </div>
           )}
         </div>
@@ -407,14 +452,15 @@ function VisualAreaCard({ area, overrides }) {
 // Standalone Scanner Item for any remaining photo detected in the codebase
 function StandalonePhotoRow({ item, override }) {
   const [url, setUrl] = useState('');
-  const effective = override || item.src;
-  const hasCustom = Boolean(override);
+  const isCleared = isPhotoCleared(override);
+  const hasCustom = !isCleared && Boolean(override);
+  const isDefault = !hasCustom && !isCleared;
+  const effective = isCleared ? CLEARED_PHOTO_PLACEHOLDER : (override || item.src);
 
   const onFile = (e) => {
     const f = e.target.files?.[0];
     if (f) {
       compressAndReadImage(f, (data) => {
-        // Clear previous custom photo override first to ensure fresh replacement
         siteContent.setImage(item.key, '');
         siteContent.setImage(item.key, data);
       }, 1200, 0.82);
@@ -423,28 +469,44 @@ function StandalonePhotoRow({ item, override }) {
   };
 
   const handleDelete = () => {
-    if (!hasCustom) {
-      alert("This item is currently using the original default school asset.\n\nTo replace it, click 'Upload photo' or paste an image link.");
+    if (isCleared) {
+      if (window.confirm("This photo is currently deleted from the website.\n\nWould you like to restore the original default school asset?")) {
+        siteContent.setImage(item.key, '');
+        setUrl('');
+        alert("Original default photo restored.");
+      }
       return;
     }
-    siteContent.setImage(item.key, '');
-    setUrl('');
-    alert("Custom photo deleted successfully. Restored to default school asset.");
+
+    if (hasCustom) {
+      if (window.confirm("Are you sure you want to delete this custom photo?\n\nClick OK to delete it and restore the original default asset.")) {
+        siteContent.setImage(item.key, '');
+        setUrl('');
+        alert("Custom photo deleted successfully. Restored to default school asset.");
+      }
+      return;
+    }
+
+    if (window.confirm("Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo.")) {
+      siteContent.setImage(item.key, CLEARED_PHOTO_PLACEHOLDER);
+      setUrl('');
+      alert("Default photo deleted successfully from the website.");
+    }
   };
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '1rem', padding: '0.9rem', background: '#FFFFFF', border: '1px solid rgba(18,57,133,0.1)', borderRadius: 10, alignItems: 'center' }}>
       <div style={{ width: 120, height: 80, borderRadius: 8, overflow: 'hidden', background: '#F3EFEA', position: 'relative' }}>
-        <img src={effective} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={effective} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.opacity = '0.4'; }} />
         <button
           type="button"
           onClick={handleDelete}
-          title={hasCustom ? "Delete custom photo and restore original" : "Reset / Revert photo to original default"}
+          title={isCleared ? "Restore original default photo" : hasCustom ? "Delete custom photo" : "Delete default photo from website"}
           style={{
             position: 'absolute',
             top: 4,
             right: 4,
-            background: '#DC2626',
+            background: isCleared ? '#2563EB' : '#DC2626',
             color: '#FFFFFF',
             border: 'none',
             borderRadius: '50%',
@@ -458,13 +520,17 @@ function StandalonePhotoRow({ item, override }) {
             zIndex: 2
           }}
         >
-          <Trash2 size={12} />
+          {isCleared ? <RotateCcw size={12} /> : <Trash2 size={12} />}
         </button>
       </div>
       <div style={{ minWidth: 0 }}>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <strong style={{ fontSize: '0.8rem', wordBreak: 'break-all' }}>{item.src.split('/').pop()}</strong>
-          {hasCustom ? (
+          {isCleared ? (
+            <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#D97706', padding: '2px 8px', borderRadius: 99 }}>
+              PHOTO DELETED
+            </span>
+          ) : hasCustom ? (
             <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#FFFFFF', background: '#2E7D32', padding: '2px 8px', borderRadius: 99 }}>
               CUSTOM PHOTO
             </span>
@@ -493,9 +559,9 @@ function StandalonePhotoRow({ item, override }) {
             type="button" 
             onClick={handleDelete} 
             style={{
-              background: hasCustom ? '#FEE2E2' : '#FFF1F2',
-              color: '#DC2626',
-              border: '1.5px solid #FCA5A5',
+              background: isCleared ? '#EFF6FF' : hasCustom ? '#FEE2E2' : '#FFF1F2',
+              color: isCleared ? '#1D4ED8' : '#DC2626',
+              border: `1.5px solid ${isCleared ? '#93C5FD' : '#FCA5A5'}`,
               borderRadius: '6px',
               padding: '0.35rem 0.75rem',
               fontSize: '0.78rem',
@@ -505,9 +571,10 @@ function StandalonePhotoRow({ item, override }) {
               gap: '6px',
               cursor: 'pointer'
             }}
-            title={hasCustom ? "Delete custom photo and restore original default" : "Reset / Revert photo to original default"}
+            title={isCleared ? "Restore original default photo" : hasCustom ? "Delete custom photo" : "Delete default photo from website"}
           >
-            <Trash2 size={13} /> {hasCustom ? 'Delete Custom Photo' : 'Delete / Reset Photo'}
+            {isCleared ? <RotateCcw size={13} /> : <Trash2 size={13} />}
+            {isCleared ? 'Restore Default' : hasCustom ? 'Delete Custom Photo' : 'Delete Default Photo'}
           </button>
         </div>
       </div>
