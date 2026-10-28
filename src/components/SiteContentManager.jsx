@@ -135,6 +135,11 @@ function VisualAreaCard({ area, overrides }) {
   };
 
   const handleDeletePhoto = () => {
+    if (!hasCustomPhoto) {
+      alert("This card is currently using the default school photo (no custom photo has been uploaded yet).\n\nTo replace this photo, click 'Upload New Photo' or paste an image URL and click 'Apply'.");
+      return;
+    }
+
     // 1. Remove image override from siteContent store
     siteContent.setImage(area.image, '');
     
@@ -153,6 +158,7 @@ function VisualAreaCard({ area, overrides }) {
     setFormValues(prev => ({ ...prev, image: area.image }));
     setUrlInput('');
     if (fileRef.current) fileRef.current.value = '';
+    alert("Custom photo deleted successfully. Restored to default school asset.");
   };
 
   const handleSave = () => {
@@ -417,8 +423,13 @@ function StandalonePhotoRow({ item, override }) {
   };
 
   const handleDelete = () => {
+    if (!hasCustom) {
+      alert("This item is currently using the original default school asset.\n\nTo replace it, click 'Upload photo' or paste an image link.");
+      return;
+    }
     siteContent.setImage(item.key, '');
     setUrl('');
+    alert("Custom photo deleted successfully. Restored to default school asset.");
   };
 
   return (
