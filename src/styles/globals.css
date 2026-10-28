@@ -36,6 +36,21 @@ main[style*="paddingTop"] {
   to { transform: rotate(360deg); }
 }
 
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUpModal {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUpToast {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Custom Scrollbar for Luxury Warm Aesthetic */
 ::-webkit-scrollbar {
   width: 8px;

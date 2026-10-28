@@ -11,6 +11,7 @@ import { parseBirthdayExcel, downloadBirthdayExcelTemplate } from '../utils/exce
 import { isBirthdayToday, calculateAge } from '../utils/schoolStore';
 import AdminImageUpload from '../components/AdminImageUpload';
 import SiteContentManager from '../components/SiteContentManager';
+import AdminConfirmModal, { AdminToast } from '../components/AdminConfirmModal';
 import './AdminPage.css';
 
 export default function AdminPage({ setCurrentRoute }) {
@@ -37,6 +38,47 @@ export default function AdminPage({ setCurrentRoute }) {
   });
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
+
+  // UI Confirmation Modal and Toast State
+  const [confirmModal, setConfirmModal] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  const requestConfirm = ({
+    title,
+    subtitle,
+    message,
+    confirmText = 'Confirm',
+    cancelText = 'Cancel',
+    variant = 'danger',
+    onConfirm
+  }) => {
+    setConfirmModal({
+      title,
+      subtitle,
+      message,
+      confirmText,
+      cancelText,
+      variant,
+      onConfirm: () => {
+        setConfirmModal(null);
+        if (onConfirm) onConfirm();
+      },
+      onCancel: () => {
+        setConfirmModal(null);
+      }
+    });
+  };
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
+  React.useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3800);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   // Active Tab
   const [activeTab, setActiveTab] = useState('birthdays'); // default to birthdays as requested
@@ -101,7 +143,7 @@ export default function AdminPage({ setCurrentRoute }) {
   const exportJobApplicationsCSV = () => {
     const list = jobApplications || [];
     if (list.length === 0) {
-      alert('No job applications to export yet.');
+      showToast('No job applications to export yet.', 'info');
       return;
     }
     const headers = ['Ref ID', 'Candidate Name', 'Email', 'Phone', 'Position', 'Wing', 'Experience', 'Qualification', 'Current School', 'Attached File', 'Resume URL', 'Status', 'Date Applied'];
@@ -1583,18 +1625,27 @@ export default function AdminPage({ setCurrentRoute }) {
                                 >
                                   {isOpen ? 'Close Opening' : 'Reopen Opening'}
                                 </button>
-                                <button 
-                                  type="button" 
-                                  className="admin-action-btn delete"
-                                  onClick={() => {
-                                    if (window.confirm(`Are you sure you want to delete opening: "${job.title}"?`)) {
-                                      store.deleteJobOpening(job.id);
-                                    }
-                                  }}
-                                  title="Delete opening"
-                                >
-                                  <Trash2 size={15} />
-                                </button>
+                                  <button 
+                                    type="button" 
+                                    className="admin-action-btn delete"
+                                    onClick={() => {
+                                      requestConfirm({
+                                        title: 'Delete Job Opening?',
+                                        subtitle: job.title,
+                                        message: `Are you sure you want to delete opening: "${job.title}"?`,
+                                        confirmText: 'Delete Opening',
+                                        cancelText: 'Cancel',
+                                        variant: 'danger',
+                                        onConfirm: () => {
+                                          store.deleteJobOpening(job.id);
+                                          showToast(`Deleted opening: "${job.title}"`, 'success');
+                                        }
+                                      });
+                                    }}
+                                    title="Delete opening"
+                                  >
+                                    <Trash2 size={15} />
+                                  </button>
                               </td>
                             </tr>
                           );
@@ -1700,9 +1751,18 @@ export default function AdminPage({ setCurrentRoute }) {
                                 type="button" 
                                 className="admin-action-btn delete"
                                 onClick={() => {
-                                  if (window.confirm(`Delete application for ${app.applicantName}?`)) {
-                                    store.deleteJobApplication(app.id);
-                                  }
+                                  requestConfirm({
+                                    title: 'Delete Candidate Application?',
+                                    subtitle: app.applicantName,
+                                    message: `Are you sure you want to delete the application dossier for ${app.applicantName}?`,
+                                    confirmText: 'Delete Dossier',
+                                    cancelText: 'Cancel',
+                                    variant: 'danger',
+                                    onConfirm: () => {
+                                      store.deleteJobApplication(app.id);
+                                      showToast(`Application for ${app.applicantName} removed.`, 'success');
+                                    }
+                                  });
                                 }}
                                 title="Delete application"
                               >
@@ -1779,10 +1839,18 @@ export default function AdminPage({ setCurrentRoute }) {
                     type="button" 
                     className="btn-admin-secondary"
                     onClick={() => {
-                      if (window.confirm('Are you sure you want to reset all data to default school settings? This will clear newly added birthdays and restore sample data.')) {
-                        store.resetToDefaults();
-                        alert('School data restored to default state.');
-                      }
+                      requestConfirm({
+                        title: 'Reset to School Defaults?',
+                        subtitle: 'Database Reset',
+                        message: 'Are you sure you want to reset all data to default school settings?\n\nThis will clear newly added birthdays and restore sample data.',
+                        confirmText: 'Reset Defaults',
+                        cancelText: 'Cancel',
+                        variant: 'danger',
+                        onConfirm: () => {
+                          store.resetToDefaults();
+                          showToast('School data restored to default state.', 'info');
+                        }
+                      });
                     }}
                     style={{ color: '#EF4444' }}
                   >
@@ -2387,6 +2455,18 @@ export default function AdminPage({ setCurrentRoute }) {
           </div>
         </div>
       )}
+
+      {/* Luxury UI Confirmation Prompt Modal */}
+      <AdminConfirmModal
+        isOpen={Boolean(confirmModal)}
+        {...confirmModal}
+      />
+
+      {/* Non-blocking Floating Toast Banner */}
+      <AdminToast
+        toast={toast}
+        onClose={() => setToast(null)}
+      />
     </div>
   );
 }

@@ -17,9 +17,13 @@ import {
   RefreshCw,
   Database
 } from 'lucide-react';
-import { siteContent, normKey, normText, CLEARED_PHOTO_PLACEHOLDER, isPhotoCleared } from '../utils/siteContent';
-import { compressAndReadImage, formatImageUrl } from './AdminImageUpload';
 import { SITE_VISUAL_AREAS } from '../data/siteVisualAreas';
+import AdminConfirmModal, { AdminToast } from './AdminConfirmModal';
+
+const ConfirmContext = React.createContext({
+  requestConfirm: () => {},
+  showToast: () => {}
+});
 
 // Deep dynamic scan for every other image file referenced across the entire codebase
 const sourceModules = import.meta.glob('/src/**/*.{js,jsx}', { query: '?raw', import: 'default' });
@@ -69,6 +73,7 @@ function useSiteOverrides() {
 
 // Single Visual Area Card (Photo + Title + Subtitle + Description)
 function VisualAreaCard({ area, overrides }) {
+  const { requestConfirm, showToast } = React.useContext(ConfirmContext);
   const areaOverride = overrides.areas?.[area.id] || {};
   const imageOverride = overrides.images?.[normKey(area.image)];
   const titleOverride = overrides.texts?.[normText(area.title)];
@@ -138,61 +143,76 @@ function VisualAreaCard({ area, overrides }) {
   const handleDeletePhoto = () => {
     // Case 1: Photo is currently deleted/cleared -> Prompt to restore default
     if (isCleared) {
-      const confirmRestore = window.confirm(
-        "This photo is currently deleted from the website.\n\nWould you like to restore the original default school photo?"
-      );
-      if (confirmRestore) {
-        siteContent.setImage(area.image, '');
-        if (overrides.areas?.[area.id]) {
-          const updatedArea = { ...overrides.areas[area.id] };
-          delete updatedArea.image;
-          siteContent.setArea(area.id, area, updatedArea);
+      requestConfirm({
+        title: "Restore Default School Photo?",
+        subtitle: area.label,
+        message: "This photo is currently deleted from the website.\n\nWould you like to restore the original default school photo?",
+        confirmText: "Restore Photo",
+        cancelText: "Keep Deleted",
+        variant: "info",
+        onConfirm: () => {
+          siteContent.setImage(area.image, '');
+          if (overrides.areas?.[area.id]) {
+            const updatedArea = { ...overrides.areas[area.id] };
+            delete updatedArea.image;
+            siteContent.setArea(area.id, area, updatedArea);
+          }
+          setFormValues(prev => ({ ...prev, image: area.image }));
+          setUrlInput('');
+          if (fileRef.current) fileRef.current.value = '';
+          showToast("Original default photo restored successfully.", "success");
         }
-        setFormValues(prev => ({ ...prev, image: area.image }));
-        setUrlInput('');
-        if (fileRef.current) fileRef.current.value = '';
-        alert("Original default photo restored successfully.");
-      }
+      });
       return;
     }
 
     // Case 2: Custom photo is active -> Confirm and delete custom photo
     if (hasCustomPhoto) {
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this custom photo?\n\nClick OK to delete it from the cloud database and restore the original default school asset, or Cancel to keep it."
-      );
-      if (confirmDelete) {
-        siteContent.setImage(area.image, '');
-        if (overrides.areas?.[area.id]) {
-          const updatedArea = { ...overrides.areas[area.id] };
-          delete updatedArea.image;
-          siteContent.setArea(area.id, area, updatedArea);
+      requestConfirm({
+        title: "Delete Custom Photo?",
+        subtitle: area.label,
+        message: "Are you sure you want to delete this custom photo?\n\nThis will remove it from the cloud database and restore the original default school asset.",
+        confirmText: "Delete Photo",
+        cancelText: "Cancel",
+        variant: "danger",
+        onConfirm: () => {
+          siteContent.setImage(area.image, '');
+          if (overrides.areas?.[area.id]) {
+            const updatedArea = { ...overrides.areas[area.id] };
+            delete updatedArea.image;
+            siteContent.setArea(area.id, area, updatedArea);
+          }
+          setFormValues(prev => ({ ...prev, image: area.image }));
+          setUrlInput('');
+          if (fileRef.current) fileRef.current.value = '';
+          showToast("Custom photo deleted successfully. Restored to default school asset.", "success");
         }
-        setFormValues(prev => ({ ...prev, image: area.image }));
-        setUrlInput('');
-        if (fileRef.current) fileRef.current.value = '';
-        alert("Custom photo deleted successfully. Restored to default school asset.");
-      }
+      });
       return;
     }
 
     // Case 3: Default photo is active -> Confirm and DELETE DEFAULT PHOTO!
-    const confirmDeleteDefault = window.confirm(
-      "Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo."
-    );
-    if (confirmDeleteDefault) {
-      siteContent.setImage(area.image, CLEARED_PHOTO_PLACEHOLDER);
-      siteContent.setArea(area.id, area, {
-        image: CLEARED_PHOTO_PLACEHOLDER,
-        title: formValues.title,
-        subtitle: formValues.subtitle,
-        desc: formValues.desc
-      });
-      setFormValues(prev => ({ ...prev, image: CLEARED_PHOTO_PLACEHOLDER }));
-      setUrlInput('');
-      if (fileRef.current) fileRef.current.value = '';
-      alert("Default photo deleted successfully from the website. It has been replaced with a clean placeholder.");
-    }
+    requestConfirm({
+      title: "Delete Default Photo from Website?",
+      subtitle: area.label,
+      message: "Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo.",
+      confirmText: "Delete from Website",
+      cancelText: "Cancel",
+      variant: "danger",
+      onConfirm: () => {
+        siteContent.setImage(area.image, CLEARED_PHOTO_PLACEHOLDER);
+        siteContent.setArea(area.id, area, {
+          image: CLEARED_PHOTO_PLACEHOLDER,
+          title: formValues.title,
+          subtitle: formValues.subtitle,
+          desc: formValues.desc
+        });
+        setFormValues(prev => ({ ...prev, image: CLEARED_PHOTO_PLACEHOLDER }));
+        setUrlInput('');
+        if (fileRef.current) fileRef.current.value = '';
+        showToast("Default photo deleted successfully from the website. It has been replaced with a clean placeholder.", "success");
+      }
+    });
   };
 
   const handleSave = () => {
@@ -451,6 +471,7 @@ function VisualAreaCard({ area, overrides }) {
 
 // Standalone Scanner Item for any remaining photo detected in the codebase
 function StandalonePhotoRow({ item, override }) {
+  const { requestConfirm, showToast } = React.useContext(ConfirmContext);
   const [url, setUrl] = useState('');
   const isCleared = isPhotoCleared(override);
   const hasCustom = !isCleared && Boolean(override);
@@ -470,28 +491,52 @@ function StandalonePhotoRow({ item, override }) {
 
   const handleDelete = () => {
     if (isCleared) {
-      if (window.confirm("This photo is currently deleted from the website.\n\nWould you like to restore the original default school asset?")) {
-        siteContent.setImage(item.key, '');
-        setUrl('');
-        alert("Original default photo restored.");
-      }
+      requestConfirm({
+        title: "Restore Default Photo?",
+        subtitle: item.src,
+        message: "This photo is currently deleted from the website.\n\nWould you like to restore the original default school asset?",
+        confirmText: "Restore Photo",
+        cancelText: "Cancel",
+        variant: "info",
+        onConfirm: () => {
+          siteContent.setImage(item.key, '');
+          setUrl('');
+          showToast("Original default photo restored.", "success");
+        }
+      });
       return;
     }
 
     if (hasCustom) {
-      if (window.confirm("Are you sure you want to delete this custom photo?\n\nClick OK to delete it and restore the original default asset.")) {
-        siteContent.setImage(item.key, '');
-        setUrl('');
-        alert("Custom photo deleted successfully. Restored to default school asset.");
-      }
+      requestConfirm({
+        title: "Delete Custom Photo?",
+        subtitle: item.src,
+        message: "Are you sure you want to delete this custom photo?\n\nClick Delete to remove it and restore the original default asset.",
+        confirmText: "Delete Photo",
+        cancelText: "Cancel",
+        variant: "danger",
+        onConfirm: () => {
+          siteContent.setImage(item.key, '');
+          setUrl('');
+          showToast("Custom photo deleted successfully. Restored to default school asset.", "success");
+        }
+      });
       return;
     }
 
-    if (window.confirm("Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo.")) {
-      siteContent.setImage(item.key, CLEARED_PHOTO_PLACEHOLDER);
-      setUrl('');
-      alert("Default photo deleted successfully from the website.");
-    }
+    requestConfirm({
+      title: "Delete Default Photo from Website?",
+      subtitle: item.src,
+      message: "Are you sure you want to delete this default photo from the website?\n\nThis will remove the photo from the live website and display a neutral placeholder until you upload a new photo.",
+      confirmText: "Delete from Website",
+      cancelText: "Cancel",
+      variant: "danger",
+      onConfirm: () => {
+        siteContent.setImage(item.key, CLEARED_PHOTO_PLACEHOLDER);
+        setUrl('');
+        showToast("Default photo deleted successfully from the website.", "success");
+      }
+    });
   };
 
   return (
@@ -590,6 +635,45 @@ export default function SiteContentManager() {
   const [scannedMedia, setScannedMedia] = useState(null);
   const [cloudStatus, setCloudStatus] = useState('checking'); // 'connected' | 'standby' | 'checking'
   const [isSyncing, setIsSyncing] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  const requestConfirm = ({
+    title,
+    subtitle,
+    message,
+    confirmText = 'Confirm',
+    cancelText = 'Cancel',
+    variant = 'danger',
+    onConfirm
+  }) => {
+    setConfirmModal({
+      title,
+      subtitle,
+      message,
+      confirmText,
+      cancelText,
+      variant,
+      onConfirm: () => {
+        setConfirmModal(null);
+        if (onConfirm) onConfirm();
+      },
+      onCancel: () => {
+        setConfirmModal(null);
+      }
+    });
+  };
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3800);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   const checkCloudHealth = async () => {
     try {
@@ -619,9 +703,9 @@ export default function SiteContentManager() {
     try {
       await siteContent.syncAllToCloud();
       await checkCloudHealth();
-      alert('Content successfully pushed and synchronized to PostgreSQL Cloud Database!');
+      showToast('Content successfully pushed and synchronized to PostgreSQL Cloud Database!', 'success');
     } catch (e) {
-      alert('Cloud synchronization request completed.');
+      showToast('Cloud synchronization request completed.', 'info');
     } finally {
       setIsSyncing(false);
     }
@@ -678,9 +762,9 @@ export default function SiteContentManager() {
       reader.onload = (evt) => {
         const success = siteContent.importJSON(evt.target.result);
         if (success) {
-          alert('Site content backup restored successfully!');
+          showToast('Site content backup restored successfully!', 'success');
         } else {
-          alert('Invalid backup file. Please provide a valid JSON file.');
+          showToast('Invalid backup file. Please provide a valid JSON file.', 'error');
         }
       };
       reader.readAsText(file);
@@ -689,40 +773,50 @@ export default function SiteContentManager() {
   };
 
   return (
-    <div>
-      {/* Header Section */}
-      <div className="admin-section-header">
-        <div className="admin-title-group">
-          <h1>Website Photos & Content CMS</h1>
-          <p>
-            Every single area with a photo and content across the entire website is editable here. Upload photos, paste URLs, or edit headings and narratives with live instant preview.
-          </p>
+    <ConfirmContext.Provider value={{ requestConfirm, showToast }}>
+      <div>
+        {/* Header Section */}
+        <div className="admin-section-header">
+          <div className="admin-title-group">
+            <h1>Website Photos & Content CMS</h1>
+            <p>
+              Every single area with a photo and content across the entire website is editable here. Upload photos, paste URLs, or edit headings and narratives with live instant preview.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button type="button" className="btn-admin-secondary" onClick={exportBackup} title="Export all custom photos & text as a JSON backup">
+              <Download size={15} /> Backup Edits
+            </button>
+
+            <label className="btn-admin-secondary" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <Upload size={15} /> Restore Backup
+              <input type="file" accept=".json" onChange={handleImportFile} style={{ display: 'none' }} />
+            </label>
+
+            <button 
+              type="button" 
+              className="btn-admin-secondary" 
+              onClick={() => {
+                requestConfirm({
+                  title: 'Reset ALL Photos and Content?',
+                  subtitle: 'Global Reset Action',
+                  message: 'Are you sure you want to reset ALL custom photos and text back to original school defaults?\n\nThis will clear all changes and restore original defaults.',
+                  confirmText: 'Reset Everything',
+                  cancelText: 'Cancel',
+                  variant: 'danger',
+                  onConfirm: () => {
+                    siteContent.resetAll();
+                    showToast('All custom photos and text have been reset to defaults.', 'info');
+                  }
+                });
+              }}
+              style={{ color: '#D32F2F', borderColor: 'rgba(211, 47, 47, 0.3)' }}
+            >
+              <Trash2 size={15} /> Reset All to Default
+            </button>
+          </div>
         </div>
-
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <button type="button" className="btn-admin-secondary" onClick={exportBackup} title="Export all custom photos & text as a JSON backup">
-            <Download size={15} /> Backup Edits
-          </button>
-
-          <label className="btn-admin-secondary" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-            <Upload size={15} /> Restore Backup
-            <input type="file" accept=".json" onChange={handleImportFile} style={{ display: 'none' }} />
-          </label>
-
-          <button 
-            type="button" 
-            className="btn-admin-secondary" 
-            onClick={() => {
-              if (window.confirm('Are you sure you want to reset ALL custom photos and text back to original school defaults?')) {
-                siteContent.resetAll();
-              }
-            }}
-            style={{ color: '#D32F2F', borderColor: 'rgba(211, 47, 47, 0.3)' }}
-          >
-            <Trash2 size={15} /> Reset All to Default
-          </button>
-        </div>
-      </div>
 
       {/* PostgreSQL Cloud DB Live Synchronization Status Bar */}
       <div 
@@ -938,6 +1032,19 @@ export default function SiteContentManager() {
           )}
         </div>
       )}
-    </div>
+      </div>
+
+      {/* Luxury UI Confirmation Prompt Modal */}
+      <AdminConfirmModal
+        isOpen={Boolean(confirmModal)}
+        {...confirmModal}
+      />
+
+      {/* Non-blocking Floating Toast Banner */}
+      <AdminToast
+        toast={toast}
+        onClose={() => setToast(null)}
+      />
+    </ConfirmContext.Provider>
   );
 }
