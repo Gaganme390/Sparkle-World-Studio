@@ -15,7 +15,8 @@ import {
   Filter,
   Cloud,
   RefreshCw,
-  Database
+  Database,
+  Plus
 } from 'lucide-react';
 import { siteContent, normKey, normText, CLEARED_PHOTO_PLACEHOLDER, isPhotoCleared } from '../utils/siteContent';
 import { compressAndReadImage, formatImageUrl } from './AdminImageUpload';
@@ -713,17 +714,39 @@ export default function SiteContentManager() {
     }
   };
 
+  // Combine curated visual areas with any custom created areas in overrides.areas
+  const allCuratedAreas = useMemo(() => {
+    const baseIds = new Set(SITE_VISUAL_AREAS.map(a => a.id));
+    const customAreas = [];
+    if (overrides.areas) {
+      Object.entries(overrides.areas).forEach(([id, custom]) => {
+        if (!baseIds.has(id) && custom && custom.category) {
+          customAreas.push({
+            id,
+            category: custom.category,
+            label: custom.label || `Custom: ${id}`,
+            image: custom.image || '/school-media/Opening Photos/campus_grand_exterior_banner.jpg',
+            title: custom.title || 'THRIVE FOR LIFE',
+            subtitle: custom.subtitle || '',
+            desc: custom.desc || ''
+          });
+        }
+      });
+    }
+    return [...SITE_VISUAL_AREAS, ...customAreas];
+  }, [overrides.areas]);
+
   // Distinct categories from curated visual areas
   const categories = useMemo(() => {
     const set = new Set();
-    SITE_VISUAL_AREAS.forEach(a => set.add(a.category));
+    allCuratedAreas.forEach(a => set.add(a.category));
     return [...set].sort();
-  }, []);
+  }, [allCuratedAreas]);
 
   // Filtered curated areas
   const filteredAreas = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return SITE_VISUAL_AREAS.filter(area => {
+    return allCuratedAreas.filter(area => {
       if (categoryFilter !== 'all' && area.category !== categoryFilter) return false;
       if (!q) return true;
       return (
@@ -734,7 +757,29 @@ export default function SiteContentManager() {
         area.image.toLowerCase().includes(q)
       );
     });
-  }, [categoryFilter, searchQuery]);
+  }, [allCuratedAreas, categoryFilter, searchQuery]);
+
+  const handleAddHeroSlide = () => {
+    const heroSlides = allCuratedAreas.filter(a => a.category === 'Homepage - Hero Slider' || a.id.startsWith('hero-slide-'));
+    let maxId = 8;
+    heroSlides.forEach(s => {
+      const num = parseInt(s.id.replace('hero-slide-', ''), 10);
+      if (!isNaN(num) && num > maxId) maxId = num;
+    });
+    const nextId = maxId + 1;
+    const newSlideId = `hero-slide-${nextId}`;
+    const newSlideArea = {
+      id: newSlideId,
+      category: 'Homepage - Hero Slider',
+      label: `Hero Slide ${nextId}: Custom Slide`,
+      image: '/school-media/Opening Photos/campus_grand_exterior_banner.jpg',
+      title: 'THRIVE FOR LIFE',
+      subtitle: `Hero Slide ${nextId}`,
+      desc: 'Nurturing confident, curious minds ready to thrive in an ever-changing world.'
+    };
+    siteContent.setArea(newSlideId, newSlideArea, newSlideArea);
+    showToast(`Hero Slide ${nextId} created! You can now customize its photo, headline, and narrative below.`, 'success');
+  };
 
   // Filtered standalone media
   const filteredMedia = useMemo(() => {
@@ -986,7 +1031,7 @@ export default function SiteContentManager() {
             value={categoryFilter} 
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <option value="all">📁 All Website Sections ({SITE_VISUAL_AREAS.length})</option>
+            <option value="all">📁 All Website Sections ({allCuratedAreas.length})</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
@@ -997,6 +1042,38 @@ export default function SiteContentManager() {
       {/* CONTENT LIST */}
       {activeSubTab === 'areas' ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {(categoryFilter === 'Homepage - Hero Slider' || categoryFilter === 'all') && (
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(18, 57, 133, 0.05) 0%, rgba(179, 151, 89, 0.12) 100%)',
+              border: '1.5px dashed var(--color-accent, #b39759)',
+              borderRadius: '12px',
+              padding: '1rem 1.35rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              boxShadow: '0 2px 10px rgba(18, 57, 133, 0.04)'
+            }}>
+              <div>
+                <div style={{ fontWeight: 800, color: 'var(--color-primary-dark, #123985)', fontSize: '0.94rem' }}>
+                  Homepage Hero Slider Management ({allCuratedAreas.filter(a => a.category === 'Homepage - Hero Slider').length} Configured Slides)
+                </div>
+                <div style={{ fontSize: '0.78rem', color: '#555555', marginTop: '3px' }}>
+                  8 curated slides are ready. Upload photos, edit titles/narratives, or delete photos to omit slides from the live slider.
+                </div>
+              </div>
+              <button
+                type="button"
+                className="btn-admin-primary"
+                onClick={handleAddHeroSlide}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', padding: '0.55rem 1.1rem' }}
+              >
+                <Plus size={16} /> Add Another Hero Slide
+              </button>
+            </div>
+          )}
+
           {filteredAreas.map(area => (
             <VisualAreaCard 
               key={area.id} 

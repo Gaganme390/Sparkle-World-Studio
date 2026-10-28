@@ -358,14 +358,14 @@
 .hero-pagination-track {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: clamp(0.55rem, 1.1vw, 1rem);
 }
 
 .hero-pagination-item {
   background: none;
   border: none;
   outline: none;
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -389,7 +389,7 @@
   font-family: var(--font-display, 'Polymath', sans-serif);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
 }
 
 .hero-pagination-item.active .hero-pagination-number {
@@ -397,7 +397,7 @@
 }
 
 .hero-pagination-bar {
-  width: 48px;
+  width: clamp(26px, 2.5vw, 42px);
   height: 3px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
@@ -517,11 +517,29 @@
     justify-content: center;
   }
 
-  .hero-pagination-item:not(.active) {
+  .hero-pagination-track {
+    gap: 0.35rem;
+    max-width: calc(100vw - 130px);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hero-pagination-track::-webkit-scrollbar {
     display: none;
   }
 
+  .hero-pagination-item {
+    display: flex !important;
+    padding: 0.2rem 0;
+  }
+
+  .hero-pagination-number {
+    font-size: 0.68rem;
+  }
+
   .hero-pagination-bar {
-    width: 60px;
+    width: clamp(14px, 3.2vw, 20px);
+    height: 2.5px;
   }
 }

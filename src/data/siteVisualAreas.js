@@ -49,6 +49,33 @@ export const SITE_VISUAL_AREAS = [
     subtitle: 'Thematic Immersion & Experiential Growth',
     desc: 'From thematic color immersion days and balloon spectacles to district championship victories, joyful experiential growth flourishes in Ayodhya.'
   },
+  {
+    id: 'hero-slide-6',
+    category: 'Homepage - Hero Slider',
+    label: 'Hero Slide 6: Athletics Track & Championship Sports Pavilions',
+    image: '/school-media/facilities/athletics_track_and_football_field.jpg',
+    title: 'THRIVE FOR LIFE',
+    subtitle: 'Athletic Excellence & Championship Spirit',
+    desc: 'Championship-grade athletic tracks, sports pavilions, and Olympic-inspired coaching fostering teamwork, stamina, and resilience in every Goenkan.'
+  },
+  {
+    id: 'hero-slide-7',
+    category: 'Homepage - Hero Slider',
+    label: 'Hero Slide 7: STEM Robotics & Artificial Intelligence Innovation',
+    image: '/school-media/facilities/robotics_and_ai_lab.jpg',
+    title: 'THRIVE FOR LIFE',
+    subtitle: 'Robotics, Artificial Intelligence & STEM',
+    desc: 'Hands-on robotics kits, algorithm design workshops, and AI discovery modules empowering young innovators to solve real-world challenges.'
+  },
+  {
+    id: 'hero-slide-8',
+    category: 'Homepage - Hero Slider',
+    label: 'Hero Slide 8: Sacred Ayodhya Heritage & Holistic Values',
+    image: '/school-media/Heritage/rooted_ayodhya_heritage.jpg',
+    title: 'THRIVE FOR LIFE',
+    subtitle: 'Rooted in Sacred Ayodhya Heritage',
+    desc: 'Harmonizing timeless values of Maryada and humility with global-standard CBSE education on an expansive, secure eco-campus.'
+  },
 
   // ==========================================
   // 2. HOMEPAGE: THE GOENKA METHOD (THRIVE)
