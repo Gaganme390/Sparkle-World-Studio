@@ -17,6 +17,8 @@ import {
   RefreshCw,
   Database
 } from 'lucide-react';
+import { siteContent, normKey, normText, CLEARED_PHOTO_PLACEHOLDER, isPhotoCleared } from '../utils/siteContent';
+import { compressAndReadImage, formatImageUrl } from './AdminImageUpload';
 import { SITE_VISUAL_AREAS } from '../data/siteVisualAreas';
 import AdminConfirmModal, { AdminToast } from './AdminConfirmModal';
 
