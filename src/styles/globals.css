@@ -348,15 +348,19 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  padding: 0.82rem 1.85rem;
   font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.95rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
   border-radius: var(--radius-full, 9999px);
   cursor: pointer;
   transition: all var(--transition-fast, 0.25s cubic-bezier(0.16, 1, 0.3, 1));
   text-decoration: none;
   line-height: 1.2;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .btn-primary {
@@ -392,6 +396,12 @@ button {
 .btn-sm {
   padding: 0.65rem 1.35rem;
   font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-lg {
+  padding: 0.95rem 2.25rem;
+  font-size: 1.05rem;
   letter-spacing: 0.02em;
 }
 
@@ -462,4 +472,3 @@ button {
     scroll-behavior: auto !important;
   }
 }
-

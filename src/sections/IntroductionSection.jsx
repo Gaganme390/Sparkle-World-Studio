@@ -95,7 +95,6 @@ export default function IntroductionSection({ setCurrentRoute }) {
                           <span className="sp-item-bullet">•</span>
                           <h3 className="sp-item-title">{p.title}</h3>
                         </div>
-                        <span className="sp-item-num">0{idx + 1}</span>
                       </div>
                       <p className="sp-item-desc">{p.desc}</p>
                     </div>

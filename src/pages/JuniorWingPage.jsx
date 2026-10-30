@@ -12,6 +12,7 @@ const academicTabs = [
   {
     id: 'nursery',
     label: 'Nursery',
+    gradeBadge: 'NURSERY PROGRAMME • AGE 3+',
     image: '/school-media/New Pages/Page 4/DSC00064.JPG',
     alt: 'Nursery child developing fine motor skills through purposeful wooden block play',
     title: 'Joyful & Meaningful First Step into Learning',
@@ -19,11 +20,13 @@ const academicTabs = [
       'At GD Goenka School, Ayodhya, our Nursery programme makes a child’s first experience of school joyful and meaningful. Through purposeful play, creative activities, and guided discovery, children develop the confidence to ask questions, express ideas, and explore the world around them.',
       'Phonics, picture books, and storytelling nurture early English language skills, while Hindi rhymes, songs, and conversations encourage children to listen and speak with confidence. Counting games, sorting, patterns, and hands-on activities introduce mathematical thinking through everyday experiences.',
       'Environmental learning invites children to discover nature, recognise their surroundings, and develop caring habits. Thoughtfully integrated technology enriches classroom experiences, alongside opportunities to create, move, share, and make friends—building a balanced foundation for future learning.'
-    ]
+    ],
+    pillars: ['Purposeful Play & Exploration', 'Early Phonics & Storytelling', 'Mathematical Thinking Games', 'Environmental & Sensory Discovery']
   },
   {
     id: 'kindergarten',
     label: 'Kindergarten',
+    gradeBadge: 'KINDERGARTEN PROGRAMME • AGE 4+',
     image: '/school-media/New Pages/Page 10/IMG20260916111422.jpg.jpeg',
     alt: 'Kindergarten children reading storybooks together at GD Goenka Ayodhya',
     title: 'Immersive Experiences & Purposeful Technology',
@@ -31,11 +34,13 @@ const academicTabs = [
       'Learning in Kindergarten at GD Goenka School, Ayodhya, combines immersive experiences with purposeful technology to develop language, literacy, numeracy, and environmental awareness. Each experience encourages children to think, imagine, and discover.',
       'Phonics, vocabulary, sentence formation, and early writing help children develop their English skills. Hands-on counting, comparison, and simple mathematical operations strengthen logical reasoning, while Environmental Studies encourages children to observe their surroundings and learn through discovery.',
       'Hindi activities introduce स्वर recognition and expand vocabulary, helping children express their thoughts with growing clarity and confidence in speaking and writing.'
-    ]
+    ],
+    pillars: ['Immersive Literacy & Writing', 'Logical Reasoning & Numeracy', 'Bilingual Expression (English & Hindi)', 'Purposeful Educational Technology']
   },
   {
     id: 'grade1',
     label: 'Grade 1',
+    gradeBadge: 'GRADE 1 CURRICULUM • AGE 5-6',
     image: '/school-media/New Pages/Page 11/IMG20260918101331.jpg.jpeg',
     alt: 'Grade 1 student engaged in writing and inquiry in bright classroom',
     title: 'Growing Independence & Inquiry Depth',
@@ -43,11 +48,13 @@ const academicTabs = [
       'Growing independence shapes the Grade 1 experience at GD Goenka School, Ayodhya. Number games and practical activities deepen children’s understanding of addition, subtraction, measurement, and other mathematical concepts while developing critical thinking and confident problem-solving.',
       'Experiments and inquiry bring the natural world into focus, encouraging students to ask questions, investigate, and learn from their discoveries.',
       'Hindi learning develops vocabulary, sentence formation, and expression through reading, writing, and speaking. In English, students strengthen fluency and their understanding of grammar, while storytelling, role-play, and public speaking help them communicate confidently.'
-    ]
+    ],
+    pillars: ['Conceptual Problem Solving', 'Hands-on Scientific Experiments', 'Grammar & Fluency Mastery', 'Storytelling & Oratory Confidence']
   },
   {
     id: 'grade2',
     label: 'Grade 2',
+    gradeBadge: 'GRADE 2 CURRICULUM • AGE 6-7',
     image: '/school-media/New Pages/Page 12/WhatsApp Image 2026-10-07 at 5.21.45 PM.jpeg',
     alt: 'Grade 2 students collaborating on creative paper craft and logic projects',
     title: 'Imagination, Originality & Global Citizenship',
@@ -55,7 +62,8 @@ const academicTabs = [
       'Story creation and writing give Grade 2 students at GD Goenka School, Ayodhya, opportunities to develop imagination, originality, and personal expression. Exploring fiction and non-fiction strengthens understanding, while continued grammar practice builds language proficiency.',
       'Mathematical learning involves solving problems, investigating questions, and interpreting and analysing data. Mental maths practice develops accuracy, speed, and critical thinking.',
       'Hindi activities strengthen comprehension, grammar, reading, and writing through sequencing and story composition. Hands-on Environmental Studies projects deepen students’ understanding of sustainability and conservation, encouraging them to become responsible global citizens.'
-    ]
+    ],
+    pillars: ['Original Story Creation', 'Mental Maths & Data Interpretation', 'Bilingual Literature Sequencing', 'Sustainability & Global Citizenship']
   }
 ];
 
@@ -83,6 +91,13 @@ const experienceCards = [
     image: '/school-media/New Pages/Page 6/computer_literacy_framed.jpg'
   },
   {
+    id: 'robotics',
+    title: 'Robotics & STEM Discovery',
+    tag: 'HANDS-ON INNOVATION',
+    desc: 'Hands-on building and robotics activities introduce young learners to science, technology, engineering, and mathematics while developing early coding, logical thinking, and creative problem-solving.',
+    image: '/school-media/facilities/robotics_and_ai_lab.jpg'
+  },
+  {
     id: 'tab-lab',
     title: 'Tab Lab',
     tag: 'EARLY TECH FLUENCY',
@@ -102,13 +117,6 @@ const experienceCards = [
     tag: 'SELF-PACED MASTERY',
     desc: 'Montessori Learning Centre encourages children to learn at their own pace through hands-on exploration. Carefully chosen materials and practical activities develop concentration, coordination, independence, and early language and number skills.',
     image: '/school-media/New Pages/Page 7/reggio_montessori_framed.jpg'
-  },
-  {
-    id: 'air-center',
-    title: 'A.I.R. Center',
-    tag: 'INDOOR MEDITATION & MINDFULNESS',
-    desc: 'Our indoor meditation centre offers children a peaceful setting to practise mindfulness, gentle breathing, and relaxation. Guided sessions encourage self-awareness, emotional balance, and concentration, helping children approach each day with calm and confidence.',
-    image: '/school-media/New Pages/Page 7/indoor_meditation_framed.jpg'
   },
   {
     id: 'dance',
@@ -140,7 +148,7 @@ const experienceCards = [
   },
   {
     id: 'wholesome-menu',
-    title: 'Wholesome Menu',
+    title: 'Wholesome Dining & Nutrition',
     tag: 'NUTRITION & HYGIENE',
     desc: 'Healthy habits begin with everyday choices. Children learn to wash their hands before meals, handle food hygienically, and recognise nutritious options. Shared mealtimes encourage mindful eating, good table manners, and independence.',
     image: '/school-media/New Pages/Page 8/DSC_4798.JPG'
@@ -215,6 +223,9 @@ export default function JuniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
   };
 
   const currentAcademic = academicTabs.find(t => t.id === activeTab) || academicTabs[0];
+
+
+
 
   return (
     <main className="junior-wing-page" style={{ paddingTop: 'var(--header-height)' }}>
@@ -319,7 +330,7 @@ export default function JuniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
             className={`jw-subnav-btn ${activeNavSection === 'experience' ? 'active' : ''}`}
             onClick={() => scrollToSection('experience')}
           >
-            EXPERIENCE GOENKA
+            INSPIRED SPACES
           </button>
         </div>
       </nav>
@@ -395,49 +406,71 @@ export default function JuniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
             ))}
           </div>
 
-          {/* Active Tab Content Card */}
-          <div className="jw-tab-card" key={currentAcademic.id}>
-            <div className="jw-tab-card-grid">
+          {/* Active Tab Content Display (Unified with Primary & Middle Wing Architecture) */}
+          <div className="jw-tab-content-grid">
+            {/* Left Content */}
+            <div key={currentAcademic.id} style={{ animation: 'fadeIn 0.35s ease' }}>
+              <span className="jw-grade-badge">{currentAcademic.gradeBadge}</span>
+              <h3 className="jw-tab-title">{currentAcademic.title}</h3>
               
-              <div className="jw-tab-img-col">
+              {currentAcademic.paragraphs.map((p, pIdx) => (
+                <p key={pIdx} className="jw-tab-paragraph">{p}</p>
+              ))}
+
+              <div style={{ marginTop: '1.75rem', display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
+                {currentAcademic.pillars && currentAcademic.pillars.map((pillar, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      background: 'var(--color-warm-gray-100, #F3EFEA)',
+                      color: 'var(--color-primary-dark, #123985)',
+                      padding: '0.35rem 0.85rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 700
+                    }}
+                  >
+                    • {pillar}
+                  </span>
+                ))}
+              </div>
+
+              <div style={{ marginTop: '2rem' }}>
+                <MagneticButton>
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => onOpenEnquiry && onOpenEnquiry(`Junior Wing - ${currentAcademic.label}`)}
+                  >
+                    <span>Apply for {currentAcademic.label}</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </MagneticButton>
+              </div>
+            </div>
+
+            {/* Right Tab Image Card */}
+            <div>
+              <div className="jw-tab-img-card">
                 <img 
                   src={currentAcademic.image} 
                   alt={currentAcademic.alt} 
-                  className="jw-tab-img"
+                  loading="lazy"
                 />
               </div>
-
-              <div className="jw-tab-text-col">
-                <span className="jw-tab-stage-badge">{currentAcademic.label} Programme</span>
-                <h3 className="jw-tab-title">{currentAcademic.title}</h3>
-                
-                {currentAcademic.paragraphs.map((p, pIdx) => (
-                  <p key={pIdx} className="jw-tab-para">{p}</p>
-                ))}
-
-                <div className="jw-tab-action">
-                  <MagneticButton strength={3}>
-                    <button 
-                      className="btn-enquire" 
-                      onClick={() => onOpenEnquiry && onOpenEnquiry(currentAcademic.label)}
-                    >
-                      Enquire for {currentAcademic.label} <ArrowRight size={16} />
-                    </button>
-                  </MagneticButton>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Experience Goenka Section (Pages 5, 6, 7, 8, 9 of PDF 2) */}
+      {/* 5. Spaces that Inspire Section */}
       <section className="jw-experience-section section-padding" id="experience">
         <div className="container">
           <div className="jw-section-header">
-            <span className="jw-section-tag">PEDAGOGICAL REALMS</span>
-            <h2 className="heading-section">Sanctuaries of Discovery</h2>
+            <span className="jw-section-tag">INSPIRED SPACES</span>
+            <h2 className="heading-section">Spaces that Inspire</h2>
             <p className="jw-exp-lead-subtitle">
               Where curiosity meets possibility.
             </p>

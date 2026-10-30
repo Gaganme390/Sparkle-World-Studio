@@ -12,7 +12,7 @@ export const academicWings = [
       '1:10 Faculty-to-Student Ratio for individualized attention and emotional security',
       'Purposeful play, guided discovery, phonics picnics, and early Hindi literature',
       'Reggio Emilia Discovery Centre & Montessori Learning hands-on sensorial materials',
-      'Indoor Meditation (AIR) Centre for mindfulness, calm, and emotional balance',
+      'Music, Dance & Performing Arts studios nurturing rhythm, poise, and creative movement',
       'Junior Indoor Sports Arena, Gymnastics Centre & Public Speaking Arena'
     ],
     detailedGrades: [
@@ -229,6 +229,22 @@ export const inspiredSpacesFacilities = [
     scope: 'Nursery to Grade 12',
     desc: 'Curiosity meets technology as students explore robotics, coding, and the foundations of artificial intelligence. Guided projects introduce sensors, automation, and intelligent systems, developing logical thinking, creativity, and problem-solving.',
     image: '/school-media/facilities/robotics_and_ai_lab.jpg'
+  },
+  {
+    id: 'indoor-sports',
+    title: 'Indoor Sports Arena',
+    tagline: 'Focus, Discipline & Physical Agility',
+    scope: 'Grades 1 to 12',
+    desc: 'Olympic-grade 10m shooting range, regulation badminton and table tennis courts, gymnastics floor, and dedicated yoga suite for year-round fitness and agility.',
+    image: '/school-media/facilities/indoor_sports_complex.jpg'
+  },
+  {
+    id: 'outdoor-sports',
+    title: 'Outdoor Sports Complex',
+    tagline: 'Endurance, Teamwork & Athletic Spirit',
+    scope: 'Grades 1 to 12',
+    desc: 'Drone-captured aerial athletic grounds boasting an all-weather FIBA basketball arena, dual tennis courts, running track, and expansive turf cricket pitch and football outfield.',
+    image: '/school-media/sports/sports_ground_drone_aerial.jpg'
   }
 ];
 

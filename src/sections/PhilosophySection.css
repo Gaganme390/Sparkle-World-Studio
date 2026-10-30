@@ -93,117 +93,132 @@
   pointer-events: none;
 }
 
-/* Letters & Full Form Overlay */
+/* Letters & Cards Glass Overlay */
 .thrive-letters-overlay {
   position: relative;
   z-index: 3;
   width: 100%;
   height: 100%;
-  min-height: clamp(380px, 46vw, 620px);
+  min-height: clamp(420px, 46vw, 620px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.5rem, 3.5vw, 4rem);
+  padding: clamp(1.5rem, 3vw, 3.5rem);
   box-sizing: border-box;
 }
 
-.thrive-hero-grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 6-Card Responsive Grid */
+.thrive-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(8px, 1.2vw, 18px);
   width: 100%;
-  gap: 0;
+  max-width: 1440px;
+  align-items: stretch;
 }
 
-.thrive-hero-col {
+/* Individual Transparent Glass Card */
+.thrive-glass-card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  border-radius: clamp(14px, 1.8vw, 24px);
+  padding: clamp(1.25rem, 2vw, 2.25rem) clamp(0.45rem, 0.8vw, 1.15rem) clamp(1rem, 1.6vw, 1.65rem);
+  min-height: clamp(280px, 32vw, 420px);
   cursor: pointer;
   outline: none;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.35s ease,
+              border-color 0.35s ease;
 }
 
-.thrive-hero-col:hover,
-.thrive-hero-col.hovered {
+.thrive-glass-card:hover,
+.thrive-glass-card.hovered {
   transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
-.thrive-hero-svg-wrap {
-  position: relative;
+/* Card Upper Area: Outlined Letter SVG */
+.thrive-card-letter-wrap {
+  flex: 1;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: clamp(0.5rem, 1vw, 1.25rem) 0;
 }
 
-.thrive-hero-svg {
-  width: 100%;
-  height: auto;
+.thrive-card-letter-svg {
+  max-height: clamp(110px, 15vw, 190px);
+  max-width: 82%;
+  width: auto;
+  height: 100%;
   display: block;
 }
 
-.thrive-hero-svg path,
-.thrive-hero-svg rect {
-  fill: rgba(255, 255, 255, 0.12);
+.thrive-card-letter-svg path,
+.thrive-card-letter-svg rect {
+  fill: rgba(255, 255, 255, 0.05);
   stroke: #FFFFFF;
-  stroke-width: 2px;
+  stroke-width: 2.2px;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.6));
   transition: all 0.3s ease;
 }
 
-.thrive-hero-col:hover .thrive-hero-svg path,
-.thrive-hero-col:hover .thrive-hero-svg rect,
-.thrive-hero-col.hovered .thrive-hero-svg path,
-.thrive-hero-col.hovered .thrive-hero-svg rect {
-  stroke: var(--color-accent, #b39759);
-  fill: rgba(179, 151, 89, 0.24);
-  filter: drop-shadow(0 0 20px rgba(179, 151, 89, 0.85));
+.thrive-glass-card:hover .thrive-card-letter-svg path,
+.thrive-glass-card:hover .thrive-card-letter-svg rect,
+.thrive-glass-card.hovered .thrive-card-letter-svg path,
+.thrive-glass-card.hovered .thrive-card-letter-svg rect {
+  fill: rgba(255, 255, 255, 0.14);
+  stroke: #FFFFFF;
 }
 
-/* Full Form Value Card with Glassmorphic Luxury Finish */
-.thrive-hero-fullform-badge {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(10, 33, 77, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-full, 9999px);
-  padding: clamp(0.35rem, 0.75vw, 0.65rem) clamp(0.55rem, 1.1vw, 1.25rem);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  z-index: 10;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Card Bottom Area: Full Form Pill Badge */
+.thrive-card-pill-wrap {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
+  margin-top: clamp(0.75rem, 1.2vw, 1.5rem);
 }
 
-.thrive-hero-fullform-text {
+.thrive-card-pill {
+  width: 100%;
+  max-width: 100%;
+  background: rgba(10, 26, 68, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  padding: clamp(0.35rem, 0.55vw, 0.55rem) clamp(0.35rem, 0.75vw, 0.85rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.thrive-pill-text {
   font-family: var(--font-body, "Polymath", sans-serif);
-  font-size: clamp(0.72rem, 1.1vw, 1.05rem);
+  font-size: clamp(0.68rem, 0.88vw, 0.92rem);
   font-weight: 700;
   color: #FFFFFF;
-  letter-spacing: 0.02em;
-  transition: color 0.3s ease;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
 }
 
-.thrive-hero-col:hover .thrive-hero-fullform-badge,
-.thrive-hero-col.hovered .thrive-hero-fullform-badge {
-  background: rgba(10, 33, 77, 0.96);
-  border-color: var(--color-accent, #b39759);
-  box-shadow: 0 12px 28px rgba(179, 151, 89, 0.35);
-  transform: translateY(-50%) scale(1.08);
-}
-
-.thrive-hero-col:hover .thrive-hero-fullform-text,
-.thrive-hero-col.hovered .thrive-hero-fullform-text {
-  color: var(--color-accent, #b39759);
+.thrive-glass-card:hover .thrive-card-pill,
+.thrive-glass-card.hovered .thrive-card-pill {
+  background: rgba(18, 57, 133, 0.92);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 /* Stretched Click Hitbox */
@@ -280,16 +295,22 @@
     padding: 1.5rem 1rem;
   }
 
-  .thrive-hero-fullform-badge {
-    padding: 0.3rem 0.6rem;
+  .thrive-cards-grid {
+    gap: 8px;
   }
 
-  .thrive-hero-fullform-text {
-    font-size: 0.7rem;
+  .thrive-glass-card {
+    min-height: 260px;
+    padding: 1.25rem 0.35rem 1rem;
+    border-radius: 14px;
+  }
+
+  .thrive-pill-text {
+    font-size: 0.72rem;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .home_sec_three {
     padding: 3.5rem 0 2.5rem;
   }
@@ -299,29 +320,55 @@
   }
 
   .thrive-child-hero-showcase {
-    min-height: 320px;
+    min-height: auto;
     border-radius: 14px;
   }
 
   .thrive-letters-overlay {
-    min-height: 320px;
-    padding: 1rem 0.5rem;
+    min-height: auto;
+    padding: 1.25rem 0.75rem;
   }
 
-  .thrive-hero-grid {
-    gap: 2px;
+  .thrive-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
-  .thrive-hero-fullform-badge {
-    padding: 0.2rem 0.4rem;
+  .thrive-glass-card {
+    min-height: 200px;
+    padding: 1rem 0.5rem 0.85rem;
   }
 
-  .thrive-hero-fullform-text {
-    font-size: 0.58rem;
+  .thrive-card-letter-svg {
+    max-height: 90px;
+  }
+
+  .thrive-pill-text {
+    font-size: 0.7rem;
   }
 
   .thrive-nav-pill-btn {
     padding: 0.75rem 1.25rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .thrive-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .thrive-glass-card {
+    min-height: 170px;
+    padding: 0.85rem 0.4rem 0.75rem;
+  }
+
+  .thrive-card-letter-svg {
+    max-height: 75px;
+  }
+
+  .thrive-pill-text {
+    font-size: 0.68rem;
   }
 }

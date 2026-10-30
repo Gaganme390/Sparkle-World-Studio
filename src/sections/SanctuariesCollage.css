@@ -1,114 +1,132 @@
 .sanct-section {
-  padding: 1.25rem 1rem;
-  background: #fff;
+  padding: clamp(2rem, 3.5vw, 3.5rem) 1.25rem;
+  background: var(--color-warm-white, #FAF8F5);
 }
 
-.sanct-collage {
+.sanct-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* -------------------------------------------------------------
+   THE HERO SPLIT FOCUS BANNER (MATCHING USER SCREENSHOT)
+   ------------------------------------------------------------- */
+.sanct-split-card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  max-width: 1520px;
-  margin: 0 auto;
+  background: #0A1D4A;
+  border-radius: 20px;
+  overflow: hidden;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 0 16px 44px rgba(10, 29, 74, 0.18);
+  border: 1px solid rgba(179, 151, 89, 0.28);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 @media (min-width: 992px) {
-  .sanct-collage {
-    grid-template-columns: 1.15fr 3.4fr 1.15fr;
-    min-height: 560px;
+  .sanct-split-card {
+    grid-template-columns: 0.9fr 1.3fr;
+    min-height: 480px;
   }
 }
 
-.sanct-tall { display: none; }
+.sanct-split-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 64px rgba(10, 29, 74, 0.26);
+  border-color: var(--color-accent, #B39759);
+}
+
+/* Left Content Panel (Deep Royal Navy) */
+.sanct-split-left {
+  background: #0A1D4A;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.sanct-split-title {
+  font-family: var(--font-display, "Polymath", serif);
+  font-weight: 500;
+  font-size: clamp(1.85rem, 3.1vw, 2.75rem);
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  color: #EDE3D2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.sanct-split-sub {
+  margin: 1.15rem 0 0;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  color: #B4C6E7;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.sanct-split-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.85rem;
+  font-family: var(--font-body, "Polymath", sans-serif);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent, #CCA24C);
+  transition: color 0.3s ease;
+}
+
+.sanct-split-cta svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sanct-split-card:hover .sanct-split-cta svg {
+  transform: translateX(6px);
+}
+
+/* Right 2x2 Photo Grid */
+.sanct-split-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  background: rgba(179, 151, 89, 0.32);
+  min-height: 320px;
+}
+
 @media (min-width: 992px) {
-  .sanct-tall { display: block; height: 100%; }
+  .sanct-split-right {
+    min-height: 480px;
+  }
 }
 
-.sanct-tile {
-  width: 100%;
-  height: 100%;
+.sanct-split-tile {
+  position: relative;
   overflow: hidden;
-  border-radius: 6px;
-  background: #e9e4dc;
+  background: #081636;
 }
 
-.sanct-tile img {
+.sanct-split-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sanct-collage:hover .sanct-tile img { transform: scale(1.04); }
-
-.sanct-mid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
+.sanct-split-card:hover .sanct-split-tile img {
+  transform: scale(1.05);
 }
-
-.sanct-mid-top,
-.sanct-mid-bottom {
-  display: grid;
-  gap: 12px;
-}
-.sanct-mid-top { grid-template-columns: 1fr 1fr; height: 170px; }
-.sanct-mid-bottom { grid-template-columns: repeat(3, 1fr); height: 160px; }
-
-.sanct-card {
-  flex: 1;
-  background: #fff;
-  border-radius: 6px;
-  border: 1px solid rgba(179, 151, 89, 0.28);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1.5rem;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
-}
-
-.sanct-collage:hover .sanct-card {
-  box-shadow: 0 18px 50px rgba(18, 57, 133, 0.12);
-  border-color: var(--color-accent, #b39759);
-}
-
-.sanct-title {
-  font-family: var(--font-display, "Polymath", serif);
-  font-weight: 400;
-  font-size: clamp(1.6rem, 3.6vw, 3.1rem);
-  letter-spacing: 0.1em;
-  line-height: 1.15;
-  color: var(--color-primary-dark, #123985);
-  margin: 0;
-}
-
-.sanct-sub {
-  margin: 0.85rem 0 0;
-  font-size: 1rem;
-  color: var(--color-text-muted, #6b6b6b);
-}
-
-.sanct-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.4rem;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent, #b39759);
-}
-
-.sanct-cta svg { transition: transform 0.3s ease; }
-.sanct-collage:hover .sanct-cta svg { transform: translateX(6px); }
 
 @media (max-width: 640px) {
-  .sanct-mid-top { height: 120px; }
-  .sanct-mid-bottom { height: 100px; }
+  .sanct-split-left {
+    padding: 2.5rem 1.5rem;
+  }
 }

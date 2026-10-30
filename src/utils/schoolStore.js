@@ -112,6 +112,19 @@ const defaultState = {
     link: '/admissions',
     linkText: 'Apply Online',
   },
+  englishDigitalLab: {
+    enabled: true,
+    title: 'Digital English Language Lab',
+    badge: 'AYODHYA’S 1ST DIGITAL LAB',
+    motto: 'Phonetics, Fluent Oratory & Global Articulation',
+    image: '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
+    primaryDesc: 'Interactive language workstations with audio headsets, Lexile-graded Collins reading modules, phonics reinforcement, and vocabulary expansion software developing fluent reading comprehension and confident spoken expression.',
+    middleDesc: 'Interactive language workstations with audio headsets, Lexile-graded comprehension, vocabulary expansion, and simulated debate modules developing persuasive public speaking and bilingual fluency.',
+    seniorDesc: 'State-of-the-art multimedia phonetic booths, automated voice-modulation software, and oratory analysis suites preparing senior scholars for national debates, MUNs, IELTS/TOEFL, and global university interviews.',
+    showInPrimary: true,
+    showInMiddle: true,
+    showInSenior: true
+  },
   birthdays: [
     {
       id: 'bday-1',
@@ -272,12 +285,27 @@ const defaultState = {
   schoolInfo: {
     name: 'G.D. Goenka Public School, Ayodhya',
     tagline: 'Where Heritage Inspires The Future',
+    description: 'Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya.',
+    copyright: `© ${new Date().getFullYear()} G.D. Goenka Public School, Ayodhya. All Rights Reserved.`,
     chairman: 'Mr. Madan Mohan Tripathi',
     principal: 'Dr. Abin C. Raj',
     address: contactDetails.campusAddress,
     phones: contactDetails.phoneNumbers,
+    primaryPhone: contactDetails.phoneNumbers[0] || '+91 98765 43210',
+    secondaryPhone: contactDetails.phoneNumbers[1] || '+91 5278 290100',
+    whatsapp: '+91 98765 43210',
     emails: contactDetails.emails,
-    timings: contactDetails.timings,
+    admissionsEmail: contactDetails.emails.admissions || 'admissions@gdgoenkaayodhya.com',
+    infoEmail: contactDetails.emails.info || 'info@gdgoenkaayodhya.com',
+    careersEmail: contactDetails.emails.careers || 'careers@gdgoenkaayodhya.com',
+    timings: contactDetails.officeHours || 'Monday – Saturday: 8:00 AM – 4:30 PM (Closed on Sundays & National Holidays)',
+    officeHours: contactDetails.officeHours || 'Monday – Saturday: 8:00 AM – 4:30 PM (Closed on Sundays & National Holidays)',
+    socialLinks: contactDetails.socialLinks || [
+      { platform: 'Facebook', url: 'https://facebook.com' },
+      { platform: 'Instagram', url: 'https://instagram.com' },
+      { platform: 'YouTube', url: 'https://youtube.com' },
+      { platform: 'LinkedIn', url: 'https://linkedin.com' }
+    ],
     principalMessage: 'At G.D. Goenka Public School, Ayodhya, we believe education is not the filling of a vessel, but the ignition of a lifelong passion for learning. Through modern facilities like our Digital English Language Lab, athletic championships, and experiential learning, every child discovers their inner brilliance.'
   }
 };
@@ -292,6 +320,7 @@ const loadStoredState = () => {
         ...defaultState,
         ...parsed,
         bannerConfig: { ...defaultState.bannerConfig, ...(parsed.bannerConfig || {}) },
+        englishDigitalLab: { ...defaultState.englishDigitalLab, ...(parsed.englishDigitalLab || {}) },
         urgentNotice: { ...defaultState.urgentNotice, ...(parsed.urgentNotice || {}) },
         schoolInfo: { ...defaultState.schoolInfo, ...(parsed.schoolInfo || {}) }
       };
@@ -423,6 +452,15 @@ export const schoolStore = {
     };
     broadcast();
   },
+
+  setEnglishDigitalLab: (config) => {
+    currentState = {
+      ...currentState,
+      englishDigitalLab: { ...currentState.englishDigitalLab, ...config }
+    };
+    broadcast();
+  },
+
 
   // Happenings & Events
   setHappenings: (happenings) => {

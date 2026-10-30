@@ -64,15 +64,22 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [enquiryInitialGrade, setEnquiryInitialGrade] = useState('');
+  const [enquiryInitialData, setEnquiryInitialData] = useState(null);
   const [isVisitOpen, setIsVisitOpen] = useState(false);
   const [isFeeOpen, setIsFeeOpen] = useState(false);
   const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
 
-  const handleOpenEnquiry = (grade) => {
-    if (typeof grade === 'string' && grade.trim()) {
-      setEnquiryInitialGrade(grade.trim());
+  const handleOpenEnquiry = (gradeOrConfig) => {
+    if (typeof gradeOrConfig === 'object' && gradeOrConfig !== null) {
+      setEnquiryInitialGrade(gradeOrConfig.grade || 'Grades IX & XI (Senior Wing)');
+      setEnquiryInitialData(gradeOrConfig);
+    } else if (typeof gradeOrConfig === 'string' && gradeOrConfig.trim()) {
+      const g = gradeOrConfig.trim();
+      setEnquiryInitialGrade(g);
+      setEnquiryInitialData({ grade: g });
     } else {
       setEnquiryInitialGrade('');
+      setEnquiryInitialData(null);
     }
     setIsEnquiryOpen(true);
   };
@@ -370,7 +377,7 @@ export default function App() {
             isOpen={isMenuOpen}
             onClose={() => setIsMenuOpen(false)}
             setCurrentRoute={setCurrentRoute}
-            onOpenEnquiry={() => setIsEnquiryOpen(true)}
+            onOpenEnquiry={() => handleOpenEnquiry()}
           />
         )}
       </Suspense>
@@ -382,8 +389,10 @@ export default function App() {
             onClose={() => {
               setIsEnquiryOpen(false);
               setEnquiryInitialGrade('');
+              setEnquiryInitialData(null);
             }}
             initialGrade={enquiryInitialGrade}
+            initialData={enquiryInitialData}
           />
         )}
       </Suspense>

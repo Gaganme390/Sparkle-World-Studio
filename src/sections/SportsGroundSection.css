@@ -308,10 +308,11 @@
 .sports-feature-title {
   font-family: var(--font-display, "Polymath", serif);
   font-size: 1.15rem;
-  font-weight: 600;
-  color: #0B1A38;
+  font-weight: 700;
+  color: var(--color-primary-dark, #123985);
   margin: 0 0 0.5rem;
   line-height: 1.3;
+  transition: color 0.25s ease;
 }
 
 .sports-feature-desc {

@@ -1,205 +1,125 @@
 /* ==========================================================================
-   INSPIRED SPACES / SANCTUARIES OF DISCOVERY (MATCHING PDF 2 PAGES 24-32)
+   THOUGHTFULLY DESIGNED SPACES (FAITHFUL TO GDG WEBSITE CHANGES 2 MOCKUP)
    ========================================================================== */
 
 .inspired-spaces-page {
-  background-color: #FAF8F5;
+  background-color: #F4F6F9;
   color: #1A202C;
   min-height: 100vh;
 }
 
-/* --------------------------------------------------------------------------
-   1. Editorial Hero Banner
-   -------------------------------------------------------------------------- */
-.isp-editorial-hero {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5F1E9 100%);
-  padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid rgba(18, 57, 133, 0.08);
-  text-align: center;
-}
-
-.isp-hero-tag-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.isp-hero-brand-tag {
-  font-family: var(--font-body, "Outfit", sans-serif);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-primary-dark, #123985);
-  background: rgba(18, 57, 133, 0.06);
-  padding: 0.45rem 1.1rem;
-  border-radius: 99px;
-  border: 1px solid rgba(18, 57, 133, 0.12);
-}
-
-.isp-hero-main-title {
-  font-family: var(--font-display, "Polymath", serif);
-  font-size: clamp(2.1rem, 4.2vw, 3.8rem);
-  font-weight: 600;
-  color: #0b1a38;
-  line-height: 1.15;
-  margin: 0 auto 1.25rem;
-  max-width: 980px;
-  letter-spacing: -0.01em;
-}
-
-.isp-hero-main-lead {
-  font-size: clamp(1rem, 1.3vw, 1.18rem);
-  line-height: 1.8;
-  color: #4A5568;
-  max-width: 820px;
-  margin: 0 auto 2rem;
-}
-
-.isp-hero-stats-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-}
-
-.isp-stat-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: #FFFFFF;
-  border: 1px solid rgba(179, 151, 89, 0.35);
-  border-radius: 99px;
-  padding: 0.45rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-primary-dark, #123985);
-  box-shadow: 0 4px 12px rgba(18, 57, 133, 0.04);
-}
-
-.isp-stat-icon {
-  color: var(--color-accent, #b39759);
-}
-
-/* --------------------------------------------------------------------------
-   2. Sticky Filter Bar
-   -------------------------------------------------------------------------- */
-.isp-filter-sticky-bar {
-  position: sticky;
-  top: var(--header-height, 80px);
-  z-index: 40;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(18, 57, 133, 0.1);
-  padding: 0.85rem 0;
-  box-shadow: 0 8px 24px rgba(11, 26, 56, 0.04);
-}
-
-.isp-filter-tabs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  overflow-x: auto;
-  padding: 0.2rem 0;
-  scrollbar-width: none;
-}
-
-.isp-filter-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.isp-filter-btn {
-  background: #F4F1EA;
-  border: 1px solid transparent;
-  color: #4A5568;
-  padding: 0.55rem 1.15rem;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.25s ease;
-}
-
-.isp-filter-btn:hover {
-  background: #EAE5DA;
-  color: #123985;
-}
-
-.isp-filter-btn.active {
-  background: var(--color-primary-dark, #123985);
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(18, 57, 133, 0.25);
-}
-
-/* --------------------------------------------------------------------------
-   3. The 9 Spaces Articles Stack
-   -------------------------------------------------------------------------- */
-.isp-spaces-container {
-  padding: clamp(3.5rem, 6vw, 6rem) 0;
-}
-
-.isp-spaces-stack {
+.isp-spaces-wrapper {
   display: flex;
   flex-direction: column;
-  gap: clamp(3.5rem, 6vw, 5.5rem);
+  padding-top: 0;
+  padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
 }
 
-.isp-space-article {
+.isp-space-section {
+  padding: clamp(2rem, 3.5vw, 3rem) 0;
+  position: relative;
+}
+
+.isp-space-section:first-child {
+  padding-top: clamp(1rem, 2vw, 1.75rem);
+}
+
+.isp-space-section:not(:last-child) {
+  border-bottom: 1px solid rgba(15, 39, 68, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   Centered Section Header
+   -------------------------------------------------------------------------- */
+.isp-section-header {
+  text-align: center;
+  margin-bottom: clamp(1.25rem, 2.2vw, 2rem);
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.isp-section-title {
+  font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+  font-size: clamp(2rem, 3.4vw, 2.85rem);
+  font-weight: 700;
+  color: #0A1D4A;
+  line-height: 1.2;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.015em;
+}
+
+.isp-section-subtitle {
+  font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  font-weight: 400;
+  color: #1E293B;
+  line-height: 1.35;
+  margin: 0 0 0.45rem 0;
+}
+
+.isp-section-subtext {
+  font-family: var(--font-body, "Outfit", sans-serif);
+  font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+  font-weight: 400;
+  color: #64748B;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Two-Column Layout (Matching Screenshot Proportions & Backgrounds)
+   -------------------------------------------------------------------------- */
+.isp-section-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: clamp(1.75rem, 3.5vw, 3rem);
-  border: 1px solid rgba(18, 57, 133, 0.08);
-  box-shadow: 0 16px 40px rgba(11, 26, 56, 0.05);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.isp-space-article:hover {
-  box-shadow: 0 20px 48px rgba(11, 26, 56, 0.08);
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media (min-width: 992px) {
-  .isp-space-article {
-    grid-template-columns: 1.05fr 1fr;
-  }
-
-  .isp-space-article.reverse {
-    grid-template-columns: 1fr 1.05fr;
-  }
-
-  .isp-space-article.reverse .isp-space-media-col {
-    order: 2;
-  }
-
-  .isp-space-article.reverse .isp-space-content-col {
-    order: 1;
+  .isp-section-row {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-/* Photo Card */
-.isp-space-media-col {
-  width: 100%;
+.isp-text-box-reveal,
+.isp-media-box-reveal {
+  height: 100%;
 }
 
-.isp-space-image-card {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 11;
-  border-radius: 14px;
+.isp-text-card {
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.isp-text-content {
+  font-family: var(--font-body, "Outfit", sans-serif);
+  font-size: clamp(0.98rem, 1.15vw, 1.06rem);
+  line-height: 1.8;
+  color: #334155;
+  margin: 0;
+}
+
+.isp-media-card {
+  border-radius: 4px;
   overflow: hidden;
-  background: #0B1A38;
-  box-shadow: 0 12px 30px rgba(11, 26, 56, 0.12);
+  height: 100%;
+  min-height: 320px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  background: #0A1D4A;
 }
 
-.isp-space-img {
+.isp-media-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -207,137 +127,6 @@
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.isp-space-article:hover .isp-space-img {
-  transform: scale(1.04);
-}
-
-.isp-space-badge-overlay {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(11, 26, 56, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.35rem 0.85rem;
-  border-radius: 99px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.isp-badge-number {
-  font-family: var(--font-display, "Polymath", serif);
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--color-accent, #b39759);
-}
-
-.isp-badge-category {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* Content Column */
-.isp-space-content-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.isp-school-tag {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--color-accent, #9E7D3B);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-}
-
-.isp-space-heading {
-  font-family: var(--font-display, "Polymath", serif);
-  font-size: clamp(1.8rem, 2.7vw, 2.45rem);
-  font-weight: 600;
-  color: #0b1a38;
-  line-height: 1.2;
-  margin: 0 0 0.5rem 0;
-  letter-spacing: -0.01em;
-}
-
-.isp-space-motto {
-  font-size: 1.12rem;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--color-primary-dark, #123985);
-  margin-bottom: 1.25rem;
-  line-height: 1.45;
-}
-
-.isp-space-text {
-  font-size: 1.02rem;
-  line-height: 1.8;
-  color: #4A5568;
-  margin: 0 0 1.75rem 0;
-}
-
-/* Highlights Grid */
-.isp-highlights-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
-  margin-bottom: 2rem;
-  padding: 1.25rem;
-  background: #F9F8F5;
-  border-radius: 12px;
-  border: 1px solid rgba(18, 57, 133, 0.06);
-}
-
-@media (min-width: 600px) {
-  .isp-highlights-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.isp-highlight-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #2D3748;
-}
-
-.isp-highlight-check {
-  color: var(--color-accent, #9E7D3B);
-  flex-shrink: 0;
-}
-
-/* Action Buttons */
-.isp-space-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  align-items: center;
-}
-
-.btn-outline-gold {
-  background: transparent;
-  color: var(--color-primary-dark, #123985);
-  border: 1.5px solid rgba(18, 57, 133, 0.3);
-  font-weight: 700;
-  border-radius: var(--radius-sm, 8px);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: all 0.25s ease;
-}
-
-.btn-outline-gold:hover {
-  border-color: var(--color-accent, #b39759);
-  color: var(--color-accent, #b39759);
-  background: rgba(179, 151, 89, 0.05);
+.isp-media-card:hover .isp-media-img {
+  transform: scale(1.02);
 }

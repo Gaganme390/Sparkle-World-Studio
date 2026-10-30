@@ -3,10 +3,15 @@ import { X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fullscreenMenuStructure } from '../data/navigation';
 import { contactDetails } from '../data/contact';
+import { useSchoolData } from '../hooks/useSchoolData';
 import MagneticButton from './MagneticButton';
 import './FullscreenMenu.css';
 
 export default function FullscreenMenu({ isOpen, onClose, setCurrentRoute, onOpenEnquiry }) {
+  const { schoolInfo } = useSchoolData();
+  const info = schoolInfo || {};
+  const campusAddress = info.address || contactDetails.campusAddress;
+  const phoneNumber = info.primaryPhone || (info.phones && info.phones[0]) || contactDetails.phoneNumbers[0];
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -109,8 +114,8 @@ export default function FullscreenMenu({ isOpen, onClose, setCurrentRoute, onOpe
               transition={{ duration: 0.4, delay: 0.35 }}
             >
               <div className="menu-contact-info">
-                <p className="menu-contact-address">{contactDetails.campusAddress}</p>
-                <p className="menu-contact-phone">{contactDetails.phoneNumbers[0]}</p>
+                <p className="menu-contact-address">{campusAddress}</p>
+                <p className="menu-contact-phone">{phoneNumber}</p>
               </div>
 
               <div style={{ display: 'flex', gap: '1rem' }}>

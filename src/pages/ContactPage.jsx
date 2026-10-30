@@ -1,9 +1,22 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import { contactDetails } from '../data/contact';
+import { useSchoolData } from '../hooks/useSchoolData';
 import FinalCTA from '../components/FinalCTA';
 
 export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+  const { schoolInfo } = useSchoolData();
+  const info = schoolInfo || {};
+  const campusAddress = info.address || contactDetails.campusAddress;
+  const phoneList = info.phones && info.phones.length > 0 
+    ? info.phones 
+    : [info.primaryPhone, info.secondaryPhone].filter(Boolean).length > 0 
+      ? [info.primaryPhone, info.secondaryPhone].filter(Boolean) 
+      : contactDetails.phoneNumbers;
+  const admissionsEmail = info.admissionsEmail || (info.emails && info.emails.admissions) || contactDetails.emails.admissions;
+  const generalEmail = info.infoEmail || (info.emails && info.emails.info) || contactDetails.emails.info;
+  const visitingHours = info.officeHours || info.timings || contactDetails.officeHours;
+
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
       {/* Header */}
@@ -37,7 +50,7 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
                   </div>
                   <div>
                     <h4 className="font-display" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>Campus Address</h4>
-                    <p className="text-body" style={{ fontSize: '0.92rem' }}>{contactDetails.campusAddress}</p>
+                    <p className="text-body" style={{ fontSize: '0.92rem' }}>{campusAddress}</p>
                   </div>
                 </div>
 
@@ -48,7 +61,7 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
                   <div>
                     <h4 className="font-display" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>Admissions Phone</h4>
                     <p className="text-body" style={{ fontSize: '0.92rem', color: 'var(--color-accent)', fontWeight: 700 }}>
-                      {contactDetails.phoneNumbers.join(' / ')}
+                      {phoneList.join(' / ')}
                     </p>
                   </div>
                 </div>
@@ -59,8 +72,8 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
                   </div>
                   <div>
                     <h4 className="font-display" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>Email Inquiries</h4>
-                    <p className="text-body" style={{ fontSize: '0.92rem' }}>Admissions: {contactDetails.emails.admissions}</p>
-                    <p className="text-body" style={{ fontSize: '0.92rem' }}>General: {contactDetails.emails.info}</p>
+                    <p className="text-body" style={{ fontSize: '0.92rem' }}>Admissions: {admissionsEmail}</p>
+                    <p className="text-body" style={{ fontSize: '0.92rem' }}>General: {generalEmail}</p>
                   </div>
                 </div>
 
@@ -70,7 +83,7 @@ export default function ContactPage({ onOpenEnquiry, onOpenVisit, setCurrentRout
                   </div>
                   <div>
                     <h4 className="font-display" style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>Visiting Hours</h4>
-                    <p className="text-body" style={{ fontSize: '0.92rem' }}>{contactDetails.officeHours}</p>
+                    <p className="text-body" style={{ fontSize: '0.92rem' }}>{visitingHours}</p>
                   </div>
                 </div>
               </div>

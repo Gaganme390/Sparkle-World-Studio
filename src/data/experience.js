@@ -1,21 +1,35 @@
 export const experiencePillars = [
   {
-    id: 'classrooms-library',
+    id: 'smart-classrooms',
     number: '01',
-    title: 'SMART CLASSROOMS & LIBRARY',
-    subtitle: 'Where Lessons Come to Life & Readers Grow',
-    description: 'At GD Goenka School, Ayodhya, bright classrooms equipped with smart boards bring lessons to life, encouraging children to explore ideas, think creatively, and enjoy learning. Our library helps children grow as readers through engaging stories, guided reading, and Hindi literature, strengthening language skills while introducing diverse perspectives and cultures.',
+    title: 'SMART CLASSROOMS',
+    subtitle: 'Where Lessons Come to Life & Curiosity Thrives',
+    description: 'At GD Goenka School, Ayodhya, bright classrooms equipped with smart boards bring lessons to life, encouraging children to explore ideas, think creatively, and enjoy learning. Naturally-lit, air-purified learning spaces with ergonomic furniture create an inspiring setting for active participation, multimedia presentations, and collaborative inquiry.',
     highlights: [
       'Interactive smart boards bringing curriculum lessons to life',
-      'Engaging story sessions, guided reading, and Hindi literature',
       'Naturally-lit, air-purified learning spaces with ergonomic furniture',
-      'Diverse perspectives and cultural exposure through rich book collections'
+      'Audio-visual multimedia integration across all academic disciplines',
+      'Collaborative seating configurations fostering peer discussion and teamwork'
     ],
     image: '/school-media/facilities/smart_classrooms.jpg'
   },
   {
-    id: 'robotics-stem',
+    id: 'library',
     number: '02',
+    title: 'LIBRARY & RESOURCE CENTRE',
+    subtitle: 'Where Readers Grow & Horizons Expand',
+    description: 'Our library helps children grow as readers through engaging stories, guided reading, and Hindi literature, strengthening language skills while introducing diverse perspectives and cultures. With a rich collection of curated books, quiet reading alcoves, and reference materials, it serves as an inspiring sanctuary where young minds explore worlds beyond the page.',
+    highlights: [
+      'Engaging story sessions, guided reading, and Hindi literature',
+      'Diverse perspectives and cultural exposure through rich book collections',
+      'Dedicated quiet reading zones and child-friendly browsing stacks',
+      'Reference archives and digital e-resources supporting independent inquiry'
+    ],
+    image: '/school-media/facilities/library.jpg'
+  },
+  {
+    id: 'robotics-stem',
+    number: '03',
     title: 'ROBOTICS & STEM DISCOVERY',
     subtitle: 'Hands-on Building, Early Coding & Problem-Solving',
     description: 'Hands-on building and robotics activities introduce young learners to science, technology, engineering, and mathematics while developing problem-solving, creativity, and early coding skills. Students in Grades 1 and 2 discover computer basics, explore introductory coding, and develop safe digital habits through interactive activities suited to their age.',
@@ -29,7 +43,7 @@ export const experiencePillars = [
   },
   {
     id: 'reggio-montessori',
-    number: '03',
+    number: '04',
     title: 'REGGIO & MONTESSORI LEARNING CENTRES',
     subtitle: 'Sensory Exploration & Independent Discovery',
     description: 'Inspired by the Reggio Emilia approach, our learning centre invites children to investigate, create, and express their ideas through natural materials, recycled resources, and rich sensory experiences. The Montessori Learning Centre encourages children to learn at their own pace through hands-on exploration with carefully chosen materials that develop concentration, coordination, and early academic skills.',
@@ -40,20 +54,6 @@ export const experiencePillars = [
       'Practical life skills connecting classroom concepts with everyday wonder'
     ],
     image: '/school-media/facilities/reggio_discovery_centre.jpg'
-  },
-  {
-    id: 'air-meditation',
-    number: '04',
-    title: 'INDOOR MEDITATION (AIR) CENTRE',
-    subtitle: 'Mindfulness, Calm & Emotional Balance',
-    description: 'Our indoor meditation centre offers children a peaceful setting to practise mindfulness, gentle breathing, and relaxation. Guided sessions encourage self-awareness, emotional balance, and concentration, helping children approach each day with calm and confidence.',
-    highlights: [
-      'Guided mindfulness, gentle breathing, and mental relaxation sessions',
-      'Emotional balance and stress-free focus for growing minds',
-      'Peaceful indoor acoustic environment designed for serenity',
-      'Developing concentration, empathy, and positive self-awareness'
-    ],
-    image: '/school-media/New Pages/Page 7/indoor_meditation_framed.jpg'
   },
   {
     id: 'music-dance',

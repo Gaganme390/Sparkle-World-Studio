@@ -71,7 +71,6 @@ export default function AdmissionsSection({ onOpenEnquiry, onOpenVisit, setCurre
               style={{ cursor: 'pointer' }}
               onClick={() => (step.step === '02' || step.step === '04' ? onOpenVisit() : onOpenEnquiry())}
             >
-              <span className="step-num">{step.step}</span>
               <h3 className="step-title">{step.title}</h3>
               <span className="step-sub">{step.subtitle}</span>
               <p className="step-desc">{step.desc}</p>

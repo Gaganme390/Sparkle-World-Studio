@@ -257,7 +257,6 @@ export default function ThrivePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute
                   <div className="pillar-info-col">
                     <div className="pillar-header-meta">
                       <span className="pillar-letter-tag">{pillar.letter}</span>
-                      <span className="pillar-num-tag">{pillar.num} OF 06</span>
                       <div className="pillar-icon-bubble">
                         <Icon size={18} />
                       </div>

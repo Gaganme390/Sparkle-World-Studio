@@ -243,7 +243,6 @@ export default function AdmissionsPage({ onOpenEnquiry, onOpenVisit, onOpenFeeMo
                   onClick={() => (isVisitStep ? onOpenVisit() : scrollToForm())}
                   title={isVisitStep ? "Click to Book Campus Visit" : "Click to Fill Admission Form"}
                 >
-                  <span className="step-num">{step.step}</span>
                   <h3 className="step-title">{step.title}</h3>
                   <span className="step-sub">{step.subtitle}</span>
                   <p className="step-desc">{step.desc}</p>

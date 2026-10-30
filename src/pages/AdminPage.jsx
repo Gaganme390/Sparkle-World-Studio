@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Shield, Key, LogOut, ExternalLink, Users, Cake, Calendar, 
   FileSpreadsheet, Download, Upload, Plus, Trash2, Edit3, 
   CheckCircle, AlertCircle, Eye, Search, Filter, Sparkles,
   Image as ImageIcon, Megaphone, Inbox, Settings, RefreshCw, X,
-  Briefcase, FileText, Check, CheckSquare, Layers
+  Briefcase, FileText, Check, CheckSquare, Layers,
+  PhoneCall, Phone, Mail, MapPin, Globe, Share2, Save, Headphones
 } from 'lucide-react';
 import { useSchoolData } from '../hooks/useSchoolData';
 import { parseBirthdayExcel, downloadBirthdayExcelTemplate } from '../utils/excelBirthdayParser';
@@ -29,6 +30,8 @@ export default function AdminPage({ setCurrentRoute }) {
     campusVisits,
     jobOpenings,
     jobApplications,
+    schoolInfo,
+    englishDigitalLab,
     store 
   } = useSchoolData();
 
@@ -106,6 +109,85 @@ export default function AdminPage({ setCurrentRoute }) {
     wishes: '',
     photo: ''
   });
+
+  // Contact & Social Media Controls State
+  const [contactForm, setContactForm] = useState(() => ({
+    primaryPhone: schoolInfo?.primaryPhone || (schoolInfo?.phones && schoolInfo?.phones[0]) || '+91 98765 43210',
+    secondaryPhone: schoolInfo?.secondaryPhone || (schoolInfo?.phones && schoolInfo?.phones[1]) || '+91 5278 290100',
+    whatsapp: schoolInfo?.whatsapp || '+91 98765 43210',
+    admissionsEmail: schoolInfo?.admissionsEmail || (schoolInfo?.emails && schoolInfo?.emails.admissions) || 'admissions@gdgoenkaayodhya.com',
+    infoEmail: schoolInfo?.infoEmail || (schoolInfo?.emails && schoolInfo?.emails.info) || 'info@gdgoenkaayodhya.com',
+    careersEmail: schoolInfo?.careersEmail || (schoolInfo?.emails && schoolInfo?.emails.careers) || 'careers@gdgoenkaayodhya.com',
+    address: schoolInfo?.address || 'G.D. Goenka Public School Campus, NH-28 / Highway Corridor, Ayodhya, Uttar Pradesh – 224001',
+    officeHours: schoolInfo?.officeHours || schoolInfo?.timings || 'Monday – Saturday: 8:00 AM – 4:30 PM (Closed on Sundays & National Holidays)',
+    description: schoolInfo?.description || 'Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya.',
+    copyright: schoolInfo?.copyright || `© ${new Date().getFullYear()} G.D. Goenka Public School, Ayodhya. All Rights Reserved.`,
+    socialLinks: Array.isArray(schoolInfo?.socialLinks) && schoolInfo.socialLinks.length > 0 ? schoolInfo.socialLinks : [
+      { platform: 'Facebook', url: 'https://facebook.com' },
+      { platform: 'Instagram', url: 'https://instagram.com' },
+      { platform: 'YouTube', url: 'https://youtube.com' },
+      { platform: 'LinkedIn', url: 'https://linkedin.com' }
+    ]
+  }));
+
+  useEffect(() => {
+    if (schoolInfo) {
+      setContactForm(prev => ({
+        ...prev,
+        primaryPhone: schoolInfo.primaryPhone || (schoolInfo.phones && schoolInfo.phones[0]) || prev.primaryPhone,
+        secondaryPhone: schoolInfo.secondaryPhone || (schoolInfo.phones && schoolInfo.phones[1]) || prev.secondaryPhone,
+        whatsapp: schoolInfo.whatsapp || prev.whatsapp,
+        admissionsEmail: schoolInfo.admissionsEmail || (schoolInfo.emails && schoolInfo.emails.admissions) || prev.admissionsEmail,
+        infoEmail: schoolInfo.infoEmail || (schoolInfo.emails && schoolInfo.emails.info) || prev.infoEmail,
+        careersEmail: schoolInfo.careersEmail || (schoolInfo.emails && schoolInfo.emails.careers) || prev.careersEmail,
+        address: schoolInfo.address || prev.address,
+        officeHours: schoolInfo.officeHours || schoolInfo.timings || prev.officeHours,
+        description: schoolInfo.description || prev.description,
+        copyright: schoolInfo.copyright || prev.copyright,
+        socialLinks: Array.isArray(schoolInfo.socialLinks) && schoolInfo.socialLinks.length > 0 ? schoolInfo.socialLinks : prev.socialLinks
+      }));
+    }
+  }, [schoolInfo]);
+
+  const handleUpdateSocialLink = (index, field, value) => {
+    setContactForm(prev => {
+      const updated = [...prev.socialLinks];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, socialLinks: updated };
+    });
+  };
+
+  const handleAddSocialLink = () => {
+    setContactForm(prev => ({
+      ...prev,
+      socialLinks: [...prev.socialLinks, { platform: 'New Platform', url: 'https://' }]
+    }));
+  };
+
+  const handleRemoveSocialLink = (index) => {
+    setContactForm(prev => ({
+      ...prev,
+      socialLinks: prev.socialLinks.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSaveContactDetails = (e) => {
+    if (e) e.preventDefault();
+    const cleanSocials = (contactForm.socialLinks || []).filter(item => item && item.platform && item.platform.trim());
+    const updated = {
+      ...contactForm,
+      socialLinks: cleanSocials,
+      phones: [contactForm.primaryPhone, contactForm.secondaryPhone].filter(Boolean),
+      emails: {
+        admissions: contactForm.admissionsEmail,
+        info: contactForm.infoEmail,
+        careers: contactForm.careersEmail
+      },
+      timings: contactForm.officeHours
+    };
+    store.setSchoolInfo(updated);
+    showToast('School contact & social media details updated live across website!', 'success');
+  };
 
   // Happenings Modal State
   const [isAddHappeningOpen, setIsAddHappeningOpen] = useState(false);
@@ -268,19 +350,85 @@ export default function AdminPage({ setCurrentRoute }) {
     return true;
   });
 
-  // Export Enquiries to CSV
+  // Admissions Enquiries Filter & Modal State
+  const [enquirySearchQuery, setEnquirySearchQuery] = useState('');
+  const [enquiryStreamFilter, setEnquiryStreamFilter] = useState('All');
+  const [selectedEnquiryDetail, setSelectedEnquiryDetail] = useState(null);
+
+  // Digital English Language Lab State
+  const [labForm, setLabForm] = useState(() => ({
+    enabled: englishDigitalLab?.enabled ?? true,
+    title: englishDigitalLab?.title || 'Digital English Language Lab',
+    badge: englishDigitalLab?.badge || 'AYODHYA’S 1ST DIGITAL LAB',
+    motto: englishDigitalLab?.motto || 'Phonetics, Fluent Oratory & Global Articulation',
+    image: englishDigitalLab?.image || '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
+    primaryDesc: englishDigitalLab?.primaryDesc || 'Interactive language workstations with audio headsets, Lexile-graded Collins reading modules, phonics reinforcement, and vocabulary expansion software developing fluent reading comprehension and confident spoken expression.',
+    middleDesc: englishDigitalLab?.middleDesc || 'Interactive language workstations with audio headsets, Lexile-graded comprehension, vocabulary expansion, and simulated debate modules developing persuasive public speaking and bilingual fluency.',
+    seniorDesc: englishDigitalLab?.seniorDesc || 'State-of-the-art multimedia phonetic booths, automated voice-modulation software, and oratory analysis suites preparing senior scholars for national debates, MUNs, IELTS/TOEFL, and global university interviews.',
+    showInPrimary: englishDigitalLab?.showInPrimary ?? true,
+    showInMiddle: englishDigitalLab?.showInMiddle ?? true,
+    showInSenior: englishDigitalLab?.showInSenior ?? true
+  }));
+
+  useEffect(() => {
+    if (englishDigitalLab) {
+      setLabForm({
+        enabled: englishDigitalLab.enabled ?? true,
+        title: englishDigitalLab.title || 'Digital English Language Lab',
+        badge: englishDigitalLab.badge || 'AYODHYA’S 1ST DIGITAL LAB',
+        motto: englishDigitalLab.motto || 'Phonetics, Fluent Oratory & Global Articulation',
+        image: englishDigitalLab.image || '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
+        primaryDesc: englishDigitalLab.primaryDesc || '',
+        middleDesc: englishDigitalLab.middleDesc || '',
+        seniorDesc: englishDigitalLab.seniorDesc || '',
+        showInPrimary: englishDigitalLab.showInPrimary ?? true,
+        showInMiddle: englishDigitalLab.showInMiddle ?? true,
+        showInSenior: englishDigitalLab.showInSenior ?? true
+      });
+    }
+  }, [englishDigitalLab]);
+
+  const handleSaveEnglishDigitalLab = (e) => {
+    if (e) e.preventDefault();
+    store.setEnglishDigitalLab(labForm);
+    showToast('Digital English Language Lab card updated live across Primary, Middle, and Senior Wings!', 'success');
+  };
+
+
+  // Export Enquiries to CSV with full Subject Track & Stream details
   const exportEnquiriesCSV = () => {
     if (!enquiries || enquiries.length === 0) return;
-    const headers = ['Parent Name', 'Phone', 'Email', 'Child Name', 'Grade', 'Date', 'Status', 'Message'];
+    const headers = [
+      'Ref ID',
+      'Parent Name',
+      'Phone',
+      'Email',
+      'Child Name',
+      'Applying Grade',
+      'Senior Stream',
+      'Subject Track / Elective',
+      'Target Senior Class',
+      'Career Focus',
+      'Preferred Date',
+      'Status',
+      'Parent Message / Notes',
+      'Date Submitted'
+    ];
     const rows = enquiries.map((e) => [
-      `"${e.parentName}"`,
-      `"${e.phone}"`,
-      `"${e.email}"`,
-      `"${e.childName}"`,
-      `"${e.applyingGrade}"`,
-      `"${e.preferredDate || e.createdAt}"`,
-      `"${e.status}"`,
-      `"${(e.message || '').replace(/"/g, '""')}"`
+      `"${e.id || ''}"`,
+      `"${(e.parentName || '').replace(/"/g, '""')}"`,
+      `"${(e.phone || '').replace(/"/g, '""')}"`,
+      `"${(e.email || '').replace(/"/g, '""')}"`,
+      `"${(e.childName || '').replace(/"/g, '""')}"`,
+      `"${(e.applyingGrade || '').replace(/"/g, '""')}"`,
+      `"${(e.stream || '-').replace(/"/g, '""')}"`,
+      `"${(e.subjectTrack || '-').replace(/"/g, '""')}"`,
+      `"${(e.targetSeniorGrade || '-').replace(/"/g, '""')}"`,
+      `"${(e.careerGoal || '-').replace(/"/g, '""')}"`,
+      `"${(e.preferredDate || '-').replace(/"/g, '""')}"`,
+      `"${(e.status || 'New').replace(/"/g, '""')}"`,
+      `"${(e.message || '').replace(/"/g, '""')}"`,
+      `"${(e.createdAt || '').replace(/"/g, '""')}"`
     ]);
     const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -292,6 +440,46 @@ export default function AdminPage({ setCurrentRoute }) {
     link.click();
     document.body.removeChild(link);
   };
+
+  // Filtered Admissions Enquiries
+  const filteredEnquiries = (enquiries || []).filter((enq) => {
+    const q = enquirySearchQuery.toLowerCase().trim();
+    const matchesSearch = !q || (
+      (enq.parentName || '').toLowerCase().includes(q) ||
+      (enq.childName || '').toLowerCase().includes(q) ||
+      (enq.phone || '').toLowerCase().includes(q) ||
+      (enq.email || '').toLowerCase().includes(q) ||
+      (enq.stream || '').toLowerCase().includes(q) ||
+      (enq.subjectTrack || '').toLowerCase().includes(q) ||
+      (enq.applyingGrade || '').toLowerCase().includes(q) ||
+      (enq.targetSeniorGrade || '').toLowerCase().includes(q) ||
+      (enq.careerGoal || '').toLowerCase().includes(q) ||
+      (enq.message || '').toLowerCase().includes(q)
+    );
+    if (!matchesSearch) return false;
+
+    if (enquiryStreamFilter === 'All') return true;
+    if (enquiryStreamFilter === 'Senior') {
+      return (enq.applyingGrade || '').includes('Senior') || !!enq.stream;
+    }
+    if (enquiryStreamFilter === 'Science') {
+      return (enq.stream || '').toLowerCase().includes('science');
+    }
+    if (enquiryStreamFilter === 'Commerce') {
+      return (enq.stream || '').toLowerCase().includes('commerce');
+    }
+    if (enquiryStreamFilter === 'Humanities') {
+      return (enq.stream || '').toLowerCase().includes('humanities');
+    }
+    if (enquiryStreamFilter === 'Robotics') {
+      return (enq.stream || '').toLowerCase().includes('robotics') || (enq.subjectTrack || '').toLowerCase().includes('robotics');
+    }
+    if (enquiryStreamFilter === 'OtherWings') {
+      return !(enq.applyingGrade || '').includes('Senior') && !enq.stream;
+    }
+    return true;
+  });
+
 
   // Export Campus Visits CSV
   const exportCampusVisitsCSV = () => {
@@ -484,6 +672,16 @@ export default function AdminPage({ setCurrentRoute }) {
           </button>
 
           <button 
+            className={`admin-tab-btn ${activeTab === 'digitallab' ? 'active' : ''}`}
+            onClick={() => setActiveTab('digitallab')}
+          >
+            <Headphones size={18} />
+            <span>Digital English Lab</span>
+            <span className="admin-tab-badge" style={{ background: labForm.enabled ? '#123985' : '#94A3B8', color: '#fff' }}>
+              {labForm.enabled ? '3 Wings' : 'Off'}
+            </span>
+          </button>
+          <button 
             className={`admin-tab-btn ${activeTab === 'careers' ? 'active' : ''}`}
             onClick={() => setActiveTab('careers')}
           >
@@ -492,6 +690,15 @@ export default function AdminPage({ setCurrentRoute }) {
             {(jobApplications?.length || 0) > 0 && (
               <span className="admin-tab-badge">{jobApplications?.length || 0}</span>
             )}
+          </button>
+
+          <button 
+            className={`admin-tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
+            onClick={() => setActiveTab('contact')}
+          >
+            <PhoneCall size={18} />
+            <span>Contact & Social Links</span>
+            <span className="admin-tab-badge" style={{ background: '#123985', color: '#fff' }}>Footer & Web</span>
           </button>
 
           <button 
@@ -1307,76 +1514,357 @@ export default function AdminPage({ setCurrentRoute }) {
 
               {/* SUBTAB 1: Enquiries & Fee Requests */}
               {enquiriesSubTab === 'enquiries' && (
-                <div className="admin-table-container">
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Parent Name</th>
-                        <th>Contact Info</th>
-                        <th>Child Name</th>
-                        <th>Applying Grade</th>
-                        <th>Request / Message</th>
-                        <th>Status</th>
-                        <th style={{ textAlign: 'right' }}>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {enquiries.length > 0 ? (
-                        enquiries.map((enq) => (
-                          <tr key={enq.id}>
-                            <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>{enq.parentName}</td>
-                            <td>
-                              <div>{enq.phone}</div>
-                              <div style={{ fontSize: '0.78rem', color: 'var(--color-warm-gray-600, #555555)' }}>{enq.email}</div>
-                            </td>
-                            <td>{enq.childName}</td>
-                            <td>
-                              <span className="admin-badge-gold" style={{ fontSize: '0.78rem' }}>
-                                {enq.applyingGrade}
-                              </span>
-                            </td>
-                            <td style={{ maxWidth: '240px', fontSize: '0.78rem', color: 'var(--color-warm-gray-800, #333333)' }}>
-                              <div style={{ fontWeight: 600, color: 'var(--color-accent)', marginBottom: '2px' }}>
-                                {enq.preferredDate || 'General Query'}
-                              </div>
-                              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={enq.message}>
-                                {enq.message || 'Standard Admission Query'}
-                              </div>
-                            </td>
-                            <td>
-                              <select 
-                                value={enq.status}
-                                onChange={(e) => store.updateEnquiryStatus(enq.id, e.target.value)}
-                                className="admin-input"
-                                style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem', width: 'auto' }}
-                              >
-                                <option value="New">New</option>
-                                <option value="Contacted">Contacted</option>
-                                <option value="Interview Scheduled">Interview Scheduled</option>
-                                <option value="Enrolled">Enrolled</option>
-                              </select>
-                            </td>
-                            <td style={{ textAlign: 'right' }}>
-                              <button 
-                                type="button" 
-                                className="admin-action-btn delete"
-                                onClick={() => store.deleteEnquiry(enq.id)}
-                                title="Delete inquiry"
-                              >
-                                <Trash2 size={15} />
-                              </button>
+                <div>
+                  {/* Real-time Search & Senior Wing Stream Filter Bar */}
+                  <div style={{
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(18, 57, 133, 0.08)',
+                    borderRadius: '12px',
+                    padding: '1rem 1.25rem',
+                    marginBottom: '1.25rem',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.85rem'
+                  }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div style={{ position: 'relative', flex: '1 1 280px', maxWidth: '420px' }}>
+                        <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+                        <input
+                          type="text"
+                          className="admin-input"
+                          placeholder="Search parent, child, stream, subject..."
+                          value={enquirySearchQuery}
+                          onChange={(e) => setEnquirySearchQuery(e.target.value)}
+                          style={{ paddingLeft: '2.4rem', height: '40px', fontSize: '0.86rem' }}
+                        />
+                        {enquirySearchQuery && (
+                          <button
+                            type="button"
+                            onClick={() => setEnquirySearchQuery('')}
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
+                          >
+                            <X size={14} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.82rem', color: '#64748B' }}>
+                        <span>Showing: <strong>{filteredEnquiries.length}</strong> of {enquiries.length} enquiries</span>
+                      </div>
+                    </div>
+
+                    {/* Stream Quick Filter Badges */}
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-primary-dark, #123985)', marginRight: '0.25rem' }}>
+                        Stream Filter:
+                      </span>
+                      {[
+                        { id: 'All', label: 'All Inquiries', count: enquiries.length },
+                        { id: 'Senior', label: 'Senior Wing (All)', count: enquiries.filter(e => e.stream || e.applyingGrade?.includes('Senior')).length },
+                        { id: 'Science', label: 'Science Stream', count: enquiries.filter(e => (e.stream || '').toLowerCase().includes('science')).length },
+                        { id: 'Commerce', label: 'Commerce Stream', count: enquiries.filter(e => (e.stream || '').toLowerCase().includes('commerce')).length },
+                        { id: 'Humanities', label: 'Humanities & Arts', count: enquiries.filter(e => (e.stream || '').toLowerCase().includes('humanities')).length },
+                        { id: 'Robotics', label: 'Robotics & STEM', count: enquiries.filter(e => (e.stream || '').toLowerCase().includes('robotics') || (e.subjectTrack || '').toLowerCase().includes('robotics')).length },
+                        { id: 'OtherWings', label: 'Junior / Primary / Middle', count: enquiries.filter(e => !e.stream && !e.applyingGrade?.includes('Senior')).length }
+                      ].map((filter) => (
+                        <button
+                          key={filter.id}
+                          type="button"
+                          onClick={() => setEnquiryStreamFilter(filter.id)}
+                          style={{
+                            background: enquiryStreamFilter === filter.id ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                            color: enquiryStreamFilter === filter.id ? '#FFFFFF' : 'var(--color-warm-gray-700, #4A5568)',
+                            border: enquiryStreamFilter === filter.id ? '1px solid var(--color-primary-dark, #123985)' : '1px solid rgba(0,0,0,0.06)',
+                            padding: '0.35rem 0.75rem',
+                            borderRadius: '9999px',
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            transition: 'all 0.18s ease'
+                          }}
+                        >
+                          <span>{filter.label}</span>
+                          <span style={{
+                            background: enquiryStreamFilter === filter.id ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.08)',
+                            color: enquiryStreamFilter === filter.id ? '#FFFFFF' : '#4A5568',
+                            fontSize: '0.68rem',
+                            padding: '0.1rem 0.4rem',
+                            borderRadius: '9999px',
+                            fontWeight: 800
+                          }}>
+                            {filter.count}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="admin-table-container">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Parent & Contact</th>
+                          <th>Child Name</th>
+                          <th>Applying Grade</th>
+                          <th>Senior Stream & Specific Subject</th>
+                          <th>Career Goal / Notes</th>
+                          <th>Status</th>
+                          <th style={{ textAlign: 'right' }}>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredEnquiries.length > 0 ? (
+                          filteredEnquiries.map((enq) => {
+                            const isSenior = (enq.applyingGrade || '').includes('Senior') || !!enq.stream;
+                            return (
+                              <tr key={enq.id}>
+                                <td style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)' }}>
+                                  <div>{enq.parentName}</div>
+                                  <div style={{ fontSize: '0.78rem', fontWeight: 500, color: '#334155', marginTop: '2px' }}>{enq.phone}</div>
+                                  <div style={{ fontSize: '0.75rem', fontWeight: 400, color: '#64748B' }}>{enq.email}</div>
+                                </td>
+                                <td style={{ fontWeight: 600 }}>{enq.childName}</td>
+                                <td>
+                                  <span className="admin-badge-gold" style={{ fontSize: '0.78rem' }}>
+                                    {enq.applyingGrade}
+                                  </span>
+                                  {enq.targetSeniorGrade && (
+                                    <div style={{ fontSize: '0.72rem', color: '#123985', fontWeight: 700, marginTop: '3px' }}>
+                                      {enq.targetSeniorGrade}
+                                    </div>
+                                  )}
+                                </td>
+                                <td>
+                                  {isSenior ? (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
+                                      {enq.stream && (
+                                        <span style={{
+                                          background: 'var(--color-primary-dark, #123985)',
+                                          color: '#FFFFFF',
+                                          fontSize: '0.72rem',
+                                          fontWeight: 800,
+                                          padding: '2px 8px',
+                                          borderRadius: '4px',
+                                          letterSpacing: '0.02em',
+                                          display: 'inline-block'
+                                        }}>
+                                          {enq.stream}
+                                        </span>
+                                      )}
+                                      {enq.subjectTrack ? (
+                                        <div style={{
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          gap: '4px',
+                                          background: 'rgba(179, 151, 89, 0.15)',
+                                          color: '#8C6D23',
+                                          border: '1px solid rgba(179, 151, 89, 0.35)',
+                                          padding: '2px 8px',
+                                          borderRadius: '4px',
+                                          fontSize: '0.74rem',
+                                          fontWeight: 700
+                                        }} title={enq.subjectTrack}>
+                                          <span>📖 {enq.subjectTrack}</span>
+                                        </div>
+                                      ) : (
+                                        <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>All Stream Core Subjects</span>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <span style={{ fontSize: '0.75rem', color: '#64748B' }}>General Admission</span>
+                                  )}
+                                </td>
+                                <td style={{ maxWidth: '240px', fontSize: '0.78rem', color: 'var(--color-warm-gray-800, #333333)' }}>
+                                  {enq.careerGoal && (
+                                    <div style={{ fontWeight: 700, color: 'var(--color-accent, #b39759)', fontSize: '0.72rem', marginBottom: '2px' }}>
+                                      🎯 {enq.careerGoal}
+                                    </div>
+                                  )}
+                                  <div style={{ fontWeight: 600, color: '#64748B', marginBottom: '2px' }}>
+                                    {enq.preferredDate ? `Preferred: ${enq.preferredDate}` : (enq.createdAt ? enq.createdAt.split('T')[0] : 'General Query')}
+                                  </div>
+                                  <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#475569' }} title={enq.message}>
+                                    {enq.message || 'No additional note'}
+                                  </div>
+                                </td>
+                                <td>
+                                  <select 
+                                    value={enq.status || 'New'}
+                                    onChange={(e) => store.updateEnquiryStatus(enq.id, e.target.value)}
+                                    className="admin-input"
+                                    style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem', width: 'auto' }}
+                                  >
+                                    <option value="New">New</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Interview Scheduled">Interview Scheduled</option>
+                                    <option value="Enrolled">Enrolled</option>
+                                  </select>
+                                </td>
+                                <td style={{ textAlign: 'right' }}>
+                                  <div style={{ display: 'inline-flex', gap: '6px', alignItems: 'center' }}>
+                                    <button 
+                                      type="button" 
+                                      className="admin-action-btn edit"
+                                      onClick={() => setSelectedEnquiryDetail(enq)}
+                                      title="View complete enquiry details"
+                                      style={{ color: 'var(--color-primary-dark, #123985)' }}
+                                    >
+                                      <Eye size={15} />
+                                    </button>
+                                    <button 
+                                      type="button" 
+                                      className="admin-action-btn delete"
+                                      onClick={() => store.deleteEnquiry(enq.id)}
+                                      title="Delete inquiry"
+                                    >
+                                      <Trash2 size={15} />
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        ) : (
+                          <tr>
+                            <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
+                              {enquirySearchQuery || enquiryStreamFilter !== 'All' 
+                                ? 'No enquiries match your search or filter criteria.' 
+                                : 'No parent enquiries received yet.'}
                             </td>
                           </tr>
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-warm-gray-600, #555555)' }}>
-                            No parent enquiries received yet.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Detail Modal for Selected Enquiry */}
+                  {selectedEnquiryDetail && (
+                    <div className="admin-modal-backdrop" onClick={() => setSelectedEnquiryDetail(null)}>
+                      <div className="admin-modal-card" style={{ maxWidth: '640px' }} onClick={(e) => e.stopPropagation()}>
+                        <div className="admin-modal-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(18, 57, 133, 0.1)', paddingBottom: '1rem', marginBottom: '1.25rem' }}>
+                          <div>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-accent, #b39759)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                              Admissions Dossier
+                            </span>
+                            <h3 style={{ margin: '0.2rem 0 0', color: 'var(--color-primary-dark, #123985)', fontSize: '1.3rem' }}>
+                              Enquiry Details: {selectedEnquiryDetail.childName}
+                            </h3>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn-close-modal"
+                            onClick={() => setSelectedEnquiryDetail(null)}
+                            style={{ background: '#F3EFEA', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.25rem' }}>
+                          <div style={{ background: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Parent / Guardian</div>
+                            <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedEnquiryDetail.parentName}</div>
+                            <div style={{ fontSize: '0.82rem', color: '#334155', marginTop: '4px' }}>📞 {selectedEnquiryDetail.phone}</div>
+                            <div style={{ fontSize: '0.82rem', color: '#334155' }}>✉️ {selectedEnquiryDetail.email}</div>
+                          </div>
+
+                          <div style={{ background: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Student Information</div>
+                            <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedEnquiryDetail.childName}</div>
+                            <div style={{ fontSize: '0.82rem', color: '#334155', marginTop: '4px' }}>
+                              Wing: <strong>{selectedEnquiryDetail.applyingGrade}</strong>
+                            </div>
+                            {selectedEnquiryDetail.targetSeniorGrade && (
+                              <div style={{ fontSize: '0.82rem', color: 'var(--color-primary-dark, #123985)', fontWeight: 700 }}>
+                                Target Class: {selectedEnquiryDetail.targetSeniorGrade}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Subject Track & Stream Highlight */}
+                        {(selectedEnquiryDetail.stream || selectedEnquiryDetail.subjectTrack) && (
+                          <div style={{
+                            background: '#FDFBF7',
+                            border: '1.5px solid rgba(179, 151, 89, 0.4)',
+                            borderRadius: '10px',
+                            padding: '1rem 1.15rem',
+                            marginBottom: '1.25rem'
+                          }}>
+                            <div style={{ fontSize: '0.74rem', fontWeight: 800, color: 'var(--color-accent, #b39759)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
+                              Senior Secondary Subject Specialization
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                              <div>
+                                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>Selected Academic Stream:</span>
+                                <div style={{ fontWeight: 800, color: 'var(--color-primary-dark, #123985)', fontSize: '0.95rem' }}>
+                                  {selectedEnquiryDetail.stream || 'General'}
+                                </div>
+                              </div>
+                              <div>
+                                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>Specific Subject / Elective Track:</span>
+                                <div style={{ fontWeight: 800, color: '#8C6D23', fontSize: '0.95rem' }}>
+                                  📖 {selectedEnquiryDetail.subjectTrack || 'All Core Subjects'}
+                                </div>
+                              </div>
+                            </div>
+                            {selectedEnquiryDetail.careerGoal && (
+                              <div style={{ marginTop: '0.65rem', paddingTop: '0.5rem', borderTop: '1px dashed rgba(179, 151, 89, 0.25)' }}>
+                                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>Career / Entrance Exam Goal:</span>
+                                <div style={{ fontWeight: 700, color: 'var(--color-primary-dark, #123985)', fontSize: '0.88rem' }}>
+                                  🎯 {selectedEnquiryDetail.careerGoal}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        <div style={{ background: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0', marginBottom: '1.25rem' }}>
+                          <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Parent Message / Specific Query</div>
+                          <div style={{ fontSize: '0.88rem', color: '#1E293B', marginTop: '4px', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                            {selectedEnquiryDetail.message || 'No additional query text entered.'}
+                          </div>
+                          {selectedEnquiryDetail.preferredDate && (
+                            <div style={{ fontSize: '0.78rem', color: 'var(--color-accent, #b39759)', fontWeight: 700, marginTop: '0.5rem' }}>
+                              Requested Campus Visit Date: {selectedEnquiryDetail.preferredDate}
+                            </div>
+                          )}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <a
+                              href={`tel:${selectedEnquiryDetail.phone}`}
+                              className="btn-admin-primary"
+                              style={{ padding: '0.45rem 1rem', fontSize: '0.8rem', textDecoration: 'none' }}
+                            >
+                              📞 Call Parent
+                            </a>
+                            <a
+                              href={`mailto:${selectedEnquiryDetail.email}`}
+                              className="btn-admin-secondary"
+                              style={{ padding: '0.45rem 1rem', fontSize: '0.8rem', textDecoration: 'none' }}
+                            >
+                              ✉️ Email Prospectus
+                            </a>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="btn-admin-secondary"
+                            onClick={() => setSelectedEnquiryDetail(null)}
+                            style={{ padding: '0.45rem 1.25rem', fontSize: '0.82rem' }}
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -1474,6 +1962,265 @@ export default function AdminPage({ setCurrentRoute }) {
               )}
             </div>
           )}
+
+                    {/* ========================================================
+              TAB: DIGITAL ENGLISH LANGUAGE LAB CARD CONTROLS
+          ======================================================== */}
+          {activeTab === 'digitallab' && (
+            <div>
+              <div className="admin-section-header">
+                <div className="admin-title-group">
+                  <h1>Digital English Language Lab Controls</h1>
+                  <p>Manage the English Digital Lab card presence, images, badges, and curriculum descriptions across Senior, Middle, and Junior Wings.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                  <button 
+                    type="button" 
+                    className="btn-admin-secondary"
+                    onClick={() => {
+                      setLabForm({
+                        enabled: true,
+                        title: 'Digital English Language Lab',
+                        badge: 'AYODHYA’S 1ST DIGITAL LAB',
+                        motto: 'Phonetics, Fluent Oratory & Global Articulation',
+                        image: '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg',
+                        primaryDesc: 'Interactive language workstations with audio headsets, Lexile-graded Collins reading modules, phonics reinforcement, and vocabulary expansion software developing fluent reading comprehension and confident spoken expression.',
+                        middleDesc: 'Interactive language workstations with audio headsets, Lexile-graded comprehension, vocabulary expansion, and simulated debate modules developing persuasive public speaking and bilingual fluency.',
+                        seniorDesc: 'State-of-the-art multimedia phonetic booths, automated voice-modulation software, and oratory analysis suites preparing senior scholars for national debates, MUNs, IELTS/TOEFL, and global university interviews.',
+                        showInPrimary: true,
+                        showInMiddle: true,
+                        showInSenior: true
+                      });
+                      showToast('Reset English Digital Lab form to Goenka defaults.', 'info');
+                    }}
+                  >
+                    <RefreshCw size={15} /> Reset Defaults
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn-admin-primary"
+                    onClick={handleSaveEnglishDigitalLab}
+                  >
+                    <Save size={16} /> Save Lab Settings
+                  </button>
+                </div>
+              </div>
+
+              {/* Master Status & Wing Presence Cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+                {/* Master Switch Card */}
+                <div style={{ background: '#FFFFFF', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(18, 57, 133, 0.1)', boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                      <Headphones size={22} style={{ color: 'var(--color-primary-dark, #123985)' }} />
+                      <div>
+                        <h4 style={{ margin: 0, color: 'var(--color-primary-dark, #123985)', fontSize: '1rem' }}>Global Status</h4>
+                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>Master switch across entire website</span>
+                      </div>
+                    </div>
+                    <label style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '0.8rem', color: labForm.enabled ? '#22C55E' : '#94A3B8', fontWeight: 800 }}>
+                        {labForm.enabled ? 'ACTIVE' : 'DISABLED'}
+                      </span>
+                      <input 
+                        type="checkbox"
+                        checked={labForm.enabled}
+                        onChange={(e) => setLabForm({ ...labForm, enabled: e.target.checked })}
+                        style={{ width: '20px', height: '20px', accentColor: 'var(--color-primary-dark, #123985)' }}
+                      />
+                    </label>
+                  </div>
+                  <p style={{ fontSize: '0.82rem', color: '#475569', margin: 0 }}>
+                    When enabled, the Digital English Language Lab card displays in the Inspired Spaces section for the checked wings below.
+                  </p>
+                </div>
+
+                {/* Individual Wing Presence Controls */}
+                <div style={{ background: '#FFFFFF', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(18, 57, 133, 0.1)', boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+                  <h4 style={{ margin: '0 0 0.85rem', color: 'var(--color-primary-dark, #123985)', fontSize: '1rem' }}>
+                    Wing Visibility Toggles
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', padding: '0.4rem 0.6rem', borderRadius: '6px', background: labForm.showInPrimary ? 'rgba(34, 197, 94, 0.08)' : '#F8FAFC' }}>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#1E293B' }}>Primary Wing (Grades 3 to 5)</span>
+                      <input 
+                        type="checkbox"
+                        checked={labForm.showInPrimary}
+                        onChange={(e) => setLabForm({ ...labForm, showInPrimary: e.target.checked })}
+                        style={{ width: '18px', height: '18px', accentColor: 'var(--color-primary-dark, #123985)' }}
+                      />
+                    </label>
+
+                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', padding: '0.4rem 0.6rem', borderRadius: '6px', background: labForm.showInMiddle ? 'rgba(34, 197, 94, 0.08)' : '#F8FAFC' }}>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#1E293B' }}>Middle Wing (Grades 6 to 8)</span>
+                      <input 
+                        type="checkbox"
+                        checked={labForm.showInMiddle}
+                        onChange={(e) => setLabForm({ ...labForm, showInMiddle: e.target.checked })}
+                        style={{ width: '18px', height: '18px', accentColor: 'var(--color-primary-dark, #123985)' }}
+                      />
+                    </label>
+
+                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', padding: '0.4rem 0.6rem', borderRadius: '6px', background: labForm.showInSenior ? 'rgba(34, 197, 94, 0.08)' : '#F8FAFC' }}>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#1E293B' }}>Senior Wing (Grades 9 to 12)</span>
+                      <input 
+                        type="checkbox"
+                        checked={labForm.showInSenior}
+                        onChange={(e) => setLabForm({ ...labForm, showInSenior: e.target.checked })}
+                        style={{ width: '18px', height: '18px', accentColor: 'var(--color-primary-dark, #123985)' }}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Photo & Branding Details */}
+              <div style={{ background: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid rgba(18, 57, 133, 0.1)', marginBottom: '2rem', boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+                <h3 style={{ margin: '0 0 1.25rem', color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem' }}>
+                  Card Media, Header & Badge
+                </h3>
+
+                <div className="admin-form-grid" style={{ marginBottom: '1.25rem' }}>
+                  <div>
+                    <label className="admin-input-label">Card Display Title</label>
+                    <input 
+                      type="text" 
+                      className="admin-input"
+                      value={labForm.title}
+                      onChange={(e) => setLabForm({ ...labForm, title: e.target.value })}
+                      placeholder="e.g. Digital English Language Lab"
+                    />
+                  </div>
+                  <div>
+                    <label className="admin-input-label">Pill Badge / Tag Text</label>
+                    <input 
+                      type="text" 
+                      className="admin-input"
+                      value={labForm.badge}
+                      onChange={(e) => setLabForm({ ...labForm, badge: e.target.value })}
+                      placeholder="e.g. AYODHYA'S 1ST DIGITAL LAB"
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-form-grid" style={{ marginBottom: '1.25rem' }}>
+                  <div>
+                    <label className="admin-input-label">Motto / Subtitle (Displayed in Senior Wing)</label>
+                    <input 
+                      type="text" 
+                      className="admin-input"
+                      value={labForm.motto}
+                      onChange={(e) => setLabForm({ ...labForm, motto: e.target.value })}
+                      placeholder="e.g. Phonetics, Fluent Oratory & Global Articulation"
+                    />
+                  </div>
+                  <div>
+                    <label className="admin-input-label">Card Image URL / Path</label>
+                    <input 
+                      type="text" 
+                      className="admin-input"
+                      value={labForm.image}
+                      onChange={(e) => setLabForm({ ...labForm, image: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                {/* Quick Image Presets */}
+                <div>
+                  <label className="admin-input-label" style={{ marginBottom: '0.45rem' }}>Quick Preset Lab Photos:</label>
+                  <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    {[
+                      { label: 'Honeycomb Computers Panorama', url: '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg' },
+                      { label: 'Linguistics Headset Close-up', url: '/school-media/Digital Lab/language_lab_headset.jpg' },
+                      { label: 'Workstations Framed View', url: '/school-media/Digital Lab/lab_honeycomb_computers_framed.jpg' }
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setLabForm({ ...labForm, image: preset.url })}
+                        style={{
+                          background: labForm.image === preset.url ? 'var(--color-primary-dark, #123985)' : '#F3EFEA',
+                          color: labForm.image === preset.url ? '#FFFFFF' : '#334155',
+                          border: 'none',
+                          padding: '0.4rem 0.85rem',
+                          borderRadius: '6px',
+                          fontSize: '0.78rem',
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Wing-Specific Custom Descriptions */}
+              <div style={{ background: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid rgba(18, 57, 133, 0.1)', marginBottom: '2rem', boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+                <h3 style={{ margin: '0 0 0.35rem', color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem' }}>
+                  Tailored Descriptions by Wing
+                </h3>
+                <p style={{ color: '#64748B', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+                  Customize the pedagogical description for each age group to highlight foundational phonics, intermediate debate, or senior board/interview preparation.
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  <div>
+                    <label className="admin-input-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span className="admin-badge-gold" style={{ fontSize: '0.7rem' }}>Primary Wing</span>
+                      <span>Reading Fluency, Lexile Comprehension & Phonics (Grades 3 to 5)</span>
+                    </label>
+                    <textarea 
+                      className="admin-textarea"
+                      rows={3}
+                      value={labForm.primaryDesc}
+                      onChange={(e) => setLabForm({ ...labForm, primaryDesc: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="admin-input-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span className="admin-badge-gold" style={{ fontSize: '0.7rem' }}>Middle Wing</span>
+                      <span>Oratory, Lexile Reading & Debate Description</span>
+                    </label>
+                    <textarea 
+                      className="admin-textarea"
+                      rows={3}
+                      value={labForm.middleDesc}
+                      onChange={(e) => setLabForm({ ...labForm, middleDesc: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="admin-input-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span className="admin-badge-gold" style={{ fontSize: '0.7rem' }}>Senior Wing</span>
+                      <span>Rhetoric, MUNs, Voice Modulation & Global Interviews Description</span>
+                    </label>
+                    <textarea 
+                      className="admin-textarea"
+                      rows={3}
+                      value={labForm.seniorDesc}
+                      onChange={(e) => setLabForm({ ...labForm, seniorDesc: e.target.value })}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Save Floating Bar */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1.5rem' }}>
+                <button 
+                  type="button" 
+                  className="btn-admin-primary"
+                  onClick={handleSaveEnglishDigitalLab}
+                  style={{ padding: '0.75rem 2rem', fontSize: '0.95rem' }}
+                >
+                  <Save size={18} /> Save & Publish Changes Across Wings
+                </button>
+              </div>
+            </div>
+          )}
+
 
           {/* ========================================================
               TAB 7: CAREERS & RECRUITMENT MANAGEMENT
@@ -1858,6 +2605,390 @@ export default function AdminPage({ setCurrentRoute }) {
                   </button>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* ========================================================
+              TAB 8: CONTACT DETAILS & SOCIAL MEDIA CONTROLS
+          ======================================================== */}
+          {activeTab === 'contact' && (
+            <div className="admin-contact-manager">
+              <div className="admin-section-header" style={{ marginBottom: '1.75rem' }}>
+                <div className="admin-title-group">
+                  <h1>Campus Contact & Social Media Controls</h1>
+                  <p>Manage official mobile numbers, email addresses, campus physical location, social media channels, and footer brand story. Updates apply live across the website.</p>
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <button 
+                    type="button" 
+                    className="btn-admin-primary"
+                    onClick={handleSaveContactDetails}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', fontWeight: 700 }}
+                  >
+                    <Save size={16} />
+                    <span>Save Contact & Social Details</span>
+                  </button>
+                </div>
+              </div>
+
+              <form onSubmit={handleSaveContactDetails}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+
+                  {/* SECTION 1: SOCIAL MEDIA CHANNELS */}
+                  <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                      <div>
+                        <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem', margin: '0 0 0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <Share2 size={19} style={{ color: 'var(--color-accent)' }} /> Social Media Channel Links
+                        </h3>
+                        <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.84rem', margin: 0 }}>
+                          These links power the interactive social pill badges in the website footer and campus contact cards.
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        className="btn-admin-secondary"
+                        onClick={handleAddSocialLink}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem', padding: '0.5rem 1rem' }}
+                      >
+                        <Plus size={15} /> Add Social Channel
+                      </button>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                      {contactForm.socialLinks.map((item, idx) => (
+                        <div 
+                          key={idx} 
+                          style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'minmax(140px, 180px) 1fr auto auto', 
+                            gap: '0.75rem', 
+                            alignItems: 'center',
+                            background: '#FAF8F5',
+                            padding: '0.75rem 1rem',
+                            borderRadius: 'var(--radius-sm, 8px)',
+                            border: '1px solid rgba(18, 57, 133, 0.06)'
+                          }}
+                        >
+                          <div>
+                            <input 
+                              type="text" 
+                              className="admin-input" 
+                              value={item.platform} 
+                              onChange={(e) => handleUpdateSocialLink(idx, 'platform', e.target.value)}
+                              placeholder="Platform (e.g. Facebook)"
+                              style={{ fontWeight: 600, background: '#FFFFFF' }}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <input 
+                              type="url" 
+                              className="admin-input" 
+                              value={item.url} 
+                              onChange={(e) => handleUpdateSocialLink(idx, 'url', e.target.value)}
+                              placeholder="https://..."
+                              style={{ background: '#FFFFFF' }}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <a 
+                              href={item.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="btn-admin-secondary"
+                              title="Test link in new tab"
+                              style={{ padding: '0.6rem 0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem' }}
+                            >
+                              <ExternalLink size={14} /> Test
+                            </a>
+                          </div>
+                          <div>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveSocialLink(idx)}
+                              title="Delete link"
+                              style={{ 
+                                background: 'none', 
+                                border: '1px solid rgba(239, 68, 68, 0.2)', 
+                                color: '#EF4444', 
+                                padding: '0.6rem 0.75rem', 
+                                borderRadius: '6px', 
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center'
+                              }}
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {contactForm.socialLinks.length === 0 && (
+                        <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.9rem', fontStyle: 'italic', padding: '1rem', textAlign: 'center' }}>
+                          No social media links configured. Click "Add Social Channel" to create one.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* SECTION 2: TELEPHONE & MOBILE NUMBERS */}
+                  <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                    <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <PhoneCall size={19} style={{ color: 'var(--color-accent)' }} /> School Telephone & Mobile Numbers
+                    </h3>
+                    <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.84rem', marginBottom: '1.25rem' }}>
+                      Numbers displayed in the website footer, top navigation, full-screen menu, and contact directory.
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
+                      <div>
+                        <label className="admin-input-label">
+                          Primary Mobile / Admissions Phone * 
+                          <span style={{ fontSize: '0.72rem', color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 600 }}>
+                            (Featured in Footer & Menu)
+                          </span>
+                        </label>
+                        <input 
+                          type="text" 
+                          className="admin-input" 
+                          value={contactForm.primaryPhone}
+                          onChange={(e) => setContactForm({ ...contactForm, primaryPhone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">Secondary Phone / Campus Landline</label>
+                        <input 
+                          type="text" 
+                          className="admin-input" 
+                          value={contactForm.secondaryPhone}
+                          onChange={(e) => setContactForm({ ...contactForm, secondaryPhone: e.target.value })}
+                          placeholder="+91 5278 290100"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">WhatsApp Support Number</label>
+                        <input 
+                          type="text" 
+                          className="admin-input" 
+                          value={contactForm.whatsapp}
+                          onChange={(e) => setContactForm({ ...contactForm, whatsapp: e.target.value })}
+                          placeholder="+91 98765 43210"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 3: OFFICIAL EMAIL ADDRESSES */}
+                  <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                    <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <Mail size={19} style={{ color: 'var(--color-accent)' }} /> Official Campus Email Directory
+                    </h3>
+                    <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.84rem', marginBottom: '1.25rem' }}>
+                      Configures the official email endpoints shown in the footer and across enquiry contact points.
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
+                      <div>
+                        <label className="admin-input-label">
+                          Admissions & Enquiries Email * 
+                          <span style={{ fontSize: '0.72rem', color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 600 }}>
+                            (Featured in Footer)
+                          </span>
+                        </label>
+                        <input 
+                          type="email" 
+                          className="admin-input" 
+                          value={contactForm.admissionsEmail}
+                          onChange={(e) => setContactForm({ ...contactForm, admissionsEmail: e.target.value })}
+                          placeholder="admissions@gdgoenkaayodhya.com"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">General Information Email</label>
+                        <input 
+                          type="email" 
+                          className="admin-input" 
+                          value={contactForm.infoEmail}
+                          onChange={(e) => setContactForm({ ...contactForm, infoEmail: e.target.value })}
+                          placeholder="info@gdgoenkaayodhya.com"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">Careers & HR Email</label>
+                        <input 
+                          type="email" 
+                          className="admin-input" 
+                          value={contactForm.careersEmail}
+                          onChange={(e) => setContactForm({ ...contactForm, careersEmail: e.target.value })}
+                          placeholder="careers@gdgoenkaayodhya.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 4: CAMPUS ADDRESS & VISITING HOURS */}
+                  <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                    <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <MapPin size={19} style={{ color: 'var(--color-accent)' }} /> Campus Physical Location & Visiting Hours
+                    </h3>
+                    <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.84rem', marginBottom: '1.25rem' }}>
+                      Physical address and official operational hours rendered in the footer and contact pages.
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+                      <div>
+                        <label className="admin-input-label">Full Campus Location / Address *</label>
+                        <textarea 
+                          className="admin-textarea" 
+                          rows={3}
+                          value={contactForm.address}
+                          onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
+                          placeholder="G.D. Goenka Public School Campus, NH-28 / Highway Corridor, Ayodhya, Uttar Pradesh – 224001"
+                          required
+                          style={{ resize: 'vertical' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">Office & Visiting Hours</label>
+                        <textarea 
+                          className="admin-textarea" 
+                          rows={3}
+                          value={contactForm.officeHours}
+                          onChange={(e) => setContactForm({ ...contactForm, officeHours: e.target.value })}
+                          placeholder="Monday – Saturday: 8:00 AM – 4:30 PM (Closed on Sundays & National Holidays)"
+                          style={{ resize: 'vertical' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 5: FOOTER BRAND STORY & COPYRIGHT */}
+                  <div style={{ background: '#FFFFFF', boxShadow: '0 4px 18px rgba(18, 57, 133, 0.04)', border: '1px solid rgba(18, 57, 133, 0.08)', borderRadius: 'var(--radius-md)', padding: '1.75rem' }}>
+                    <h3 style={{ color: 'var(--color-primary-dark, #123985)', fontSize: '1.15rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <FileText size={19} style={{ color: 'var(--color-accent)' }} /> Footer Brand Tagline & Copyright Notice
+                    </h3>
+                    <p style={{ color: 'var(--color-warm-gray-600, #555555)', fontSize: '0.84rem', marginBottom: '1.25rem' }}>
+                      Introductory brand summary under the logo and legal copyright line at the very bottom.
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }}>
+                      <div>
+                        <label className="admin-input-label">Footer Brand Story / Tagline Description</label>
+                        <textarea 
+                          className="admin-textarea" 
+                          rows={2}
+                          value={contactForm.description}
+                          onChange={(e) => setContactForm({ ...contactForm, description: e.target.value })}
+                          placeholder="Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya."
+                          style={{ resize: 'vertical' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="admin-input-label">Bottom Bar Copyright Line</label>
+                        <input 
+                          type="text" 
+                          className="admin-input" 
+                          value={contactForm.copyright}
+                          onChange={(e) => setContactForm({ ...contactForm, copyright: e.target.value })}
+                          placeholder="© 2026 G.D. Goenka Public School, Ayodhya. All Rights Reserved."
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 6: LIVE FOOTER PREVIEW CARD */}
+                  <div style={{ background: '#123985', borderRadius: 'var(--radius-md)', padding: '2rem', color: '#FFFFFF', boxShadow: '0 10px 30px rgba(18, 57, 133, 0.25)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.15)', paddingBottom: '0.75rem', marginBottom: '1.5rem' }}>
+                      <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent, #b39759)', fontWeight: 800 }}>
+                        LIVE WEBSITE FOOTER PREVIEW (REAL-TIME REFLECTION)
+                      </span>
+                      <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>
+                        Updates live as you type above
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                      {/* Brand Col */}
+                      <div>
+                        <img 
+                          src="/branding/gd_goenka_logo_light.png" 
+                          alt="GD Goenka Logo" 
+                          style={{ height: '42px', marginBottom: '1rem', objectFit: 'contain' }}
+                        />
+                        <p style={{ fontSize: '0.86rem', lineHeight: 1.6, opacity: 0.85, marginBottom: '1.25rem' }}>
+                          {contactForm.description}
+                        </p>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                          {contactForm.socialLinks.map((s, i) => (
+                            <span 
+                              key={i} 
+                              style={{ 
+                                padding: '0.35rem 0.85rem', 
+                                borderRadius: '9999px', 
+                                background: 'rgba(255, 255, 255, 0.08)', 
+                                border: '1px solid rgba(255, 255, 255, 0.18)',
+                                fontSize: '0.75rem',
+                                color: '#FFFFFF',
+                                fontWeight: 600
+                              }}
+                            >
+                              {s.platform}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Contact Info Col */}
+                      <div>
+                        <h4 style={{ fontSize: '0.84rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FFFFFF', marginBottom: '1rem', fontWeight: 700 }}>
+                          CAMPUS LOCATION
+                        </h4>
+                        <p style={{ fontSize: '0.86rem', lineHeight: 1.6, opacity: 0.8, marginBottom: '0.85rem' }}>
+                          {contactForm.address}
+                        </p>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--color-accent, #b39759)', fontWeight: 700, marginBottom: '0.35rem' }}>
+                          Phone: {contactForm.primaryPhone}
+                        </p>
+                        <p style={{ fontSize: '0.86rem', opacity: 0.8 }}>
+                          Email: {contactForm.admissionsEmail}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.78rem', opacity: 0.75 }}>
+                      <span>{contactForm.copyright}</span>
+                      <span>Mandatory Disclosure • Privacy Policy • Terms & Conditions</span>
+                    </div>
+                  </div>
+
+                  {/* Save Bottom Bar */}
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', paddingTop: '1rem' }}>
+                    <button 
+                      type="submit" 
+                      className="btn-admin-primary"
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.85rem 2rem', fontSize: '0.95rem', fontWeight: 700 }}
+                    >
+                      <Save size={18} />
+                      <span>Save All Contact Details & Social Links</span>
+                    </button>
+                  </div>
+
+                </div>
+              </form>
             </div>
           )}
         </main>

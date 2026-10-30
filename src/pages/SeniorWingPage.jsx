@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSchoolData } from '../hooks/useSchoolData';
 import { ArrowRight, Clock, Users, Sparkles, Atom, TrendingUp, Landmark, Award, BookOpen, Cpu, CheckCircle2 } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -32,14 +33,14 @@ const academicStreams = [
   }
 ];
 
-// Inspired Spaces & Advanced Laboratories directly from PDF 2 (Pages 24 - 32)
+// Inspired Spaces & Advanced Laboratories for Senior Secondary Scholars (Exclusively Grades 9-12)
 const inspiredSpaces = [
   {
     id: 'smart-classrooms',
     pageBadge: 'TECH-ENABLED LEARNING',
     title: 'Smart Classrooms',
     motto: 'Where Ideas Come Alive',
-    desc: 'Bright, spacious, air-conditioned classrooms create an inviting setting for learning. Interactive digital resources bring lessons to life, while discussion, collaboration, and independent work encourage students to question, understand, and express their ideas. Learning experiences evolve with each stage, from early discovery to deeper academic exploration in senior secondary classes.',
+    desc: 'Bright, acoustically treated, centralized air-conditioned classrooms equipped with BenQ 4K interactive flat panels. Flexible collaborative seating arrangements encourage analytical debate, Socratic dialogues, and peer problem-solving across all senior secondary disciplines.',
     image: '/school-media/senior-wing/smart_classrooms.jpg'
   },
   {
@@ -47,7 +48,7 @@ const inspiredSpaces = [
     pageBadge: 'RESEARCH & ARCHIVE',
     title: 'Senior Library & Archive',
     motto: 'Discover Worlds Beyond the Page',
-    desc: 'A welcoming space for curious minds, our library connects students with stories, literature, science, history, and reference resources. Younger children discover the joy of reading, while older learners explore diverse perspectives and develop research skills. Guided reading and independent inquiry support academic growth and a lasting relationship with books.',
+    desc: 'A sophisticated academic sanctuary housing over 47,000 titles, national archives, and digital e-library databases. Senior scholars engage in independent research, literary criticism, university preparatory reading, and scholarly inquiry under dedicated faculty librarians.',
     image: '/school-media/senior-wing/senior_library.jpg'
   },
   {
@@ -55,23 +56,15 @@ const inspiredSpaces = [
     pageBadge: 'ADVANCED SCIENCES',
     title: 'Science Laboratories',
     motto: 'Explore the Evidence, Understand the World',
-    desc: 'Practical investigation brings scientific concepts into focus. Age-appropriate activities introduce younger learners to observation and experimentation, while advanced work in Physics, Chemistry, and Biology develops deeper understanding in higher classes. Guided experiments help students connect theory with evidence, analyse results, and apply scientific reasoning.',
+    desc: 'Three purpose-built, CBSE-standard Physics, Chemistry, and Biology laboratories equipped with research-grade instruments, digital probes, and precision apparatus. Guided practicals develop rigorous scientific reasoning and empirical mastery essential for Board examinations and national entrance tests.',
     image: '/school-media/senior-wing/science_laboratories.jpg'
-  },
-  {
-    id: 'digital-learning-lab',
-    pageBadge: 'DIGITAL EXPLORATION',
-    title: 'Digital Learning Lab',
-    motto: 'New Ways to Explore and Understand',
-    desc: 'Interactive visuals and guided tablet activities make learning engaging and responsive to students’ needs. Early learners practise literacy, numeracy, and creative thinking through educational applications. As students progress, digital investigations, data collection, and analysis support increasingly complex learning across subjects.',
-    image: '/school-media/senior-wing/digital_learning_lab.jpg'
   },
   {
     id: 'mathematics-lab',
     pageBadge: 'MATHEMATICS EXPLORATION',
     title: 'Mathematics Exploration Lab',
     motto: 'Make Connections, Find Solutions',
-    desc: 'Hands-on exploration helps students see the meaning behind mathematical ideas. Visual aids, models, and practical tools support understanding of numbers, patterns, shapes, and relationships. Progressively challenging investigations encourage learners to reason carefully, compare methods, and apply concepts with confidence.',
+    desc: 'Advanced visual manipulatives, computational algebra software, and geometric modeling apparatus help senior scholars bridge concrete theorems with abstract calculus, coordinate geometry, vectors, and statistical analysis.',
     image: '/school-media/senior-wing/mathematics_lab.jpg'
   },
   {
@@ -79,37 +72,44 @@ const inspiredSpaces = [
     pageBadge: 'CODING & DIGITAL LITERACY',
     title: 'Computer & Digital Literacy Centre',
     motto: 'Think Critically, Create Responsibly',
-    desc: 'Digital learning develops from basic computer operations and safe internet habits to coding, presentations, spreadsheets, and research. In higher classes, students deepen their understanding of computing and explore emerging technologies, including artificial intelligence. Throughout their journey, thoughtful technology use strengthens creativity, problem-solving, and responsible digital citizenship.',
+    desc: 'High-speed computing lab equipped with modern multi-core workstations and high-speed fiber connectivity. Senior students master programming algorithms in Python and C++, relational databases, and responsible data science under experienced IT mentors.',
     image: '/school-media/senior-wing/computer_digital_centre.jpg'
-  },
-  {
-    id: 'reggio-discovery',
-    pageBadge: 'REGGIO DISCOVERY',
-    title: 'Reggio Discovery Centre',
-    motto: 'Where Curiosity Finds Expression',
-    desc: 'For our youngest learners, questions become starting points for hands-on discovery. Natural elements, recycled materials, and sensory resources invite children to investigate, create, and share their thinking. Our Reggio-inspired environment supports classroom learning while encouraging imagination and meaningful exploration.',
-    image: '/school-media/senior-wing/reggio_discovery_centre.jpg'
-  },
-  {
-    id: 'montessori-centre',
-    pageBadge: 'MONTESSORI LEARNING',
-    title: 'Montessori Learning Centre',
-    motto: 'Small Discoveries, Growing Independence',
-    desc: 'Carefully designed materials help young children learn through touch, movement, and practical experience. Exploration at an individual pace develops concentration, coordination, fine motor skills, and early academic understanding. Each achievement encourages independence and builds confidence for future learning.',
-    image: '/school-media/senior-wing/montessori_learning_centre.jpg'
   },
   {
     id: 'robotics-ai-lab',
     pageBadge: 'ROBOTICS & AI INNOVATION',
     title: 'Robotics and AI Lab',
     motto: 'Build with Imagination, Think with Intelligence',
-    desc: 'Curiosity meets technology as students explore robotics, coding, and the foundations of artificial intelligence. Guided projects introduce sensors, automation, and intelligent systems, helping learners understand how machines respond to instructions and use information. From playful construction to progressively challenging design tasks, age-appropriate experiences develop logical thinking, creativity, and problem-solving.',
+    desc: 'Dedicated rapid prototyping and intelligent automation hub. Senior scholars design custom mechanisms with 3D printers, integrate microcontrollers, train neural models, and build autonomous systems for national competitions and STEM Olympiads.',
     image: '/school-media/senior-wing/robotics_ai_lab.jpg'
   }
 ];
 
 export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+  const { englishDigitalLab } = useSchoolData();
   const [activeNavSection, setActiveNavSection] = useState('overview');
+
+  const displayInspiredSpaces = useMemo(() => {
+    const list = [...inspiredSpaces];
+    if (englishDigitalLab?.enabled !== false && englishDigitalLab?.showInSenior !== false) {
+      const labCard = {
+        id: 'english-digital-lab',
+        pageBadge: englishDigitalLab?.badge || 'AI-POWERED LINGUISTICS & ORATORY',
+        title: englishDigitalLab?.title || 'Digital English Language Lab',
+        motto: englishDigitalLab?.motto || 'Phonetics, Fluent Oratory & Global Articulation',
+        desc: englishDigitalLab?.seniorDesc || 'State-of-the-art multimedia phonetic booths, automated voice-modulation software, and oratory analysis suites preparing senior scholars for national debates, MUNs, IELTS/TOEFL, and global university interviews.',
+        image: englishDigitalLab?.image || '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg'
+      };
+      const mathIdx = list.findIndex(c => c.id === 'mathematics-lab');
+      if (mathIdx !== -1) {
+        list.splice(mathIdx + 1, 0, labCard);
+      } else {
+        list.push(labCard);
+      }
+    }
+    return list;
+  }, [englishDigitalLab]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -191,7 +191,11 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               <button
                 type="button"
                 className="wing-hero-btn wing-hero-btn-primary"
-                onClick={() => onOpenEnquiry && onOpenEnquiry('Senior Wing (Grades 9-12)')}
+                onClick={() => onOpenEnquiry && onOpenEnquiry({
+                  grade: 'Grades IX & XI (Senior Wing)',
+                  stream: 'Science Stream',
+                  subject: 'Senior Wing Admission Enquiry'
+                })}
               >
                 Inquire / Apply
               </button>
@@ -321,7 +325,7 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
               style={{ fontSize: 'clamp(2rem, 3vw, 2.75rem)', marginBottom: '0.75rem' }}
             />
             <p style={{ color: 'var(--color-warm-gray-600)', fontSize: '1.05rem', margin: 0 }}>
-              Tailored curriculum frameworks designed for academic mastery, university admissions, and national competitive examinations.
+              Tailored curriculum frameworks designed for academic mastery, university admissions, and national competitive examinations. Click any individual subject to inquire directly.
             </p>
           </div>
 
@@ -336,21 +340,46 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                   <h3 className="sw-stream-title">{stream.title}</h3>
                   <p className="sw-stream-desc">{stream.desc}</p>
 
+                  <div className="sw-stream-sublist-label">
+                    <span>Subject Tracks & Electives:</span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--color-accent, #b39759)' }}>Click to Inquire</span>
+                  </div>
+
                   <ul className="sw-stream-sublist">
                     {stream.subjects.map((sub, i) => (
-                      <li key={i} className="sw-stream-subitem">
-                        {sub}
+                      <li key={i} className="sw-stream-subitem-wrap">
+                        <button
+                          type="button"
+                          className="sw-stream-subitem-btn"
+                          onClick={() => onOpenEnquiry && onOpenEnquiry({
+                            grade: 'Grades IX & XI (Senior Wing)',
+                            stream: stream.title,
+                            subject: sub
+                          })}
+                          title={`Inquire specifically for ${sub} (${stream.title})`}
+                        >
+                          <span className="sw-subitem-left">
+                            <span className="sw-subitem-icon">✓</span>
+                            <span>{sub}</span>
+                          </span>
+                          <span className="sw-subitem-action">Inquire →</span>
+                        </button>
                       </li>
                     ))}
                   </ul>
 
                   <div style={{ marginTop: 'auto' }}>
                     <button
+                      type="button"
                       className="btn btn-secondary btn-sm"
                       style={{ width: '100%', justifyContent: 'center' }}
-                      onClick={() => onOpenEnquiry && onOpenEnquiry(`Senior Wing - ${stream.title}`)}
+                      onClick={() => onOpenEnquiry && onOpenEnquiry({
+                        grade: 'Grades IX & XI (Senior Wing)',
+                        stream: stream.title,
+                        subject: `All ${stream.title} Core & Elective Subjects`
+                      })}
                     >
-                      <span>Inquire About {stream.title}</span>
+                      <span>Inquire Full {stream.title}</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -420,8 +449,13 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
 
                 <MagneticButton>
                   <button
+                    type="button"
                     className="btn btn-primary"
-                    onClick={() => onOpenEnquiry && onOpenEnquiry('Senior Wing - STEM & Robotics Hub')}
+                    onClick={() => onOpenEnquiry && onOpenEnquiry({
+                      grade: 'Grades IX & XI (Senior Wing)',
+                      stream: 'Robotics & STEM Hub',
+                      subject: 'Robotics, AI & Advanced STEM Innovation'
+                    })}
                   >
                     <span>Enquire About Robotics & AI</span>
                     <ArrowRight size={16} />
@@ -450,7 +484,7 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
       <section id="spaces" className="sw-spaces-section section-padding">
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 3.5rem' }}>
-            <span className="sw-section-tag">Sanctuaries of Discovery</span>
+            <span className="sw-section-tag">INSPIRED SPACES</span>
             <AnimatedText
               text="World-Class Laboratories & Learning Environments"
               className="section-title"
@@ -462,7 +496,7 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
           </div>
 
           <div className="sw-spaces-grid">
-            {inspiredSpaces.map((space) => (
+            {displayInspiredSpaces.map((space) => (
               <div key={space.id} className="sw-space-card">
                 <div className="sw-space-img-wrap">
                   <img src={space.image} alt={space.title} loading="lazy" />
@@ -565,8 +599,13 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
 
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <button
+                  type="button"
                   className="btn btn-primary"
-                  onClick={() => onOpenEnquiry && onOpenEnquiry('Senior Wing Admissions')}
+                  onClick={() => onOpenEnquiry && onOpenEnquiry({
+                    grade: 'Grades IX & XI (Senior Wing)',
+                    stream: 'Competitive Prep & Admissions Cell',
+                    subject: 'JEE / NEET / CUET Foundation & Mentorship'
+                  })}
                   style={{
                     backgroundColor: 'var(--color-accent, #b39759)',
                     color: '#0b1a38',
@@ -579,6 +618,7 @@ export default function SeniorWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
                   <ArrowRight size={16} />
                 </button>
                 <button
+                  type="button"
                   className="btn btn-secondary"
                   onClick={() => onOpenVisit && onOpenVisit()}
                   style={{

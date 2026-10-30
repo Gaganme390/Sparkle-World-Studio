@@ -29,7 +29,7 @@ export default function ExperiencePage({ onOpenEnquiry, onOpenVisit, setCurrentR
 
           <ScrollReveal variant="fadeUp" delay={0.2}>
             <p className="text-editorial-lead" style={{ maxWidth: '780px' }}>
-              Sanctuaries of discovery where curiosity meets possibility. From bright smart classrooms, robotics, and Montessori inquiry to indoor meditation, performing arts, gymnastics, and public speaking.
+              Sanctuaries of discovery where curiosity meets possibility. From bright smart classrooms, robotics, and Montessori inquiry to performing arts, gymnastics, and public speaking.
             </p>
           </ScrollReveal>
         </div>

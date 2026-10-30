@@ -103,9 +103,6 @@ export default function CampusSection({ onOpenVisit, setCurrentRoute }) {
               </h3>
             </div>
             <div className="inspired-spaces-controls">
-              <span className="inspired-spaces-counter">
-                0{activeSpaceIdx + 1} / 0{inspiredSpacesFacilities.length}
-              </span>
               <button 
                 className="inspired-nav-btn" 
                 onClick={prevSpace}

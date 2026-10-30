@@ -7,7 +7,6 @@ import ParentsPerspectiveSection from '../sections/ParentsPerspectiveSection';
 import HeritageFutureSection from '../sections/HeritageFutureSection';
 import AcademicsSection from '../sections/AcademicsSection';
 import ExperienceSection from '../sections/ExperienceSection';
-import HappeningsSection from '../sections/HappeningsSection';
 import TestimonialsSection from '../sections/TestimonialsSection';
 import FinalCTA from '../components/FinalCTA';
 
@@ -17,11 +16,11 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       {/* HERO SLIDER (THRIVE FOR LIFE) */}
       <HeroSection onOpenEnquiry={onOpenEnquiry} onOpenVisit={onOpenVisit} setCurrentRoute={setCurrentRoute} />
 
-      {/* SCHOOL PHILOSOPHY (THE GOENKA METHOD) */}
-      <PhilosophySection setCurrentRoute={setCurrentRoute} />
-
       {/* LEADERSHIP & CHAIRMAN SECTION (MATCHING SCREENSHOT) */}
       <LeadershipSection setCurrentRoute={setCurrentRoute} />
+
+      {/* SCHOOL PHILOSOPHY / THRIVE (THE GOENKA METHOD) */}
+      <PhilosophySection setCurrentRoute={setCurrentRoute} />
 
       {/* WHAT THIS MEANS FOR OUR STUDENTS */}
       <IntroductionSection setCurrentRoute={setCurrentRoute} />
@@ -33,10 +32,11 @@ export default function HomePage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }
       <AcademicsSection setCurrentRoute={setCurrentRoute} />
 
       {/* 06 EXPERIENCE GOENKA */}
-      <ExperienceSection setCurrentRoute={setCurrentRoute} />
-
-      {/* 07 HAPPENINGS / CAMPUS CHRONICLES */}
-      <HappeningsSection setCurrentRoute={setCurrentRoute} />
+      <ExperienceSection 
+        setCurrentRoute={setCurrentRoute} 
+        onOpenEnquiry={onOpenEnquiry}
+        onOpenVisit={onOpenVisit}
+      />
 
       {/* 08 TESTIMONIALS */}
       <TestimonialsSection />

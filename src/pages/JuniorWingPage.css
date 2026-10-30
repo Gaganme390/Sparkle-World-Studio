@@ -23,14 +23,15 @@
   gap: 1rem;
   max-width: 1440px;
   margin: 0 auto;
-  align-items: center;
+  align-items: stretch;
 }
 
 @media (min-width: 900px) {
   .jw-hero-grid {
     grid-template-columns: 1.1fr 1.4fr 1.1fr;
-    grid-template-rows: repeat(2, 260px);
+    grid-template-rows: repeat(2, 280px);
     gap: 1.25rem;
+    align-items: stretch;
   }
 }
 
@@ -395,72 +396,61 @@
   box-shadow: 0 6px 20px rgba(18, 57, 133, 0.2);
 }
 
-.jw-tab-card {
-  background: #FFFFFF;
-  border-radius: var(--radius-lg, 24px);
-  border: 1px solid rgba(18, 57, 133, 0.1);
-  box-shadow: 0 16px 48px rgba(18, 57, 133, 0.08);
-  overflow: hidden;
-}
-
-.jw-tab-card-grid {
+.jw-tab-content-grid {
   display: grid;
   grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: center;
 }
 
-@media (min-width: 900px) {
-  .jw-tab-card-grid {
-    grid-template-columns: 1fr 1.25fr;
+@media (min-width: 960px) {
+  .jw-tab-content-grid {
+    grid-template-columns: 1.1fr 0.9fr;
   }
 }
 
-.jw-tab-img-col {
-  width: 100%;
-  height: 100%;
-  min-height: 340px;
-  background: var(--color-warm-gray-100, #F3EFEA);
-}
-
-.jw-tab-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.jw-tab-text-col {
-  padding: clamp(2rem, 4vw, 3.5rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.jw-tab-stage-badge {
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+.jw-grade-badge {
+  display: inline-block;
+  background: rgba(179, 151, 89, 0.15);
   color: var(--color-accent, #b39759);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.85rem;
 }
 
 .jw-tab-title {
   font-family: var(--font-display, "Polymath", serif);
-  font-size: clamp(1.65rem, 2.2vw, 2.15rem);
+  font-size: clamp(1.85rem, 2.4vw, 2.35rem);
   font-weight: 700;
   color: var(--color-primary-dark, #123985);
+  line-height: 1.25;
   margin: 0 0 1.25rem;
 }
 
-.jw-tab-para {
-  font-size: 0.98rem;
+.jw-tab-paragraph {
+  font-size: 1.05rem;
   line-height: 1.7;
-  color: var(--color-warm-gray-800, #333333);
-  margin-bottom: 1rem;
+  color: var(--color-warm-gray-700, #4A5568);
+  margin-bottom: 1.15rem;
 }
 
-.jw-tab-action {
-  margin-top: 1.5rem;
+.jw-tab-img-card {
+  position: relative;
+  border-radius: var(--radius-md, 16px);
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+}
+
+.jw-tab-img-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
 }
 
 /* --------------------------------------------------------------------------

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSchoolData } from '../hooks/useSchoolData';
 import { ArrowRight, Clock, Users, Sparkles, BookOpen, Target, Palette, Cpu, Compass, HeartHandshake } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -76,11 +77,18 @@ const primaryExperienceCards = [
     image: '/school-media/New Pages/Page 13/WhatsApp Image 2026-10-07 at 5.21.45 PM (1).jpeg'
   },
   {
-    id: 'ict-robotics',
-    title: 'Information, Computer & Robotics Hub',
+    id: 'ict-hub',
+    title: 'Computer & Digital Literacy Centre',
     tag: 'DIGITAL FLUENCY',
     desc: 'Interactive computer stations and introductory coding modules develop logical computational thinking, problem-solving, and responsible digital habits early.',
     image: '/school-media/New Pages/Page 13/WhatsApp Image 2026-10-07 at 5.21.49 PM.jpeg'
+  },
+  {
+    id: 'robotics-stem',
+    title: 'Robotics & STEM Discovery Lab',
+    tag: 'HANDS-ON INNOVATION',
+    desc: 'Hands-on robotics kits, visual block coding, and early sensor integration nurture analytical problem-solving, mechanical logic, and inventive engineering creativity.',
+    image: '/school-media/facilities/robotics_and_ai_lab.jpg'
   },
   {
     id: 'visual-design',
@@ -113,9 +121,31 @@ const primaryExperienceCards = [
 ];
 
 export default function PrimaryWingPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+  const { englishDigitalLab } = useSchoolData();
   const [activeTabId, setActiveTabId] = useState('grade3');
   const [activeNavSection, setActiveNavSection] = useState('overview');
   const activeTab = primaryAcademicTabs.find((t) => t.id === activeTabId) || primaryAcademicTabs[0];
+
+  const displayPrimaryCards = useMemo(() => {
+    const list = [...primaryExperienceCards];
+    if (englishDigitalLab?.enabled !== false && englishDigitalLab?.showInPrimary !== false) {
+      const labCard = {
+        id: 'english-digital-lab',
+        title: englishDigitalLab?.title || 'Digital English Language Lab',
+        tag: englishDigitalLab?.badge || 'PHONETICS & READING FLUENCY',
+        desc: englishDigitalLab?.primaryDesc || 'Interactive language workstations with audio headsets, Lexile-graded Collins reading modules, phonics reinforcement, and vocabulary expansion software developing fluent reading comprehension and confident spoken expression.',
+        image: englishDigitalLab?.image || '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg'
+      };
+      const readingIdx = list.findIndex(c => c.id === 'reading-prog');
+      if (readingIdx !== -1) {
+        list.splice(readingIdx + 1, 0, labCard);
+      } else {
+        list.push(labCard);
+      }
+    }
+    return list;
+  }, [englishDigitalLab]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -246,7 +276,7 @@ export default function PrimaryWingPage({ onOpenEnquiry, onOpenVisit, setCurrent
             className={`pw-subnav-btn ${activeNavSection === 'experience' ? 'active' : ''}`} 
             onClick={() => scrollToSection('experience')}
           >
-            EXPERIENCE GOENKA
+            INSPIRED SPACES
           </button>
         </div>
       </nav>
@@ -387,19 +417,19 @@ export default function PrimaryWingPage({ onOpenEnquiry, onOpenVisit, setCurrent
         </div>
       </section>
 
-      {/* 5. Experience Goenka Section (Pages 13 to 17 of PDF 2) */}
+      {/* 5. Spaces that Inspire Section */}
       <section className="pw-experience-section section-padding" id="experience">
         <div className="container">
           <div className="pw-section-header">
-            <span className="pw-section-tag">PEDAGOGICAL REALMS</span>
-            <h2 className="heading-section">Sanctuaries of Discovery</h2>
+            <span className="pw-section-tag">INSPIRED SPACES</span>
+            <h2 className="heading-section">Spaces that Inspire</h2>
             <p className="pw-exp-lead-subtitle">
               Where curiosity meets possibility.
             </p>
           </div>
 
           <div className="pw-experience-cards-grid">
-            {primaryExperienceCards.map((card, idx) => (
+            {displayPrimaryCards.map((card, idx) => (
               <ScrollReveal
                 key={card.id}
                 variant="fadeUp"

@@ -172,9 +172,9 @@ export default function PhilosophySection({ setCurrentRoute }) {
             <div className="thrive-bg-overlay-tint" />
           </div>
 
-          {/* Interactive THRIVE Letters & Full Form Overlay */}
+          {/* Interactive THRIVE Transparent Glass Cards Overlay */}
           <div className="thrive-letters-overlay">
-            <div className="thrive-hero-grid">
+            <div className="thrive-cards-grid" aria-label="THRIVE Values and Pillars">
               {thrivePillars.map((p) => {
                 const config = SVG_LETTERS[p.letter];
                 const isHovered = hoveredLetter === p.letter;
@@ -182,30 +182,31 @@ export default function PhilosophySection({ setCurrentRoute }) {
                   <div 
                     key={p.id}
                     id={`hero-${p.letter}`}
-                    className={`thrive-hero-col ${isHovered ? 'hovered' : ''}`}
-                    style={{ flex: p.flexWeight }}
+                    className={`thrive-glass-card ${isHovered ? 'hovered' : ''}`}
                     onMouseEnter={() => setHoveredLetter(p.letter)}
                     onMouseLeave={() => setHoveredLetter(null)}
                     onClick={() => handleLetterClick(p.id)}
                     role="button"
                     tabIndex={0}
-                    aria-label={`${p.letter} for ${p.value}`}
+                    aria-label={`${p.letter} - ${p.value}`}
                     title={`Click to read full definition of ${p.value}`}
                   >
                     {/* Big Letter Outline */}
-                    <div className="thrive-hero-svg-wrap">
+                    <div className="thrive-card-letter-wrap">
                       <svg 
                         viewBox={config.viewBox}
-                        className="thrive-hero-svg"
+                        className="thrive-card-letter-svg"
                         aria-hidden="true"
                       >
                         {config.path}
                       </svg>
                     </div>
 
-                    {/* Full Form Value Card with Glassmorphic Luxury Finish */}
-                    <div className="thrive-hero-fullform-badge">
-                      <span className="thrive-hero-fullform-text">{p.value}</span>
+                    {/* Bottom Full Form Pill */}
+                    <div className="thrive-card-pill-wrap">
+                      <div className="thrive-card-pill">
+                        <span className="thrive-pill-text">{p.value}</span>
+                      </div>
                     </div>
 
                     <a 

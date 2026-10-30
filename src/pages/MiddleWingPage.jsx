@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSchoolData } from '../hooks/useSchoolData';
 import { ArrowRight, Clock, Users, Sparkles, Globe2, Cpu, Trophy, Mic2, Compass, Layers } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ScrollReveal from '../components/ScrollReveal';
@@ -114,9 +115,31 @@ const middleExperienceCards = [
 ];
 
 export default function MiddleWingPage({ onOpenEnquiry, onOpenVisit, setCurrentRoute }) {
+  const { englishDigitalLab } = useSchoolData();
   const [activeTabId, setActiveTabId] = useState('grade6');
   const [activeNavSection, setActiveNavSection] = useState('overview');
   const activeTab = middleAcademicTabs.find((t) => t.id === activeTabId) || middleAcademicTabs[0];
+
+  const displayMiddleCards = useMemo(() => {
+    const list = [...middleExperienceCards];
+    if (englishDigitalLab?.enabled !== false && englishDigitalLab?.showInMiddle !== false) {
+      const labCard = {
+        id: 'english-digital-lab',
+        title: englishDigitalLab?.title || 'Digital English Language Lab',
+        tag: englishDigitalLab?.badge || 'ORATORY & COMMUNICATIVE FLUENCY',
+        desc: englishDigitalLab?.middleDesc || 'Interactive language workstations with audio headsets, Lexile-graded comprehension, vocabulary expansion, and simulated debate modules developing persuasive public speaking and bilingual fluency.',
+        image: englishDigitalLab?.image || '/school-media/Digital Lab/lab_honeycomb_16x9_computers.jpg'
+      };
+      const debatingIdx = list.findIndex(c => c.id === 'debating');
+      if (debatingIdx !== -1) {
+        list.splice(debatingIdx, 0, labCard);
+      } else {
+        list.push(labCard);
+      }
+    }
+    return list;
+  }, [englishDigitalLab]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -247,7 +270,7 @@ export default function MiddleWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
             className={`mw-subnav-btn ${activeNavSection === 'experience' ? 'active' : ''}`} 
             onClick={() => scrollToSection('experience')}
           >
-            EXPERIENCE GOENKA
+            INSPIRED SPACES
           </button>
         </div>
       </nav>
@@ -388,19 +411,19 @@ export default function MiddleWingPage({ onOpenEnquiry, onOpenVisit, setCurrentR
         </div>
       </section>
 
-      {/* 5. Experience Goenka Section (Pages 18 to 22 of PDF 2) */}
+      {/* 5. Spaces that Inspire Section */}
       <section className="mw-experience-section section-padding" id="experience">
         <div className="container">
           <div className="mw-section-header">
-            <span className="mw-section-tag">PEDAGOGICAL REALMS</span>
-            <h2 className="heading-section">Sanctuaries of Discovery</h2>
+            <span className="mw-section-tag">INSPIRED SPACES</span>
+            <h2 className="heading-section">Spaces that Inspire</h2>
             <p className="mw-exp-lead-subtitle">
               Where curiosity meets possibility.
             </p>
           </div>
 
           <div className="mw-experience-cards-grid">
-            {middleExperienceCards.map((card, idx) => (
+            {displayMiddleCards.map((card, idx) => (
               <ScrollReveal
                 key={card.id}
                 variant="fadeUp"

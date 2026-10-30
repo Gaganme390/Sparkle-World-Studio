@@ -53,7 +53,37 @@ export default function ParentsPerspectiveSection({ onOpenEnquiry, onOpenVisit }
       <div className="container">
         <div className="pp-bryanston-layout">
           
-          {/* LEFT COLUMN: Editorial Content matching Students section */}
+          {/* LEFT COLUMN: Tall Authentic Photo */}
+          <div className="pp-bryanston-media">
+            <div className="pp-sticky-photo-wrapper">
+              <div className="pp-photo-frame">
+                <img 
+                  src="/school-media/New Pages/Page 2/DSC00067.JPG"
+                  alt="Parents and teachers collaborating in warm campus environment at GD Goenka Ayodhya"
+                  className="pp-tall-photo"
+                  loading="lazy"
+                />
+
+                <div className="pp-photo-overlay-gradient"></div>
+
+                {/* Floating Glassmorphic Badge */}
+                <div className="pp-photo-caption-card">
+                  <div className="pp-caption-pill">
+                    <span className="pp-caption-dot"></span>
+                    <span>GD Goenka Ayodhya • Parent Partnership</span>
+                  </div>
+                  <h4 className="pp-caption-title">
+                    {parentPillars[activeIdx]?.tag || 'A Trusted Partnership'}
+                  </h4>
+                  <p className="pp-caption-text">
+                    Nurturing character, building confidence, and preparing children to thrive with excellence.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: Editorial Content */}
           <div className="pp-bryanston-content">
             <ScrollReveal variant="fadeUp">
               <span className="tag-label pp-tag-badge">
@@ -96,7 +126,6 @@ export default function ParentsPerspectiveSection({ onOpenEnquiry, onOpenVisit }
                           <span className="pp-item-bullet">•</span>
                           <h3 className="pp-item-title">{p.title}</h3>
                         </div>
-                        <span className="pp-item-num">0{idx + 1}</span>
                       </div>
                       <p className="pp-item-desc">{p.desc}</p>
                     </div>
@@ -136,36 +165,6 @@ export default function ParentsPerspectiveSection({ onOpenEnquiry, onOpenVisit }
                 </MagneticButton>
               </div>
             </ScrollReveal>
-          </div>
-
-          {/* RIGHT COLUMN: Tall Authentic Photo matching Students section */}
-          <div className="pp-bryanston-media">
-            <div className="pp-sticky-photo-wrapper">
-              <div className="pp-photo-frame">
-                <img 
-                  src="/school-media/New Pages/Page 2/DSC00067.JPG"
-                  alt="Parents and teachers collaborating in warm campus environment at GD Goenka Ayodhya"
-                  className="pp-tall-photo"
-                  loading="lazy"
-                />
-
-                <div className="pp-photo-overlay-gradient"></div>
-
-                {/* Floating Glassmorphic Badge */}
-                <div className="pp-photo-caption-card">
-                  <div className="pp-caption-pill">
-                    <span className="pp-caption-dot"></span>
-                    <span>GD Goenka Ayodhya • Parent Partnership</span>
-                  </div>
-                  <h4 className="pp-caption-title">
-                    {parentPillars[activeIdx]?.tag || 'A Trusted Partnership'}
-                  </h4>
-                  <p className="pp-caption-text">
-                    Nurturing character, building confidence, and preparing children to thrive with excellence.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>

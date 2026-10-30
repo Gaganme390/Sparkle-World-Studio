@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, Send, Loader2, Sparkles } from 'lucide-react';
+import { X, CheckCircle, Send, Loader2, Sparkles, BookOpen, Award, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { schoolStore } from '../utils/schoolStore';
 import MagneticButton from './MagneticButton';
 import './Modal.css';
-
 
 export const GRADE_OPTIONS = [
   { value: 'Pre-Nursery / Nursery', label: 'Pre-Nursery / Nursery (Age 3-4)' },
@@ -12,6 +11,60 @@ export const GRADE_OPTIONS = [
   { value: 'Grades I to V (Primary Wing)', label: 'Grades I to V (Primary Wing)' },
   { value: 'Grades VI to VIII (Middle Wing)', label: 'Grades VI to VIII (Middle Wing)' },
   { value: 'Grades IX & XI (Senior Wing)', label: 'Grades IX & XI (Senior Wing)' }
+];
+
+export const SENIOR_WING_STREAMS = {
+  'Science Stream': [
+    'Physics & Chemistry',
+    'Mathematics / Biology',
+    'Computer Science / Artificial Intelligence',
+    'Physical Education',
+    'JEE & NEET Integrated Guidance'
+  ],
+  'Commerce Stream': [
+    'Accountancy & Business Studies',
+    'Economics & Financial Markets',
+    'Applied Mathematics / Informatics Practices',
+    'Entrepreneurship & Case Studies',
+    'CUET, CA-Foundation & IPMAT Mentorship'
+  ],
+  'Humanities & Liberal Arts': [
+    'Political Science & International Relations',
+    'Psychology & Sociology',
+    'History & Economics',
+    'Legal Studies & Fine Arts',
+    'CLAT, Civil Services & Liberal Arts Orientation'
+  ],
+  'Robotics & STEM Hub': [
+    'Robotics & AI Innovation Lab',
+    'Autonomous Systems & Microcontrollers',
+    'Artificial Intelligence & ML Logic',
+    'Olympiads & Hackathon Mentorship',
+    'Rapid Prototyping & 3D Lab'
+  ],
+  'Competitive Prep & Admissions Cell': [
+    'JEE / NEET Integrated Foundation',
+    'CUET / IPMAT / CA Foundation Mentorship',
+    'CLAT & Civil Services Orientation',
+    'SAT & Global University Admissions Cell'
+  ]
+};
+
+export const SENIOR_CLASS_OPTIONS = [
+  'Grade 9 (Pre-Senior Secondary)',
+  'Grade 10 (Secondary Board Year)',
+  'Grade 11 (Senior Secondary Stream Entry)',
+  'Grade 12 (Senior Board & Competitive Focus)'
+];
+
+export const CAREER_GOAL_OPTIONS = [
+  'Engineering / Tech (JEE / B.Tech / CS)',
+  'Medical / Life Sciences (NEET / MBBS)',
+  'Commerce, Finance & Management (CUET / IPMAT / CA)',
+  'Law, Policy & Public Administration (CLAT / UPSC)',
+  'Design, AI & Creative Media',
+  'Overseas Higher Education (SAT / Global Admissions)',
+  'CBSE Senior Secondary Board Distinction'
 ];
 
 export const normalizeGrade = (grade) => {
@@ -34,14 +87,14 @@ export const normalizeGrade = (grade) => {
   if (lower.includes('middle') || lower.includes('vi to viii') || lower.includes('6 to 8') || lower.includes('grade 6-8') || lower.includes('grade 6 - 8')) {
     return 'Grades VI to VIII (Middle Wing)';
   }
-  if (lower.includes('senior') || lower.includes('ix & xi') || lower.includes('ix') || lower.includes('xi') || lower.includes('grade 9-11') || lower.includes('grade 9 - 11')) {
+  if (lower.includes('senior') || lower.includes('ix & xi') || lower.includes('ix') || lower.includes('xi') || lower.includes('grade 9-11') || lower.includes('grade 9 - 11') || lower.includes('science') || lower.includes('commerce') || lower.includes('humanities') || lower.includes('robotics')) {
     return 'Grades IX & XI (Senior Wing)';
   }
 
   return g;
 };
 
-export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
+export default function EnquiryModal({ isOpen, onClose, initialGrade, initialData }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -56,27 +109,60 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
     };
   }, [isOpen]);
 
+  const defaultGrade = normalizeGrade(initialData?.grade || initialGrade);
+  const isSeniorByDefault = defaultGrade === 'Grades IX & XI (Senior Wing)';
+
   const [formData, setFormData] = useState({
     parentName: '',
     phone: '',
     email: '',
     childName: '',
-    applyingGrade: normalizeGrade(initialGrade),
+    applyingGrade: defaultGrade,
+    targetSeniorGrade: initialData?.targetSeniorGrade || 'Grade 11 (Senior Secondary Stream Entry)',
+    stream: initialData?.stream || (isSeniorByDefault ? 'Science Stream' : ''),
+    subjectTrack: initialData?.subject || '',
+    careerGoal: initialData?.careerGoal || '',
     preferredDate: '',
     message: '',
     consent: true
   });
 
+  // Track if a specific subject was targeted when opened
+  const [activeSubjectPrompt, setActiveSubjectPrompt] = useState(initialData?.subject || '');
+
   useEffect(() => {
     if (isOpen) {
-      if (initialGrade) {
-        setFormData((prev) => ({
-          ...prev,
-          applyingGrade: normalizeGrade(initialGrade)
-        }));
-      }
+      const targetGrade = normalizeGrade(initialData?.grade || initialGrade);
+      const isSenior = targetGrade === 'Grades IX & XI (Senior Wing)' || !!initialData?.stream;
+
+      const matchedStream = initialData?.stream || (isSenior ? 'Science Stream' : '');
+      const availableSubjects = SENIOR_WING_STREAMS[matchedStream] || [];
+      const matchedSubject = initialData?.subject || (isSenior ? (availableSubjects[0] || 'All Stream Core Subjects') : '');
+
+      setFormData((prev) => ({
+        ...prev,
+        applyingGrade: targetGrade,
+        stream: matchedStream,
+        subjectTrack: matchedSubject,
+        targetSeniorGrade: initialData?.targetSeniorGrade || prev.targetSeniorGrade || 'Grade 11 (Senior Secondary Stream Entry)',
+        careerGoal: initialData?.careerGoal || prev.careerGoal || ''
+      }));
+
+      setActiveSubjectPrompt(initialData?.subject || '');
     }
-  }, [isOpen, initialGrade]);
+  }, [isOpen, initialGrade, initialData]);
+
+  const isSeniorWing = formData.applyingGrade === 'Grades IX & XI (Senior Wing)';
+
+  // Handle stream change
+  const handleStreamChange = (newStream) => {
+    const subjects = SENIOR_WING_STREAMS[newStream] || [];
+    setFormData((prev) => ({
+      ...prev,
+      stream: newStream,
+      subjectTrack: subjects[0] || `All ${newStream} Subjects`
+    }));
+  };
 
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -109,13 +195,17 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
     setErrors({});
     setSubmitting(true);
 
-    // Save to schoolStore
+    // Save enriched enquiry to schoolStore
     schoolStore.addEnquiry({
       parentName: formData.parentName,
       phone: formData.phone,
       email: formData.email,
       childName: formData.childName,
       applyingGrade: formData.applyingGrade,
+      stream: isSeniorWing ? (formData.stream || 'Science Stream') : '',
+      subjectTrack: isSeniorWing ? (formData.subjectTrack || 'All Core Stream Subjects') : '',
+      targetSeniorGrade: isSeniorWing ? formData.targetSeniorGrade : '',
+      careerGoal: isSeniorWing ? formData.careerGoal : '',
       preferredDate: formData.preferredDate,
       message: formData.message
     });
@@ -130,12 +220,17 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
   const resetAndClose = () => {
     setSubmitted(false);
     setSubmitting(false);
+    setActiveSubjectPrompt('');
     setFormData({
       parentName: '',
       phone: '',
       email: '',
       childName: '',
       applyingGrade: normalizeGrade(initialGrade),
+      targetSeniorGrade: 'Grade 11 (Senior Secondary Stream Entry)',
+      stream: '',
+      subjectTrack: '',
+      careerGoal: '',
       preferredDate: '',
       message: '',
       consent: true
@@ -158,20 +253,23 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
           onClick={(e) => e.stopPropagation()}
         >
 
-          {/* Dark Navy Header - Identical to CampusVisitModal */}
+          {/* Dark Navy Header */}
           <div className="visit-modal-header">
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-accent)', letterSpacing: '0.15em', marginBottom: '0.35rem' }}>
                 <Sparkles size={14} /> ADMISSIONS 2026-27
               </div>
               <h2 className="modal-title">Online Admission Enquiry</h2>
-              <p className="modal-subtitle">Begin your child’s educational journey at GD Goenka Ayodhya.</p>
+              <p className="modal-subtitle">
+                {isSeniorWing 
+                  ? 'Senior Wing Academic Stream & Subject Specialization Enquiry' 
+                  : 'Begin your child’s educational journey at GD Goenka Ayodhya.'}
+              </p>
             </div>
             <button className="btn-close-modal" onClick={resetAndClose} aria-label="Close modal">
               <X size={18} />
             </button>
           </div>
-
 
           {submitted ? (
             <div className="success-state">
@@ -179,8 +277,11 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
                 <CheckCircle size={36} />
               </div>
               <h3 className="font-display" style={{ fontSize: '1.75rem' }}>Enquiry Submitted Successfully</h3>
-              <p className="text-body" style={{ maxWidth: '440px' }}>
-                Thank you, <strong>{formData.parentName}</strong>. Our admissions directorate will contact you at <strong>{formData.phone}</strong> within 24 business hours with prospectus details.
+              <p className="text-body" style={{ maxWidth: '480px', lineHeight: 1.6 }}>
+                Thank you, <strong>{formData.parentName}</strong>. We have logged your enquiry for <strong>{formData.childName}</strong>
+                {isSeniorWing && formData.subjectTrack && (
+                  <> focusing on <strong>{formData.stream} • {formData.subjectTrack}</strong></>
+                )}. Our admissions directorate will contact you at <strong>{formData.phone}</strong> within 24 business hours.
               </p>
               <button 
                 className="btn-enquire" 
@@ -192,6 +293,22 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
+              
+              {/* Optional Active Specific Subject Banner */}
+              {isSeniorWing && activeSubjectPrompt && (
+                <div className="senior-active-subject-alert">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <BookOpen size={16} color="var(--color-accent, #b39759)" />
+                    <span>
+                      Inquiring for: <strong>{formData.stream}</strong> • <strong style={{ color: 'var(--color-primary-dark)' }}>{activeSubjectPrompt}</strong>
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '0.72rem', background: '#FFFFFF', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                    Senior Wing Focus
+                  </span>
+                </div>
+              )}
+
               <div className="form-grid form-grid-2col">
                 <div className="form-group">
                   <label className="form-label">Parent / Guardian Name *</label>
@@ -246,11 +363,20 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
 
               <div className="form-grid form-grid-2col" style={{ marginTop: '1rem' }}>
                 <div className="form-group">
-                  <label className="form-label">Grade Applying For</label>
+                  <label className="form-label">Grade / Wing Applying For</label>
                   <select 
                     className="form-select"
                     value={formData.applyingGrade}
-                    onChange={(e) => setFormData({ ...formData, applyingGrade: e.target.value })}
+                    onChange={(e) => {
+                      const newGrade = e.target.value;
+                      const senior = newGrade === 'Grades IX & XI (Senior Wing)';
+                      setFormData({ 
+                        ...formData, 
+                        applyingGrade: newGrade,
+                        stream: senior ? (formData.stream || 'Science Stream') : '',
+                        subjectTrack: senior ? (formData.subjectTrack || 'Physics & Chemistry') : ''
+                      });
+                    }}
                   >
                     {GRADE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -274,12 +400,95 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
                 </div>
               </div>
 
+              {/* SENIOR WING PARTICULAR SUBJECT & STREAM CUSTOMIZATION BLOCK */}
+              {isSeniorWing && (
+                <div className="senior-spec-card">
+                  <div className="senior-spec-header">
+                    <div className="senior-spec-title">
+                      <Award size={15} color="var(--color-accent, #b39759)" />
+                      <span>Senior Wing Academic Specialization</span>
+                    </div>
+                    <span className="senior-spec-badge">Grades 9 – 12 Track</span>
+                  </div>
+
+                  <div className="form-grid form-grid-2col">
+                    <div className="form-group">
+                      <label className="form-label" style={{ fontWeight: 700 }}>
+                        Target Senior Class *
+                      </label>
+                      <select
+                        className="form-select"
+                        value={formData.targetSeniorGrade}
+                        onChange={(e) => setFormData({ ...formData, targetSeniorGrade: e.target.value })}
+                      >
+                        {SENIOR_CLASS_OPTIONS.map((cls) => (
+                          <option key={cls} value={cls}>{cls}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label" style={{ fontWeight: 700 }}>
+                        Academic Stream *
+                      </label>
+                      <select
+                        className="form-select"
+                        value={formData.stream || 'Science Stream'}
+                        onChange={(e) => handleStreamChange(e.target.value)}
+                      >
+                        {Object.keys(SENIOR_WING_STREAMS).map((st) => (
+                          <option key={st} value={st}>{st}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-grid form-grid-2col" style={{ marginTop: '0.85rem' }}>
+                    <div className="form-group">
+                      <label className="form-label" style={{ fontWeight: 700 }}>
+                        Specific Subject / Elective Focus *
+                      </label>
+                      <select
+                        className="form-select"
+                        value={formData.subjectTrack}
+                        onChange={(e) => setFormData({ ...formData, subjectTrack: e.target.value })}
+                      >
+                        <option value={`All ${formData.stream || 'Stream'} Core & Elective Subjects`}>
+                          All {formData.stream || 'Stream'} Core & Elective Subjects
+                        </option>
+                        {(SENIOR_WING_STREAMS[formData.stream] || SENIOR_WING_STREAMS['Science Stream']).map((sub) => (
+                          <option key={sub} value={sub}>{sub}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        Career / Competitive Exam Focus (Optional)
+                      </label>
+                      <select
+                        className="form-select"
+                        value={formData.careerGoal}
+                        onChange={(e) => setFormData({ ...formData, careerGoal: e.target.value })}
+                      >
+                        <option value="">Select primary aspiration (optional)</option>
+                        {CAREER_GOAL_OPTIONS.map((g) => (
+                          <option key={g} value={g}>{g}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="form-group" style={{ marginTop: '1rem' }}>
                 <label className="form-label">Specific Query or Message (Optional)</label>
                 <textarea 
                   className="form-textarea"
                   rows="3"
-                  placeholder="Ask about curriculum, transport routes, or sports facilities..."
+                  placeholder={isSeniorWing 
+                    ? "Mention any specific subject combination, laboratory queries, entrance preparation needs, or transport requirements..."
+                    : "Ask about curriculum, transport routes, or sports facilities..."}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 ></textarea>
@@ -296,7 +505,6 @@ export default function EnquiryModal({ isOpen, onClose, initialGrade }) {
                   I give consent to G.D. Goenka School, Ayodhya to contact me via Call, SMS, or WhatsApp regarding admissions.
                 </label>
               </div>
-
 
               <MagneticButton strength={4} style={{ width: '100%' }}>
                 <button 

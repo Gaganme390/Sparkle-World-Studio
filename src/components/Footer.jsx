@@ -1,9 +1,20 @@
 import React from 'react';
 import { contactDetails } from '../data/contact';
+import { useSchoolData } from '../hooks/useSchoolData';
 import ScrollReveal from './ScrollReveal';
 import './Footer.css';
 
 export default function Footer({ setCurrentRoute, onOpenEnquiry }) {
+  const { schoolInfo } = useSchoolData();
+  const info = schoolInfo || {};
+
+  const campusAddress = info.address || contactDetails.campusAddress;
+  const phoneNumber = info.primaryPhone || (info.phones && info.phones[0]) || contactDetails.phoneNumbers[0];
+  const emailAddress = info.admissionsEmail || (info.emails && info.emails.admissions) || contactDetails.emails.admissions;
+  const socialLinks = (info.socialLinks && info.socialLinks.length > 0) ? info.socialLinks : contactDetails.socialLinks;
+  const brandDesc = info.description || "Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya.";
+  const copyrightText = info.copyright || `© ${new Date().getFullYear()} G.D. Goenka Public School, Ayodhya. All Rights Reserved.`;
+
   const handleNav = (e, href) => {
     e.preventDefault();
     if (href.includes('#')) {
@@ -38,10 +49,10 @@ export default function Footer({ setCurrentRoute, onOpenEnquiry }) {
               />
             </div>
             <p className="footer-brand-desc">
-              Where heritage inspires the future. A premium, modern learning environment fostering curiosity, character, creativity, and global leadership in Ayodhya.
+              {brandDesc}
             </p>
             <div className="footer-social-links">
-              {contactDetails.socialLinks.map((item, idx) => (
+              {socialLinks.map((item, idx) => (
                 <a key={idx} href={item.url} target="_blank" rel="noopener noreferrer" className="social-pill hover-lift">
                   {item.platform}
                 </a>
@@ -78,20 +89,20 @@ export default function Footer({ setCurrentRoute, onOpenEnquiry }) {
           <div>
             <h4 className="footer-heading">CAMPUS LOCATION</h4>
             <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, marginBottom: '1rem' }}>
-              {contactDetails.campusAddress}
+              {campusAddress}
             </p>
             <p style={{ fontSize: '0.88rem', color: 'var(--color-accent)', fontWeight: 700, marginBottom: '0.25rem' }}>
-              Phone: {contactDetails.phoneNumbers[0]}
+              Phone: {phoneNumber}
             </p>
             <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)' }}>
-              Email: {contactDetails.emails.admissions}
+              Email: {emailAddress}
             </p>
           </div>
         </ScrollReveal>
 
         {/* Footer Bottom Bar */}
         <div className="footer-bottom-bar">
-          <p>© {new Date().getFullYear()} G.D. Goenka Public School, Ayodhya. All Rights Reserved.</p>
+          <p>{copyrightText}</p>
           <div className="footer-legal-links">
             <a href="/mandatory-disclosure" onClick={(e) => handleNav(e, '/mandatory-disclosure')} className="animated-underline">Mandatory Disclosure</a>
             <a href="/privacy-policy" onClick={(e) => handleNav(e, '/privacy-policy')} className="animated-underline">Privacy Policy</a>

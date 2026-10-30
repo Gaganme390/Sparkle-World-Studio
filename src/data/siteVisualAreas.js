@@ -385,7 +385,7 @@ export const SITE_VISUAL_AREAS = [
     image: '/school-media/Play Station/kindergarten_ball_pool_landscape.jpg',
     title: 'Nurture',
     subtitle: 'Mindfulness & Physical Wellness',
-    desc: 'Indoor meditation (AIR) centre, wholesome nutritionist-curated dining, and air-purified campus environments.'
+    desc: 'Wholesome nutritionist-curated dining, wellness and pastoral care, and air-purified campus environments.'
   },
   {
     id: 'exp-living',
@@ -435,33 +435,6 @@ export const SITE_VISUAL_AREAS = [
     title: "Principal's Desk",
     subtitle: 'CAMPUS PRINCIPAL • Dr. Abin C. Raj',
     desc: 'At G.D. Goenka Public School, Ayodhya, we believe education is not the filling of a vessel, but the ignition of a lifelong passion for learning. Through modern facilities like our Digital English Language Lab, athletic championships, and experiential learning, every child discovers their inner brilliance.'
-  },
-  {
-    id: 'lead-group-chairman',
-    category: 'About Us - Leadership',
-    label: 'Group Chairman: Shri Anjani Kumar Goenka',
-    image: '/school-media/leadership/anjani_kumar_goenka.jpg',
-    title: 'Shri Anjani Kumar Goenka',
-    subtitle: 'CHAIRMAN • GD GOENKA GROUP',
-    desc: 'Founder and Group Chairman of the GD Goenka Group since 1994, pioneering progressive education, world-class infrastructure, and nationwide K-12 excellence across 160+ institutions.'
-  },
-  {
-    id: 'lead-group-vice-chairperson',
-    category: 'About Us - Leadership',
-    label: 'Group Vice Chairperson: Ms. Renu Goenka',
-    image: '/school-media/leadership/renu_goenka.jpg',
-    title: 'Ms. Renu Goenka',
-    subtitle: 'VICE CHAIRPERSON • GD GOENKA GROUP',
-    desc: 'Vice Chairperson of the GD Goenka Group, championing foundational early childhood sensorial pedagogy, performing arts integration, and inclusive student wellbeing.'
-  },
-  {
-    id: 'lead-mentors',
-    category: 'About Us - Leadership',
-    label: 'Executive Mentors: Ms. Rajni Jauhari & Ms. Yasmin Khan',
-    image: '/school-media/Opening Photos/C/DSC00453.JPG',
-    title: 'Executive Mentorship',
-    subtitle: 'HEAD OFFICE MENTORS • Ms. Rajni Jauhari & Ms. Yasmin Khan',
-    desc: 'G.D. Goenka School, Ayodhya reflects the highest national benchmarks of the Goenkan legacy — empowering children with confidence, sportsmanship, and future-ready capabilities in every walk of life.'
   },
 
   // ==========================================
@@ -876,6 +849,15 @@ export const SITE_VISUAL_AREAS = [
     desc: 'Students in Grades 1 and 2 discover computer basics, explore introductory coding, and develop safe digital habits through interactive activities suited to their age.'
   },
   {
+    id: 'jw-sanct-robotics',
+    category: 'Academics - Junior Wing',
+    label: 'Junior Sanctuary: Robotics & STEM Discovery',
+    image: '/school-media/facilities/robotics_and_ai_lab.jpg',
+    title: 'Robotics & STEM Discovery',
+    subtitle: 'HANDS-ON INNOVATION',
+    desc: 'Hands-on building and robotics activities introduce young learners to science, technology, engineering, and mathematics while developing early coding and logical problem-solving.'
+  },
+  {
     id: 'jw-sanct-tab-lab',
     category: 'Academics - Junior Wing',
     label: 'Junior Sanctuary: Tab Lab',
@@ -901,15 +883,6 @@ export const SITE_VISUAL_AREAS = [
     title: 'Montessori Learning Center',
     subtitle: 'SELF-PACED MASTERY',
     desc: 'Montessori Learning Centre encourages children to learn at their own pace through hands-on exploration with carefully chosen sensorial materials.'
-  },
-  {
-    id: 'jw-sanct-air',
-    category: 'Academics - Junior Wing',
-    label: 'Junior Sanctuary: A.I.R. Center (Indoor Meditation)',
-    image: '/school-media/New Pages/Page 7/indoor_meditation_framed.jpg',
-    title: 'A.I.R. Center',
-    subtitle: 'INDOOR MEDITATION & MINDFULNESS',
-    desc: 'Our indoor meditation centre offers children a peaceful setting to practise mindfulness, gentle breathing, and relaxation, helping children approach each day with calm and confidence.'
   },
   {
     id: 'jw-sanct-dance',
@@ -950,9 +923,9 @@ export const SITE_VISUAL_AREAS = [
   {
     id: 'jw-sanct-wholesome-menu',
     category: 'Academics - Junior Wing',
-    label: 'Junior Sanctuary: Wholesome Menu Dining',
+    label: 'Junior Sanctuary: Wholesome Dining & Nutrition',
     image: '/school-media/New Pages/Page 8/DSC_4798.JPG',
-    title: 'Wholesome Menu',
+    title: 'Wholesome Dining & Nutrition',
     subtitle: 'NUTRITION & HYGIENE',
     desc: 'Healthy habits begin with everyday choices. Children learn to wash hands before meals, handle food hygienically, and recognise nutritious options.'
   },
@@ -1080,11 +1053,20 @@ export const SITE_VISUAL_AREAS = [
   {
     id: 'pw-exp-ict',
     category: 'Academics - Primary Wing',
-    label: 'Primary Experience: Information, Computer & Robotics Hub',
+    label: 'Primary Experience: Computer & Digital Literacy Centre',
     image: '/school-media/New Pages/Page 13/WhatsApp Image 2026-10-07 at 5.21.49 PM.jpeg',
-    title: 'Information, Computer & Robotics Hub',
+    title: 'Computer & Digital Literacy Centre',
     subtitle: 'DIGITAL FLUENCY',
     desc: 'Interactive computer stations and introductory coding modules develop logical computational thinking, problem-solving, and responsible digital habits early.'
+  },
+  {
+    id: 'pw-exp-robotics',
+    category: 'Academics - Primary Wing',
+    label: 'Primary Experience: Robotics & STEM Discovery Lab',
+    image: '/school-media/facilities/robotics_and_ai_lab.jpg',
+    title: 'Robotics & STEM Discovery Lab',
+    subtitle: 'HANDS-ON INNOVATION',
+    desc: 'Hands-on robotics kits, visual block coding, and early sensor integration nurture analytical problem-solving, mechanical logic, and inventive engineering creativity.'
   },
   {
     id: 'pw-exp-visual-arts',
@@ -1515,33 +1497,6 @@ export const SITE_VISUAL_AREAS = [
     title: 'Dr. Abin C. Raj',
     subtitle: 'Campus Principal',
     desc: 'GD Goenka Public School Ayodhya'
-  },
-  {
-    id: 'leadership-page-mentors',
-    category: 'Leadership Page - Governance',
-    label: 'Head Office Mentors: Ms. Rajni Jauhari & Ms. Yasmin Khan',
-    image: '/school-media/Opening Photos/C/DSC00453.JPG',
-    title: 'Ms. Rajni Jauhari & Ms. Yasmin Khan',
-    subtitle: 'Head Office Mentors',
-    desc: 'Senior Leadership & Institutional Mentors, G.D. Goenka Group Head Office, New Delhi.'
-  },
-  {
-    id: 'leadership-page-group-chairman',
-    category: 'Leadership Page - Governance',
-    label: 'Group Leadership: Shri Anjani Kumar Goenka',
-    image: '/school-media/leadership/anjani_kumar_goenka.jpg',
-    title: 'Shri Anjani Kumar Goenka',
-    subtitle: 'Founder & Group Chairman',
-    desc: 'Visionary architect of the G.D. Goenka Group, revolutionizing private schooling in India since 1994.'
-  },
-  {
-    id: 'leadership-page-group-vice-chairperson',
-    category: 'Leadership Page - Governance',
-    label: 'Group Leadership: Ms. Renu Goenka',
-    image: '/school-media/leadership/renu_goenka.jpg',
-    title: 'Ms. Renu Goenka',
-    subtitle: 'Vice Chairperson',
-    desc: 'Guiding inspiration behind the artistic, cultural, and pastoral ethos of the G.D. Goenka Group.'
   }
 ];
 

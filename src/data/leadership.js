@@ -16,15 +16,6 @@ export const leadershipData = [
     bio: "Distinguished academician and institutional leader dedicated to innovative curriculum design, spoken-English fluency, and character-building education.",
     image: "/school-media/Digital Lab/1.jpeg",
     verifiedStatus: "OFFICIAL_PRINCIPAL"
-  },
-  {
-    role: "HEAD OFFICE MENTORS",
-    title: "Executive Mentorship",
-    name: "Ms. Rajni Jauhari & Ms. Yasmin Khan",
-    message: "G.D. Goenka School, Ayodhya reflects the highest national benchmarks of the Goenkan legacy — empowering children with confidence, sportsmanship, and future-ready capabilities in every walk of life.",
-    bio: "Senior Leadership & Institutional Mentors, G.D. Goenka Group Head Office, New Delhi.",
-    image: "/school-media/Opening Photos/C/DSC00453.JPG",
-    verifiedStatus: "OFFICIAL_HEAD_OFFICE"
   }
 ];
 
